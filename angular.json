@@ -119,6 +119,60 @@
           }
         }
       }
+    },
+    "tms-api": {
+      "root": "apps/tms-api",
+      "sourceRoot": "apps/tms-api/src",
+      "projectType": "application",
+      "prefix": "tms-api",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/tms-api",
+            "main": "apps/tms-api/src/main.ts",
+            "tsConfig": "apps/tms-api/tsconfig.app.json",
+            "assets": ["apps/tms-api/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/tms-api/src/environments/environment.ts",
+                  "with": "apps/tms-api/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "tms-api:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/tms-api/tsconfig.app.json",
+              "apps/tms-api/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/tms-api/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/tms-api/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {
