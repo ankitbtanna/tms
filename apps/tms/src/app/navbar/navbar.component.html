@@ -1,0 +1,23 @@
+<mat-toolbar color="primary">
+    <div fxHide.gt-xs>
+        <button mat-icon-button (click)="onToggleSideNav()">
+            <mat-icon>menu</mat-icon>
+        </button>
+    </div>
+    <div class="logo">
+        E-Bharat: TMS
+    </div>
+    <div class="menu" fxHide.xs>
+        <a routerLink="/">Home</a>
+    </div>
+    <div class="menu" fxHide.xs>
+        <a routerLink="/">Tenders</a>
+    </div>
+    <div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
+        <ul fxLayout fxLayoutGap="15px" class="navigation-items">
+            <li>
+                <a routerLink="/logout">Logout</a>
+            </li>
+        </ul>
+    </div>
+</mat-toolbar>

@@ -10,6 +10,23 @@
   align-items: center;
 }
 
+mat-sidenav-container {
+  height: 100%;
+  width: 100%;
+}
+
+mat-nav-list {
+  min-width: 250px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.logout {
+  margin-top: auto;
+  margin-bottom: 10px;
+}
+
 /* .gutter-left {
   margin-left: 9px;
 }

@@ -1,6 +1,24 @@
-<mat-toolbar color="primary">
-    <mat-toolbar-row>
-      <span>E-Bharat</span>
-    </mat-toolbar-row>
-  </mat-toolbar>
-<router-outlet></router-outlet>
+<mat-sidenav-container>
+    <mat-sidenav #sidenav role="navigation">
+        <mat-nav-list>
+            <a mat-list-item routerLink="/home" (click)="sidenav.toggle()">
+                <mat-icon>home</mat-icon>
+                <span class="nav-caption">Home</span>
+            </a>
+            <a mat-list-item routerLink="/home" (click)="sidenav.toggle()">
+                <mat-icon>home</mat-icon>
+                <span class="nav-caption">Tenders</span>
+            </a>
+            <a mat-list-item routerLink="/home" class="logout" (click)="sidenav.toggle()">
+                <mat-icon>home</mat-icon>
+                <span class="nav-caption">Logout</span>
+            </a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <app-navbar (sidenavToggle)="sidenav.toggle()"></app-navbar>
+        <main>
+            <router-outlet></router-outlet>
+        </main>
+    </mat-sidenav-content>
+</mat-sidenav-container>
