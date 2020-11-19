@@ -2,14 +2,15 @@
  * Remove template code below
  */
 :host {
-  display: block;
+  display: flex;
   font-family: sans-serif;
-  min-width: 300px;
-  max-width: 600px;
-  margin: 50px auto;
+  flex: 1;
+  flex-direction: column;
+  height: 100%;
+  align-items: center;
 }
 
-.gutter-left {
+/* .gutter-left {
   margin-left: 9px;
 }
 
@@ -130,4 +131,4 @@ summary {
   height: 16px;
   width: 16px;
   margin-right: 4px;
-}
+} */
