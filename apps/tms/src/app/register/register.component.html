@@ -1,1 +1,139 @@
-<p>register works!</p>
+<mat-card class="register-card">
+  <mat-card-title class="register-card__title">Register</mat-card-title>
+  <mat-card-content class="register-card__content">
+    <mat-horizontal-stepper [linear]="isLinear" #stepper>
+      <mat-step>
+        <div [formGroup]="registerForm" class="register-form">
+          <mat-form-field>
+            <mat-label>Username(email)</mat-label>
+            <input
+              matInput
+              placeholder="pat@example.com"
+              required
+              formControlName="username"
+            />
+            <mat-error *ngIf="!registerForm.controls.username.valid"
+              >Username is invalid.</mat-error
+            >
+          </mat-form-field>
+        </div>
+        <div [formGroup]="passwordForm" class="register-form">
+          <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input
+              matInput
+              [type]="hide ? 'password' : 'text'"
+              required
+              (focus)="isPasswordFocused = true"
+              (blur)="isPasswordFocused = false"
+              formControlName="password"
+            />
+            <button
+              mat-icon-button
+              matSuffix
+              (click)="hide = !hide"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide"
+            >
+              <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+            <mat-error *ngIf="!passwordForm.controls.password.valid"
+              >Password is invalid.</mat-error
+            >
+            <mat-error
+              *ngIf="
+                !passwordForm.controls.password.valid && !isPasswordFocused
+              "
+              >Password must contain 1 Capital letter, 1 Small letter, 1 Special
+              character and 1 Number. Minimum length 8, Maximum length
+              30.</mat-error
+            >
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Confirm Password</mat-label>
+            <input
+              matInput
+              [type]="hide ? 'password' : 'text'"
+              required
+              (focus)="isConfirmPasswordFocused = true"
+              (blur)="isConfirmPasswordFocused = false"
+              formControlName="confirmPassword"
+            />
+            <button
+              mat-icon-button
+              matSuffix
+              (click)="hide = !hide"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide"
+            >
+              <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+            <mat-error *ngIf="!passwordForm.controls.confirmPassword.valid"
+              >Password is invalid.</mat-error
+            >
+            <mat-error
+              *ngIf="
+                !passwordForm.controls.confirmPassword.valid &&
+                !isConfirmPasswordFocused
+              "
+              >Password must contain 1 Capital letter, 1 Small letter, 1 Special
+              character and 1 Number. Minimum length 8, Maximum length
+              30.</mat-error
+            >
+          </mat-form-field>
+          <mat-error
+            *ngIf="
+              passwordForm.controls.password.touched &&
+              passwordForm.controls.confirmPassword.touched &&
+              passwordForm.hasError('notSame')
+            "
+          >
+            Passwords do not match.
+          </mat-error>
+        </div>
+        <div class="actions">
+          <button
+            mat-raised-button
+            matStepperNext
+            color="primary"
+            [disabled]="
+              !registerForm.controls.username.valid ||
+              !passwordForm.controls.password.valid ||
+              !passwordForm.controls.confirmPassword.valid
+            "
+          >
+            Next
+          </button>
+        </div>
+      </mat-step>
+      <mat-step></mat-step>
+      <mat-step></mat-step>
+    </mat-horizontal-stepper>
+  </mat-card-content>
+</mat-card>
+
+<!-- <mat-form-field>
+<mat-label>Username(email)</mat-label>
+    <input matInput placeholder="pat@example.com" required formControlName="username">
+    <mat-error *ngIf="!registerForm.controls.username.valid">Username is invalid.</mat-error>
+</mat-form-field>
+<mat-form-field>
+<mat-label>Password</mat-label>
+    <input matInput 
+    [type]="hide ? 'password' : 'text'" 
+    required
+    (focus)="isPasswordFocused = true"
+    (blur)="isPasswordFocused = false"
+    formControlName="password">
+    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
+    <mat-error *ngIf="!registerForm.controls.password.valid">Password is invalid.</mat-error>
+    <mat-error *ngIf="!registerForm.controls.password.valid && !isPasswordFocused">Password must contain 1 Capital letter, 1 Small letter, 1 Special character and 1 Number. Minimum length 8, Maximum length 30.</mat-error>
+</mat-form-field>
+<mat-card-actions class="register-card__actions">
+    <div class="actions">
+        <button mat-raised-button color="primary" [disabled]="!registerForm.valid">Register</button>
+        <button mat-raised-button routerLink="/login">Cancel</button>
+    </div>
+</mat-card-actions> -->
