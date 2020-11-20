@@ -4,6 +4,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 const MAT_MODULES = [
@@ -12,6 +15,9 @@ const MAT_MODULES = [
     MatIconModule,
     MatButtonModule,
     MatListModule,
+    MatCardModule,
+    MatInputModule,
+    MatFormFieldModule,
     FlexLayoutModule
 ]
 
