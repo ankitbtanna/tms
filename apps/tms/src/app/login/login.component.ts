@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { USERNAME_REGEX, PASSWORD_REGEX } from './login.constant';
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -9,9 +10,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
   hide = true;
+  isPasswordFocused = false;
   loginForm: FormGroup = new FormGroup({
-    username: new FormControl(''),
-    password: new FormControl('')
+    username: new FormControl('', [Validators.required, Validators.pattern(USERNAME_REGEX)]),
+    password: new FormControl('', [Validators.required, Validators.pattern(PASSWORD_REGEX)])
   });
   
   constructor() { }
