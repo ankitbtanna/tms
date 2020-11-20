@@ -106,7 +106,50 @@
           </button>
         </div>
       </mat-step>
-      <mat-step></mat-step>
+      <mat-step>
+        <div [formGroup]="registerForm" class="register-form">
+          <mat-form-field>
+            <mat-label>Company Name</mat-label>
+            <input
+              matInput
+              placeholder="ABC Pvt. Ltd."
+              required
+              formControlName="companyName"
+            />
+            <mat-error *ngIf="!registerForm.controls.companyName.valid"
+              >Company Name is invalid.</mat-error
+            >
+            <mat-error
+              *ngIf="
+                !registerForm.controls.companyName.hasError('minLength') ||
+                !registerForm.controls.companyName.hasError('maxLength')
+              "
+              >Company Name must be of minimum 3 characters and maximum 100
+              characters.</mat-error
+            >
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Address</mat-label>
+            <textarea
+              formControlName="address"
+              matInput
+              required
+              placeholder="Steel Authority of India Ltd., Ispat Bhavan, Lodhi Road, NEW DELHI - 110003"
+            ></textarea>
+            <mat-error *ngIf="!registerForm.controls.address.valid"
+              >Address is invalid.</mat-error
+            >
+            <mat-error
+              *ngIf="
+                !registerForm.controls.address.hasError('minLength') ||
+                !registerForm.controls.address.hasError('maxLength')
+              "
+              >Address must be of minimum 3 characters and maximum 150
+              characters.</mat-error
+            >
+          </mat-form-field>
+        </div>
+      </mat-step>
       <mat-step></mat-step>
     </mat-horizontal-stepper>
   </mat-card-content>

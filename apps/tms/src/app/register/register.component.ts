@@ -22,13 +22,25 @@ export class RegisterComponent implements OnInit {
       Validators.required,
       Validators.pattern(USERNAME_REGEX),
     ]),
-    password: new FormControl('', [
+    companyName: new FormControl('', [
       Validators.required,
-      Validators.pattern(PASSWORD_REGEX),
+      Validators.minLength(3),
+      Validators.maxLength(100),
     ]),
-    confirmPassword: new FormControl('', [
+    address: new FormControl('', [
       Validators.required,
-      Validators.pattern(PASSWORD_REGEX),
+      Validators.minLength(3),
+      Validators.maxLength(150),
+    ]),
+    pancard: new FormControl('', [
+      Validators.required,
+      Validators.minLength(10),
+      Validators.maxLength(10),
+    ]),
+    mobileNumber: new FormControl('', [
+      Validators.required,
+      Validators.minLength(10),
+      Validators.maxLength(10),
     ]),
   });
 
