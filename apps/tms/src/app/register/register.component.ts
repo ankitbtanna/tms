@@ -38,7 +38,6 @@ export class RegisterComponent implements OnInit {
       Validators.maxLength(150),
     ]),
     panCardNumber: new FormControl('', [
-      Validators.required,
       Validators.minLength(10),
       Validators.maxLength(10),
       Validators.pattern(PAN_CARD_REGEX),
