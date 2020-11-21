@@ -104,6 +104,7 @@
           >
             Next
           </button>
+          <button mat-raised-button color="warn" routerLink="/">Cancel</button>
         </div>
       </mat-step>
       <mat-step>
@@ -121,8 +122,8 @@
             >
             <mat-error
               *ngIf="
-                !registerForm.controls.companyName.hasError('minLength') ||
-                !registerForm.controls.companyName.hasError('maxLength')
+                registerForm.controls.companyName.hasError('minLength') ||
+                registerForm.controls.companyName.hasError('maxLength')
               "
               >Company Name must be of minimum 3 characters and maximum 100
               characters.</mat-error
@@ -141,42 +142,73 @@
             >
             <mat-error
               *ngIf="
-                !registerForm.controls.address.hasError('minLength') ||
-                !registerForm.controls.address.hasError('maxLength')
+                registerForm.controls.address.hasError('minLength') ||
+                registerForm.controls.address.hasError('maxLength')
               "
               >Address must be of minimum 3 characters and maximum 150
               characters.</mat-error
             >
           </mat-form-field>
+          <mat-form-field>
+            <mat-label>PAN Card Number</mat-label>
+            <input
+              matInput
+              placeholder="ABCDE1234F"
+              required
+              formControlName="panCardNumber"
+            />
+            <mat-error *ngIf="!registerForm.controls.panCardNumber.valid"
+              >PAN Card Number is invalid.</mat-error
+            >
+            <mat-error
+              *ngIf="
+                registerForm.controls.panCardNumber.hasError('minLength') ||
+                registerForm.controls.panCardNumber.hasError('maxLength')
+              "
+              >PAN Card Number must be of 10 characters.</mat-error
+            >
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <mat-label>Mobile Number</mat-label>
+            <span matPrefix>+91 &nbsp;</span>
+            <input
+              type="tel"
+              matInput
+              placeholder="9898989898"
+              required
+              formControlName="mobileNumber"
+              maxlength="10"
+              minlength="10"
+            />
+            <mat-error *ngIf="!registerForm.controls.mobileNumber.valid"
+              >Mobile Number is invalid.</mat-error
+            >
+            <mat-error
+              *ngIf="
+                registerForm.controls.mobileNumber.hasError('minLength') ||
+                registerForm.controls.mobileNumber.hasError('maxLength')
+              "
+              >Mobile Number must be of 10 characters.</mat-error
+            >
+          </mat-form-field>
+        </div>
+        <div class="actions">
+          <button
+            mat-raised-button
+            matStepperNext
+            color="primary"
+            [disabled]="
+              !registerForm.controls.companyName.valid ||
+              !registerForm.controls.address.valid ||
+              !registerForm.controls.panCardNumber.valid ||
+              !registerForm.controls.mobileNumber.valid
+            "
+          >
+            Register
+          </button>
+          <button mat-raised-button color="warn" routerLink="/">Cancel</button>
         </div>
       </mat-step>
-      <mat-step></mat-step>
     </mat-horizontal-stepper>
   </mat-card-content>
 </mat-card>
-
-<!-- <mat-form-field>
-<mat-label>Username(email)</mat-label>
-    <input matInput placeholder="pat@example.com" required formControlName="username">
-    <mat-error *ngIf="!registerForm.controls.username.valid">Username is invalid.</mat-error>
-</mat-form-field>
-<mat-form-field>
-<mat-label>Password</mat-label>
-    <input matInput 
-    [type]="hide ? 'password' : 'text'" 
-    required
-    (focus)="isPasswordFocused = true"
-    (blur)="isPasswordFocused = false"
-    formControlName="password">
-    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-    </button>
-    <mat-error *ngIf="!registerForm.controls.password.valid">Password is invalid.</mat-error>
-    <mat-error *ngIf="!registerForm.controls.password.valid && !isPasswordFocused">Password must contain 1 Capital letter, 1 Small letter, 1 Special character and 1 Number. Minimum length 8, Maximum length 30.</mat-error>
-</mat-form-field>
-<mat-card-actions class="register-card__actions">
-    <div class="actions">
-        <button mat-raised-button color="primary" [disabled]="!registerForm.valid">Register</button>
-        <button mat-raised-button routerLink="/login">Cancel</button>
-    </div>
-</mat-card-actions> -->

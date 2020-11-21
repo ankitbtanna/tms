@@ -5,7 +5,12 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { USERNAME_REGEX, PASSWORD_REGEX } from './register.constant';
+import {
+  USERNAME_REGEX,
+  PASSWORD_REGEX,
+  PAN_CARD_REGEX,
+  MOBILE_NUMBER_REGEX,
+} from './register.constant';
 
 @Component({
   selector: 'tms-workspace-register',
@@ -32,15 +37,17 @@ export class RegisterComponent implements OnInit {
       Validators.minLength(3),
       Validators.maxLength(150),
     ]),
-    pancard: new FormControl('', [
+    panCardNumber: new FormControl('', [
       Validators.required,
       Validators.minLength(10),
       Validators.maxLength(10),
+      Validators.pattern(PAN_CARD_REGEX),
     ]),
     mobileNumber: new FormControl('', [
       Validators.required,
       Validators.minLength(10),
       Validators.maxLength(10),
+      Validators.pattern(MOBILE_NUMBER_REGEX),
     ]),
   });
 
