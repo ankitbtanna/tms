@@ -7,11 +7,12 @@ import { LoginModule } from './login/login.module';
 import { AppRoutingModule } from './app.routing.module';
 import { MaterialModule } from './material.module';
 import { NavbarComponent } from './navbar/navbar.component';
-import { RegisterModule } from './register/register.module'
+import { RegisterModule } from './register/register.module';
+import { DashboardModule } from './dashboard/dashboard.module'
 
 @NgModule({
   declarations: [AppComponent, NavbarComponent],
-  imports: [BrowserModule, AppRoutingModule, MaterialModule, BrowserAnimationsModule, LoginModule, RegisterModule],
+  imports: [BrowserModule, AppRoutingModule, MaterialModule, BrowserAnimationsModule, LoginModule, RegisterModule, DashboardModule],
   providers: [],
   bootstrap: [AppComponent],
 })
