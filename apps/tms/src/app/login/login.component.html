@@ -1,35 +1,61 @@
-<mat-card class="login-card">
-    <mat-card-title class="login-card__title">Login</mat-card-title>
-    <mat-card-content class="login-card__content">
-        <div [formGroup]="loginForm" class="login-form">
-            <mat-form-field>
-            <mat-label>Username(email)</mat-label>
-                <input matInput placeholder="pat@example.com" required formControlName="username">
-                <mat-error *ngIf="!loginForm.controls.username.valid">Username is invalid.</mat-error>
-            </mat-form-field>
-            <mat-form-field>
-            <mat-label>Password</mat-label>
-                <input matInput 
-                [type]="hide ? 'password' : 'text'" 
-                required
-                (focus)="isPasswordFocused = true"
-                (blur)="isPasswordFocused = false"
-                formControlName="password">
-                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                </button>
-                <mat-error *ngIf="!loginForm.controls.password.valid">Password is invalid.</mat-error>
-                <mat-error *ngIf="!loginForm.controls.password.valid && !isPasswordFocused">Password must contain 1 Capital letter, 1 Small letter, 1 Special character and 1 Number. Minimum length 8, Maximum length 30.</mat-error>
-            </mat-form-field>
-        </div>
-    </mat-card-content>
-    <mat-card-actions class="login-card__actions">
-        <div class="actions">
-        <button mat-raised-button color="primary" [disabled]="!loginForm.valid">Login</button>
-        <button mat-raised-button routerLink="/register">Register</button>
-        </div>
-        <div class="actions">
-            <a routerLink="/forgot-password">Forgot Password</a>
-        </div>
-    </mat-card-actions>
+<mat-card class="login-card" fxLayout="column" fxFlexAlign="center">
+  <mat-card-title class="login-card__title" fxLayout="row" fxFlexAlign="center"
+    >Login</mat-card-title
+  >
+  <mat-card-content class="login-card__content">
+    <div [formGroup]="loginForm" class="login-form">
+      <mat-form-field>
+        <mat-label>Username(email)</mat-label>
+        <input
+          matInput
+          placeholder="pat@example.com"
+          required
+          formControlName="username"
+        />
+        <mat-error *ngIf="!loginForm.controls.username.valid"
+          >Username is invalid.</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input
+          matInput
+          [type]="hide ? 'password' : 'text'"
+          required
+          (focus)="isPasswordFocused = true"
+          (blur)="isPasswordFocused = false"
+          formControlName="password"
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="hide = !hide"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide"
+        >
+          <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        <mat-error *ngIf="!loginForm.controls.password.valid"
+          >Password is invalid.</mat-error
+        >
+        <mat-error
+          *ngIf="!loginForm.controls.password.valid && !isPasswordFocused"
+          >Password must contain 1 Capital letter, 1 Small letter, 1 Special
+          character and 1 Number. Minimum length 8, Maximum length
+          30.</mat-error
+        >
+      </mat-form-field>
+    </div>
+  </mat-card-content>
+  <mat-card-actions class="login-card__actions">
+    <div class="actions">
+      <button mat-raised-button color="primary" [disabled]="!loginForm.valid">
+        Login
+      </button>
+      <button mat-raised-button routerLink="/register">Register</button>
+    </div>
+    <div class="actions">
+      <a routerLink="/forgot-password">Forgot Password</a>
+    </div>
+  </mat-card-actions>
 </mat-card>
