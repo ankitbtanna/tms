@@ -49,6 +49,7 @@ export class RegisterComponent implements OnInit {
       Validators.maxLength(10),
       Validators.pattern(MOBILE_NUMBER_REGEX),
     ]),
+    plan: new FormControl('trial', [Validators.required]),
   });
 
   passwordForm = this.formBuilder.group(

@@ -204,9 +204,52 @@
               !registerForm.controls.mobileNumber.valid
             "
           >
-            Register
+            Next
           </button>
           <button mat-raised-button color="warn" routerLink="/">Cancel</button>
+        </div>
+      </mat-step>
+      <mat-step>
+        <div [formGroup]="registerForm" class="register-form">
+          <mat-card-title class="register-card__title"
+            >Choose a Plan</mat-card-title
+          >
+          <mat-card-content>
+            <mat-radio-group
+              aria-label="Select an option"
+              class="plans"
+              formControlName="plan"
+            >
+              <div class="plan">
+                <mat-radio-button value="trial" checked
+                  >2 Month Free Trial</mat-radio-button
+                >
+              </div>
+              <div class="plan">
+                <mat-radio-button value="subscribed"
+                  >1 Year Subscription @ ₹1000</mat-radio-button
+                >
+              </div>
+            </mat-radio-group>
+          </mat-card-content>
+          <div class="actions">
+            <button
+              mat-raised-button
+              matStepperNext
+              color="primary"
+              [disabled]="
+                !registerForm.controls.companyName.valid ||
+                !registerForm.controls.address.valid ||
+                !registerForm.controls.panCardNumber.valid ||
+                !registerForm.controls.mobileNumber.valid
+              "
+            >
+              Register
+            </button>
+            <button mat-raised-button color="warn" routerLink="/">
+              Cancel
+            </button>
+          </div>
         </div>
       </mat-step>
     </mat-horizontal-stepper>
