@@ -99,7 +99,8 @@
             [disabled]="
               !registerForm.controls.username.valid ||
               !passwordForm.controls.password.valid ||
-              !passwordForm.controls.confirmPassword.valid
+              !passwordForm.controls.confirmPassword.valid ||
+              passwordForm.hasError('notSame')
             "
           >
             Next
