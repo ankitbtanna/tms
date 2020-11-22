@@ -21,9 +21,10 @@
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <app-navbar (sidenavToggle)="sidenav.toggle()"></app-navbar>
+    <tms-navbar (sidenavToggle)="sidenav.toggle()"></tms-navbar>
     <main>
       <router-outlet></router-outlet>
     </main>
+    <tms-footer></tms-footer>
   </mat-sidenav-content>
 </mat-sidenav-container>

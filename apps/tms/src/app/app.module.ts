@@ -8,10 +8,11 @@ import { AppRoutingModule } from './app.routing.module';
 import { MaterialModule } from './material.module';
 import { NavbarComponent } from './navbar/navbar.component';
 import { RegisterModule } from './register/register.module';
-import { DashboardModule } from './dashboard/dashboard.module'
+import { DashboardModule } from './dashboard/dashboard.module';
+import { FooterComponent } from './footer/footer.component'
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent],
+  declarations: [AppComponent, NavbarComponent, FooterComponent],
   imports: [BrowserModule, AppRoutingModule, MaterialModule, BrowserAnimationsModule, LoginModule, RegisterModule, DashboardModule],
   providers: [],
   bootstrap: [AppComponent],
