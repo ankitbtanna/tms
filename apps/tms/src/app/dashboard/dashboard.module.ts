@@ -5,9 +5,14 @@ import { DashboardComponent } from './dashboard.component';
 import { MaterialModule } from '../material.module';
 import { ProgressGraphComponent } from './progress-graph/progress-graph.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
+import { CreateTenderComponent } from './create-tender/create-tender.component';
 
 @NgModule({
-  declarations: [DashboardComponent, ProgressGraphComponent],
+  declarations: [
+    DashboardComponent,
+    ProgressGraphComponent,
+    CreateTenderComponent,
+  ],
   imports: [
     CommonModule,
     MaterialModule,

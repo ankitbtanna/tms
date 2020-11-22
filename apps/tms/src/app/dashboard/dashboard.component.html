@@ -1,6 +1,11 @@
 <mat-toolbar class="header">
   <span>All Tenders - Summary</span>
-  <button mat-raised-button color="primary" class="action">
+  <button
+    mat-raised-button
+    color="primary"
+    class="action"
+    (click)="openAddTenderDialog()"
+  >
     <mat-icon>library_add</mat-icon>
     Add Tender
   </button>

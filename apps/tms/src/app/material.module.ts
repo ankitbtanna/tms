@@ -9,7 +9,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatDialogModule } from '@angular/material/dialog';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { from } from 'rxjs';
 
 const MAT_MODULES = [
   MatToolbarModule,
@@ -22,6 +24,7 @@ const MAT_MODULES = [
   MatFormFieldModule,
   MatStepperModule,
   MatRadioModule,
+  MatDialogModule,
   FlexLayoutModule,
 ];
 
