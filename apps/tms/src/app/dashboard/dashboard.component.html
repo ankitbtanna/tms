@@ -1,1 +1,51 @@
-<p>dashboard works!</p>
+<mat-toolbar class="header">
+  <span>All Tenders - Summary</span>
+  <button mat-raised-button color="primary" class="action">
+    <mat-icon>library_add</mat-icon>
+    Add Tender
+  </button>
+</mat-toolbar>
+<div class="dashboard" fxLayout="row">
+  <mat-card class="dashboard--graph" fxLayout="column">
+    <tms-progress-graph
+      [percent]="90"
+      [title]="['90', 'COMPLETE']"
+      [outerStrokeColor]="graphColours.completeOuterStrokeColor"
+      [innerStrokeColor]="graphColours.completeInnerStrokeColor"
+    ></tms-progress-graph>
+    <mat-card-actions fxFlex fxFlexAlign="center">
+      <button mat-raised-button color="primary" class="action">
+        <mat-icon>remove_red_eye</mat-icon>
+        Show Completed Tenders
+      </button>
+    </mat-card-actions>
+  </mat-card>
+  <mat-card class="dashboard--graph" fxLayout="column">
+    <tms-progress-graph
+      [percent]="60"
+      [title]="['60', 'ACTIVE']"
+      [outerStrokeColor]="graphColours.activeOuterStrokeColor"
+      [innerStrokeColor]="graphColours.activeInnerStrokeColor"
+    ></tms-progress-graph>
+    <mat-card-actions fxFlex fxFlexAlign="center">
+      <button mat-raised-button color="primary" class="action">
+        <mat-icon>remove_red_eye</mat-icon>
+        Show Active Tenders
+      </button>
+    </mat-card-actions>
+  </mat-card>
+  <mat-card class="dashboard--graph" fxLayout="column">
+    <tms-progress-graph
+      [percent]="25"
+      [title]="['25', 'NOT FILLED']"
+      [outerStrokeColor]="graphColours.incompleteOuterStrokeColor"
+      [innerStrokeColor]="graphColours.incompleteInnerStrokeColor"
+    ></tms-progress-graph>
+    <mat-card-actions fxFlex fxFlexAlign="center">
+      <button mat-raised-button color="primary" class="action">
+        <mat-icon>remove_red_eye</mat-icon>
+        Show Not Filled Tenders
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
