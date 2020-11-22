@@ -16,7 +16,6 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {}
 
   openAddTenderDialog(): void {
-    alert('came here');
     this.dialog.open(CreateTenderComponent);
   }
 }
