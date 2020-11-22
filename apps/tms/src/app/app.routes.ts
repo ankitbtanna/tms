@@ -28,4 +28,9 @@ export const TMS_ROUTES: Routes = [
     loadChildren: () =>
       import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
   },
+  {
+    path: 'contact-us',
+    loadChildren: () =>
+      import('./contact-us/contact-us.module').then((m) => m.ContactUsModule),
+  },
 ];

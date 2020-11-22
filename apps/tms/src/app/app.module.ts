@@ -9,11 +9,12 @@ import { MaterialModule } from './material.module';
 import { NavbarComponent } from './navbar/navbar.component';
 import { RegisterModule } from './register/register.module';
 import { DashboardModule } from './dashboard/dashboard.module';
-import { FooterComponent } from './footer/footer.component'
+import { FooterComponent } from './footer/footer.component';
+import { ContactUsModule } from './contact-us/contact-us.module'
 
 @NgModule({
   declarations: [AppComponent, NavbarComponent, FooterComponent],
-  imports: [BrowserModule, AppRoutingModule, MaterialModule, BrowserAnimationsModule, LoginModule, RegisterModule, DashboardModule],
+  imports: [BrowserModule, AppRoutingModule, MaterialModule, BrowserAnimationsModule, LoginModule, RegisterModule, DashboardModule, ContactUsModule],
   providers: [],
   bootstrap: [AppComponent],
 })
