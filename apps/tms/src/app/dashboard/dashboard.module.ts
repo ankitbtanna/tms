@@ -6,6 +6,7 @@ import { MaterialModule } from '../material.module';
 import { ProgressGraphComponent } from './progress-graph/progress-graph.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { CreateTenderComponent } from './create-tender/create-tender.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { CreateTenderComponent } from './create-tender/create-tender.component';
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     MaterialModule,
     NgCircleProgressModule.forRoot({
       radius: 60,

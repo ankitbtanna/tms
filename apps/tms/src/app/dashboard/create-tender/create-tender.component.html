@@ -1,6 +1,6 @@
 <h2 mat-dialog-title fxFlex fxFlexAlign="center">Add Tender</h2>
 <mat-dialog-content class="mat-typography" fxLayout="row" class="tender">
-  <form [formGroup]="addTenderForm" fxLayout="row">
+  <div [formGroup]="addTenderForm" fxLayout="row" fxFlex>
     <div class="form" fxFlex fxLayout="column">
       <mat-form-field fxFlex appearance="outline">
         <mat-label>Name</mat-label>
@@ -73,7 +73,7 @@
         <input matInput placeholder="Website" type="text" />
       </mat-form-field>
     </div>
-  </form>
+  </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button
