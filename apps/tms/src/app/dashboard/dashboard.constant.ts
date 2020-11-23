@@ -6,3 +6,5 @@ export const GRAPH_COLOURS = {
   incompleteOuterStrokeColor: '#ff0000',
   incompleteInnerStrokeColor: '#ff7474',
 };
+
+export const TENDER_NAME_REGEX = '^[a-zA-Z0-9,.!? ]*$';

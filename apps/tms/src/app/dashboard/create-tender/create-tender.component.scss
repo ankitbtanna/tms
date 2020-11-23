@@ -1,0 +1,18 @@
+:host {
+  display: flex;
+  flex-flow: column;
+}
+
+.tender {
+  min-width: 75vw;
+  min-height: 65vh;
+
+  form {
+    display: flex;
+    flex: 1;
+  }
+}
+
+.form {
+  padding: 10px;
+}
