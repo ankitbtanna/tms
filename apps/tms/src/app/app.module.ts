@@ -11,10 +11,10 @@ import { RegisterModule } from './register/register.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { FooterComponent } from './footer/footer.component';
 import { ContactUsModule } from './contact-us/contact-us.module'
-
+import { PaymentModule } from './payment/payment.module';
 @NgModule({
   declarations: [AppComponent, NavbarComponent, FooterComponent],
-  imports: [BrowserModule, AppRoutingModule, MaterialModule, BrowserAnimationsModule, LoginModule, RegisterModule, DashboardModule, ContactUsModule],
+  imports: [BrowserModule, AppRoutingModule, MaterialModule, BrowserAnimationsModule, LoginModule, RegisterModule, DashboardModule, ContactUsModule, PaymentModule],
   providers: [],
   bootstrap: [AppComponent],
 })

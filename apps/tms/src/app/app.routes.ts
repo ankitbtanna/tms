@@ -33,4 +33,9 @@ export const TMS_ROUTES: Routes = [
     loadChildren: () =>
       import('./contact-us/contact-us.module').then((m) => m.ContactUsModule),
   },
+  {
+    path: 'payment',
+    loadChildren: () =>
+      import('./payment/payment.module').then((m) => m.PaymentModule),
+  }
 ];
