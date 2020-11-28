@@ -37,5 +37,10 @@ export const TMS_ROUTES: Routes = [
     path: 'payment',
     loadChildren: () =>
       import('./payment/payment.module').then((m) => m.PaymentModule),
-  }
+  },
+  {
+    path: 'share-tms',
+    loadChildren: () =>
+      import('./share-tms/share-tms.module').then((m) => m.ShareTmsModule),
+  },
 ];
