@@ -1,0 +1,1 @@
+export const SECRET_KEY = "rzp_test_g46uhFt0MrurpH";
