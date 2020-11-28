@@ -86,19 +86,55 @@
     <div class="form" fxFlex fxLayout="column">
       <mat-form-field fxFlex appearance="outline">
         <mat-label>Tender Published Date</mat-label>
-        <input matInput [matDatepicker]="dp" />
-        <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
-        <mat-datepicker #dp></mat-datepicker>
+        <input
+          matInput
+          [matDatepicker]="datePickerPublishedDate"
+          formControlName="tenderPublishedDate"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="datePickerPublishedDate"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #datePickerPublishedDate></mat-datepicker>
       </mat-form-field>
       <mat-form-field fxFlex appearance="outline">
         <mat-label>Bid Due Date</mat-label>
-        <input matInput [matDatepicker]="dp" />
-        <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
-        <mat-datepicker #dp></mat-datepicker>
+        <input
+          matInput
+          [matDatepicker]="datePickerBidDueDate"
+          formControlName="tenderBidDueDate"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="datePickerBidDueDate"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #datePickerBidDueDate></mat-datepicker>
+        <mat-error
+          *ngIf="
+            !addTenderForm.controls.tenderBidDueDate.valid &&
+            !addTenderForm.controls.tenderBidDueDate.hasError(
+              'forbiddenBidDueDate'
+            )
+          "
+          >Tender Bid Due is invalid.</mat-error
+        >
+        <mat-error
+          *ngIf="
+            addTenderForm.controls.tenderBidDueDate.hasError(
+              'forbiddenBidDueDate'
+            )
+          "
+          >Tender Bid Due cannot be before todays date.</mat-error
+        >
       </mat-form-field>
       <mat-form-field fxFlex appearance="outline">
         <mat-label>Cut-off Time</mat-label>
-        <input matInput type="time" placeholder="start date" />
+        <input
+          matInput
+          type="time"
+          placeholder="Cut-off Time time"
+          formControlName="tenderBidCutOffTime"
+        />
       </mat-form-field>
       <mat-form-field fxFlex appearance="outline">
         <mat-label>Keyname</mat-label>
@@ -156,6 +192,7 @@
     [mat-dialog-close]="true"
     cdkFocusInitial
     color="primary"
+    [disabled]="!addTenderForm.valid"
   >
     Add Tender
   </button>
