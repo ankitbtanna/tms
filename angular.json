@@ -21,10 +21,7 @@
             "polyfills": "apps/tms/src/polyfills.ts",
             "tsConfig": "apps/tms/tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "apps/tms/src/favicon.ico",
-              "apps/tms/src/assets"
-            ],
+            "assets": ["apps/tms/src/favicon.ico", "apps/tms/src/assets"],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "apps/tms/src/styles.scss"
@@ -87,10 +84,7 @@
               "apps/tms/tsconfig.spec.json",
               "apps/tms/tsconfig.editor.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/tms/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/tms/**/*"]
           }
         },
         "test": {
@@ -123,13 +117,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "apps/tms-e2e/tsconfig.e2e.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/tms-e2e/**/*"
-            ]
+            "tsConfig": ["apps/tms-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/tms-e2e/**/*"]
           }
         }
       }
@@ -147,9 +136,7 @@
             "outputPath": "dist/apps/tms-api",
             "main": "apps/tms-api/src/main.ts",
             "tsConfig": "apps/tms-api/tsconfig.app.json",
-            "assets": [
-              "apps/tms-api/src/assets"
-            ]
+            "assets": ["apps/tms-api/src/assets"]
           },
           "configurations": {
             "production": {
@@ -178,10 +165,7 @@
               "apps/tms-api/tsconfig.app.json",
               "apps/tms-api/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/tms-api/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/tms-api/**/*"]
           }
         },
         "test": {
@@ -190,6 +174,36 @@
             "jestConfig": "apps/tms-api/jest.config.js",
             "passWithNoTests": true
           }
+        }
+      }
+    },
+    "grid-grid": {
+      "projectType": "library",
+      "root": "libs/grid/grid",
+      "sourceRoot": "libs/grid/grid/src",
+      "prefix": "tms-workspace",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/grid/grid/tsconfig.lib.json",
+              "libs/grid/grid/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/grid/grid/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/grid/grid/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
         }
       }
     }
