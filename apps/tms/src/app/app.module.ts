@@ -10,11 +10,23 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { RegisterModule } from './register/register.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { FooterComponent } from './footer/footer.component';
-import { ContactUsModule } from './contact-us/contact-us.module'
+import { ContactUsModule } from './contact-us/contact-us.module';
 import { PaymentModule } from './payment/payment.module';
+import { ShareTmsModule } from './share-tms/share-tms.module';
 @NgModule({
   declarations: [AppComponent, NavbarComponent, FooterComponent],
-  imports: [BrowserModule, AppRoutingModule, MaterialModule, BrowserAnimationsModule, LoginModule, RegisterModule, DashboardModule, ContactUsModule, PaymentModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    MaterialModule,
+    BrowserAnimationsModule,
+    LoginModule,
+    RegisterModule,
+    DashboardModule,
+    ContactUsModule,
+    PaymentModule,
+    ShareTmsModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
