@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import {
   TENDER_NAME_REGEX,
   TENDER_AMOUNT_REGEX,
@@ -76,6 +82,12 @@ export class CreateTenderComponent implements OnInit {
       Validators.required,
       Validators.pattern(TENDER_ID_REGEX),
     ]),
+    tenderPublishedDate: new FormControl('', [Validators.required]),
+    tenderBidDueDate: new FormControl('', [
+      Validators.required,
+      this.forbiddenBidDueDate,
+    ]),
+    tenderBidCutOffTime: new FormControl('', [Validators.required]),
     tenderUserKeyName: new FormControl(''),
     tenderUserLoginId: new FormControl(''),
     tenderUserPassword: new FormControl(''),
@@ -87,4 +99,11 @@ export class CreateTenderComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  private forbiddenBidDueDate(control: FormControl) {
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
+    const forbidden = new Date(control.value) < currentDate;
+    return forbidden ? { forbiddenBidDueDate: { value: control.value } } : null;
+  }
 }

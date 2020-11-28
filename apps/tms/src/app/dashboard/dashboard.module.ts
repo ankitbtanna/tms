@@ -7,12 +7,14 @@ import { ProgressGraphComponent } from './progress-graph/progress-graph.componen
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { CreateTenderComponent } from './create-tender/create-tender.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CurrencyFormatterDirective } from './directives/currency-formatter/currency-formatter.directive';
 
 @NgModule({
   declarations: [
     DashboardComponent,
     ProgressGraphComponent,
     CreateTenderComponent,
+    CurrencyFormatterDirective,
   ],
   imports: [
     CommonModule,
