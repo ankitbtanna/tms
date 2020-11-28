@@ -18,8 +18,9 @@
         <input
           type="text"
           matInput
-          placeholder="1500000"
+          placeholder="15,00,000"
           formControlName="tenderAmount"
+          tmsCurrencyFormatter
         />
         <mat-error *ngIf="!addTenderForm.controls.tenderName.valid"
           >Tender Amount is invalid.</mat-error
@@ -33,9 +34,10 @@
         <mat-label>Tender Fee</mat-label>
         <input
           matInput
-          placeholder="1000"
+          placeholder="1,000"
           type="text"
           formControlName="tenderFee"
+          tmsCurrencyFormatter
         />
         <mat-error *ngIf="!addTenderForm.controls.tenderFee.valid"
           >Tender Fee is invalid.</mat-error
@@ -121,7 +123,6 @@
         <input
           matInput
           [type]="hide ? 'password' : 'text'"
-          required
           formControlName="tenderUserPassword"
         />
         <button
