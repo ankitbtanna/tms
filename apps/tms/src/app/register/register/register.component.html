@@ -231,6 +231,13 @@
                 >
               </div>
             </mat-radio-group>
+            <tms-alert
+              *ngIf="showError"
+              [message]="
+                'There was an error while registering you. Please try again later.'
+              "
+              [type]="'error'"
+            ></tms-alert>
           </mat-card-content>
           <div class="actions">
             <button

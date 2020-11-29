@@ -7,6 +7,8 @@ import { MaterialModule } from '../material.module';
 import { REGISTER_ROUTES } from './register.routes';
 import { RegistrationSuccessComponent } from './registration-success/registration-success.component';
 import { UiModule } from '@tms/ui';
+import { HttpClientModule } from '@angular/common/http';
+import { RegisterService } from './services/register.service';
 
 @NgModule({
   declarations: [RegisterComponent, RegistrationSuccessComponent],
@@ -15,8 +17,10 @@ import { UiModule } from '@tms/ui';
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
+    HttpClientModule,
     UiModule,
     RouterModule.forChild(REGISTER_ROUTES),
   ],
+  providers: [RegisterService],
 })
 export class RegisterModule {}
