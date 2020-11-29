@@ -13,4 +13,10 @@ export class RegisterService {
   registerUser(user: User): Observable<{}> {
     return this.http.post(API_PATHS.USERS.REGISTER, user);
   }
+
+  checkUserRegistration(username: string): Observable<{}> {
+    return this.http.get(
+      API_PATHS.USERS.CHECK_USER_EXISTS.replace('${username}', username)
+    );
+  }
 }

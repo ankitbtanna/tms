@@ -26,6 +26,7 @@ export class RegisterComponent implements OnInit {
   isPasswordFocused = false;
   isConfirmPasswordFocused = false;
   showError = false;
+  usernameExists = false;
   registerForm: FormGroup = new FormGroup({
     username: new FormControl('', [
       Validators.required,
@@ -78,6 +79,20 @@ export class RegisterComponent implements OnInit {
     const pass = group.controls.password.value;
     const confirmPass = group.controls.confirmPassword.value;
     return pass === confirmPass ? null : { notSame: true };
+  }
+
+  checkUserRegistration() {
+    if (this.registerForm.controls.username.value) {
+      this.registerService
+        .checkUserRegistration(this.registerForm.controls.username.value)
+        .subscribe((response: any) => {
+          this.usernameExists = response.status === 'failure';
+        });
+    }
+  }
+
+  resetErrorMessage() {
+    this.usernameExists = false;
   }
 
   registerUser() {

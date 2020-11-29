@@ -23,4 +23,19 @@ export class UserService {
       };
     }
   }
+
+  async checkUserRegistration(username: string) {
+    const result = await this.userModel.find({ username: username });
+    if (result.length) {
+      return {
+        message: 'User already exists. Chose a different username.',
+        status: 'failure',
+      };
+    } else {
+      return {
+        message: 'User does not exist. Go ahead with registeration.',
+        status: 'success',
+      };
+    }
+  }
 }
