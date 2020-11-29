@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from '../material.module';
 import { REGISTER_ROUTES } from './register.routes';
 import { RegistrationSuccessComponent } from './registration-success/registration-success.component';
+import { UiModule } from '@tms/ui';
 
 @NgModule({
   declarations: [RegisterComponent, RegistrationSuccessComponent],
@@ -14,6 +15,7 @@ import { RegistrationSuccessComponent } from './registration-success/registratio
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
+    UiModule,
     RouterModule.forChild(REGISTER_ROUTES),
   ],
 })

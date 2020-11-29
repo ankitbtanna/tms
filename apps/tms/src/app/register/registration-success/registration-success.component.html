@@ -1,1 +1,14 @@
-<p>registration-success works!</p>
+<mat-card class="register-card">
+  <mat-card-title class="register-card__title"
+    >Registration Successful</mat-card-title
+  >
+  <mat-card-content class="register-card__content">
+    <tms-alert
+      [message]="'You have been registered successfully.'"
+      [type]="'success'"
+    ></tms-alert>
+    <button mat-raised-button color="primary" routerLink="/login" class="login">
+      Proceed to Login
+    </button>
+  </mat-card-content>
+</mat-card>
