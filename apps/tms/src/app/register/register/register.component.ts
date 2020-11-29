@@ -5,12 +5,13 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import {
   USERNAME_REGEX,
   PASSWORD_REGEX,
   PAN_CARD_REGEX,
   MOBILE_NUMBER_REGEX,
-} from './register.constant';
+} from '../register.constant';
 
 @Component({
   selector: 'tms-workspace-register',
@@ -62,7 +63,7 @@ export class RegisterComponent implements OnInit {
     { validator: this.checkPasswords }
   );
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, private router: Router) {}
 
   ngOnInit(): void {}
 
@@ -70,5 +71,9 @@ export class RegisterComponent implements OnInit {
     const pass = group.controls.password.value;
     const confirmPass = group.controls.confirmPassword.value;
     return pass === confirmPass ? null : { notSame: true };
+  }
+
+  registerUser() {
+    this.router.navigate(['/registration-success']);
   }
 }
