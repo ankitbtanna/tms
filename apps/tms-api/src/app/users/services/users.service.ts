@@ -25,7 +25,9 @@ export class UserService {
   }
 
   async checkUserRegistration(username: string) {
-    const result = await this.userModel.find({ username: username });
+    const result = await this.userModel.find({
+      username: username.toLowerCase(),
+    });
     if (result.length) {
       return {
         message: 'User already exists. Chose a different username.',
@@ -38,4 +40,10 @@ export class UserService {
       };
     }
   }
+
+  async login() {}
+
+  async refreshToken() {}
+
+  async logout() {}
 }
