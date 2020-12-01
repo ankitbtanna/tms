@@ -12,6 +12,7 @@ import * as morgan from 'morgan';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const globalPrefix = 'api';
+  app.use(morgan('dev'));
   app.setGlobalPrefix(globalPrefix);
   app.enableCors();
   const port = process.env.PORT || 3333;
