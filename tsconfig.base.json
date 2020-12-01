@@ -16,7 +16,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@tms/grid": ["libs/grid/grid/src/index.ts"]
+      "@tms/grid": ["libs/grid/grid/src/index.ts"],
+      "@tms/ui": ["libs/ui/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

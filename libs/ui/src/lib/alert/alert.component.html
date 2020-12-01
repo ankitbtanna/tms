@@ -1,0 +1,19 @@
+<div
+  class="alert"
+  [ngClass]="{
+    success: type === 'success',
+    error: type === 'error',
+    warning: type === 'warning',
+    info: type === 'info'
+  }"
+>
+  <mat-icon class="success" *ngIf="type === 'success'"
+    >check_circle_outline</mat-icon
+  >
+  <mat-icon class="error" *ngIf="type === 'error'">error_outline</mat-icon>
+  <mat-icon class="warning" *ngIf="type === 'warning'"
+    >warning_outline</mat-icon
+  >
+  <mat-icon class="info" *ngIf="type === 'info'">notes</mat-icon>
+  {{ message }}
+</div>
