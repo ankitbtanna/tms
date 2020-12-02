@@ -1,7 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { UserAuthentication } from '../models/interfaces/user-authentication.model';
 import { User } from '../models/interfaces/user.model';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
@@ -41,7 +43,43 @@ export class UserService {
     }
   }
 
-  async login() {}
+  async login(userAuthentication: UserAuthentication) {
+    try {
+      const user = await this.userModel.findOne({
+        username: userAuthentication.username.toLowerCase(),
+      });
+      if (user) {
+        const isPasswordMatching = await bcrypt.compare(
+          userAuthentication.password,
+          user.password
+        );
+        if (isPasswordMatching) {
+          return {
+            username: user.username,
+            accessToken: '',
+            refreshToken: '',
+            status: 'success',
+          };
+        } else {
+          return {
+            message: 'Authentication failed!',
+            status: 'failure',
+          };
+        }
+      } else {
+        // throw error - user does not exist
+        return {
+          message: 'User does not exist.',
+          status: 'failure',
+        };
+      }
+    } catch (error) {
+      return {
+        message: 'User does not exist.',
+        status: 'failure',
+      };
+    }
+  }
 
   async refreshToken() {}
 

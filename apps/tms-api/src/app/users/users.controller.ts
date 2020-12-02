@@ -30,7 +30,7 @@ export class UsersController {
   @Post('login')
   @Header('Cache-Control', 'none')
   login(@Req() request: Request) {
-    return this.userService.login();
+    return this.userService.login(request.body);
   }
 
   @Post('refresh-token')
