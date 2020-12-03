@@ -27,7 +27,7 @@ export class PaymentComponent implements OnInit{
             currency: 'INR',
             name: 'Ankit',
             description: 'for sample 1',
-            image: 'image/Machu_Picchu,_Peru.jpg',
+            
            // order_id: val, // order_id created by you in backend
             modal: {
                 // We should prevent closing of the form when esc key is pressed.
