@@ -49,7 +49,12 @@
   </mat-card-content>
   <mat-card-actions class="login-card__actions">
     <div class="actions">
-      <button mat-raised-button color="primary" [disabled]="!loginForm.valid">
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="!loginForm.valid"
+        (click)="login()"
+      >
         Login
       </button>
       <button mat-raised-button routerLink="/register">Register</button>

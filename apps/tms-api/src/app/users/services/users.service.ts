@@ -4,10 +4,14 @@ import { Model } from 'mongoose';
 import { UserAuthentication } from '../models/interfaces/user-authentication.model';
 import { User } from '../models/interfaces/user.model';
 import * as bcrypt from 'bcrypt';
+import { TokenService } from '../../auth/services/token.service';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectModel('User') private readonly userModel: Model<User>) {}
+  constructor(
+    @InjectModel('User') private readonly userModel: Model<User>,
+    private tokenService: TokenService
+  ) {}
 
   async registerUser(user: User) {
     const newUser = this.userModel(user);
@@ -54,9 +58,12 @@ export class UserService {
           user.password
         );
         if (isPasswordMatching) {
+          const accessToken = await this.tokenService.signAccessToken(
+            user.username
+          );
           return {
             username: user.username,
-            accessToken: '',
+            accessToken: accessToken,
             refreshToken: '',
             status: 'success',
           };

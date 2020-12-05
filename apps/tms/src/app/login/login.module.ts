@@ -5,15 +5,19 @@ import { RouterModule } from '@angular/router';
 import { LOGIN_ROUTES } from './login.routes';
 import { MaterialModule } from '../material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginService } from './services/login.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [LoginComponent],
   imports: [
     CommonModule,
+    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
-    RouterModule.forChild(LOGIN_ROUTES)
-  ]
+    RouterModule.forChild(LOGIN_ROUTES),
+  ],
+  providers: [LoginService],
 })
-export class LoginModule { }
+export class LoginModule {}

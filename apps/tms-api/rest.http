@@ -40,3 +40,5 @@ POST http://localhost:8080/api/user/refresh-token
 DELETE http://localhost:8080/api/user/logout
 
 ############################################################
+
+GET http://localhost:8080/api/auth/generateKey
