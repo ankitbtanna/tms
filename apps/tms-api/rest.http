@@ -1,0 +1,44 @@
+############################################################
+USERS
+############################################################
+GET http://localhost:8080/api/user/check/ankittanna@hotmail.com
+
+############################################################
+
+POST http://localhost:8080/api/user/register
+content-type: application/json
+
+{
+  "username": "ankittanna5@hotmail.com",
+  "password": "TMSPortal@123",
+  "registrationDate": "Sun Nov 29 2020 11:21:33 GMT+0530 (India Standard Time)",
+  "subscriptionStartDate": "Sun Nov 29 2020 11:21:33 GMT+0530 (India Standard Time)",
+  "subscriptionEndDate": "Sun Nov 29 2020 11:21:33 GMT+0530 (India Standard Time)",
+  "isPremiumMember": false,
+  "premiumMembershipReferenceId": "NA",
+  "companyName": "Abt SLB",
+  "address": "G2-102 PA Pune",
+  "panCardNumber": "ABCD4444D",
+  "mobileNumber": "9049772849"
+}
+
+############################################################
+
+POST http://localhost:8080/api/user/login
+content-type: application/json
+
+{
+  "username": "ankittanna5@hotmail.com",
+  "password": "TMSPortal@123"
+}
+############################################################
+
+POST http://localhost:8080/api/user/refresh-token
+
+############################################################
+
+DELETE http://localhost:8080/api/user/logout
+
+############################################################
+
+GET http://localhost:8080/api/auth/generateKey

@@ -1,5 +1,6 @@
 import {
   Controller,
+  Delete,
   Get,
   Header,
   HttpCode,
@@ -24,5 +25,23 @@ export class UsersController {
   @Header('Cache-Control', 'none')
   checkUserRegistration(@Param() params) {
     return this.userService.checkUserRegistration(params.username);
+  }
+
+  @Post('login')
+  @Header('Cache-Control', 'none')
+  login(@Req() request: Request) {
+    return this.userService.login(request.body);
+  }
+
+  @Post('refresh-token')
+  @Header('Cache-Control', 'none')
+  refreshToken(@Req() request: Request) {
+    return this.userService.refreshToken();
+  }
+
+  @Delete('logout')
+  @Header('Cache-Control', 'none')
+  logout(@Req() request: Request) {
+    return this.userService.logout();
   }
 }
