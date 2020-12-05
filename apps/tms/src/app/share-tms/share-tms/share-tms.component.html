@@ -5,8 +5,8 @@
   would not be editable by the people you have shared with. You can block or
   delete the colleagues you have share the information with.
 </h3>
-<mat-card fxLayout="column" class="add-details-form">
-  <mat-card-subtitle>Add Details</mat-card-subtitle>
+<mat-card fxFlex="1 1 190px" fxLayout="column" class="add-details-form">
+  <mat-card-subtitle>Add Stake Holder Details</mat-card-subtitle>
   <mat-card-content fxFlex fxLayout="column">
     <form [formGroup]="shareTMSForm">
       <mat-form-field fxFlex appearance="outline">
@@ -75,5 +75,16 @@
         Reset
       </button>
     </div>
+  </mat-card-content>
+</mat-card>
+<mat-card
+  fxFlex
+  fxLayout="column"
+  fxLayoutAlign="start center"
+  class="share-tms-grid"
+>
+  <mat-card-subtitle>Stakeholders</mat-card-subtitle>
+  <mat-card-content fxFlex class="grid">
+    <tms-grid [columnDefs]="columnDefs" [rowData]="rowData"></tms-grid>
   </mat-card-content>
 </mat-card>

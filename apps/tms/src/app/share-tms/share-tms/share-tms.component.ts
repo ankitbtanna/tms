@@ -21,6 +21,18 @@ export class ShareTmsComponent implements OnInit {
     ]),
     description: new FormControl('', [Validators.pattern(DESCRIPTION_REGEX)]),
   });
+  columnDefs = [
+    { field: 'name' },
+    { field: 'mobile' },
+    { field: 'description' },
+    { field: 'actions' },
+  ];
+
+  rowData = [
+    { name: 'Toyota', mobile: 'Celica', description: 35000, actions: '' },
+    { name: 'Ford', mobile: 'Mondeo', description: 32000, actions: '' },
+    { name: 'Porsche', mobile: 'Boxter', description: 72000, actions: '' },
+  ];
 
   constructor() {}
 
