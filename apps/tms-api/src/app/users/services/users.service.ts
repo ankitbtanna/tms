@@ -5,11 +5,16 @@ import { UserAuthentication } from '../models/interfaces/user-authentication.mod
 import { User } from '../models/interfaces/user.model';
 import * as bcrypt from 'bcrypt';
 import { TokenService } from '../../auth/services/token.service';
+import {
+  ShareTMS,
+  ShareTMSDocument,
+} from '../../share/models/share-tms.schema';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectModel('User') private readonly userModel: Model<User>,
+    @InjectModel(ShareTMS.name) private shareTMS: Model<ShareTMSDocument>,
     private tokenService: TokenService
   ) {}
 
@@ -17,6 +22,11 @@ export class UserService {
     const newUser = this.userModel(user);
     try {
       const result = await newUser.save();
+      const createShareTMSEntry = new this.shareTMS({
+        owner: result.username,
+        stakeholders: [],
+      });
+      await createShareTMSEntry.save();
       return {
         _id: result._id,
         username: result.username,

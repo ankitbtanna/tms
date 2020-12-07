@@ -54,6 +54,7 @@
     "bcrypt": "^5.0.0",
     "http-errors": "^1.8.0",
     "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.20",
     "mongoose": "^5.10.17",
     "morgan": "^1.10.0",
     "ng-circle-progress": "^1.6.0",

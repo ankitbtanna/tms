@@ -5,12 +5,14 @@ import { UserSchema } from './models/schemas/user.schema';
 import { UserService } from './services/users.service';
 import { AuthModule } from '../auth/auth.module';
 import { TokenService } from '../auth/services/token.service';
+import { ShareModule } from '../share/share.module';
 
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
     HttpModule,
     AuthModule,
+    ShareModule,
   ],
   controllers: [UsersController],
   providers: [UserService, TokenService],

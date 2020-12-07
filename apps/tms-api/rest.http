@@ -9,7 +9,7 @@ POST http://localhost:8080/api/user/register
 content-type: application/json
 
 {
-  "username": "ankittanna5@hotmail.com",
+  "username": "ankittanna11@hotmail.com",
   "password": "TMSPortal@123",
   "registrationDate": "Sun Nov 29 2020 11:21:33 GMT+0530 (India Standard Time)",
   "subscriptionStartDate": "Sun Nov 29 2020 11:21:33 GMT+0530 (India Standard Time)",
@@ -42,3 +42,33 @@ DELETE http://localhost:8080/api/user/logout
 ############################################################
 
 GET http://localhost:8080/api/auth/generateKey
+
+############################################################
+
+GET http://localhost:8080/api/share/stakeholders
+############################################################
+
+PUT http://localhost:8080/api/share/add-stakeholder
+Content-Type: application/json
+
+{
+  "owner": "ankittanna11@hotmail.com",
+  "stakeholders": [
+    {
+      "name": "Ankit Tanna",
+      "mobileNumber": "9228839283",
+      "description": "Some description",
+      "isBlocked": false
+    }
+  ]
+}
+
+############################################################
+
+DELETE http://localhost:8080/api/share/delete-stakeholder
+Content-Type: application/json
+
+{
+  "owner": "ankittanna11@hotmail.com",
+  "mobileNumber": "9228839283"
+}
