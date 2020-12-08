@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MOBILE_NUMBER_REGEX } from '../../register/register.constant';
 import { DESCRIPTION_REGEX, NAME_REGEX } from '../share-tms.constant';
@@ -22,10 +22,19 @@ export class ShareTmsComponent implements OnInit {
     description: new FormControl('', [Validators.pattern(DESCRIPTION_REGEX)]),
   });
   columnDefs = [
-    { field: 'name' },
-    { field: 'mobile' },
+    { field: 'name', sortable: true },
+    { field: 'mobile', sortable: true },
     { field: 'description' },
-    { field: 'actions' },
+    {
+      field: 'actions',
+      cellRenderer: 'btnCellRenderer',
+      cellRendererParams: {
+        clicked: function (field: any) {
+          alert(`${field} was clicked`);
+        },
+      },
+      minWidth: 500,
+    },
   ];
 
   rowData = [

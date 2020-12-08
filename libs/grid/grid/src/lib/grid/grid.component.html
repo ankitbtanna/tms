@@ -2,5 +2,8 @@
   class="ag-theme-alpine"
   [rowData]="rowData"
   [columnDefs]="columnDefs"
+  [frameworkComponents]="frameworkComponents"
+  (gridReady)="onGridReady($event)"
+  (gridSizeChanged)="onGridSizeChanged($event)"
 >
 </ag-grid-angular>
