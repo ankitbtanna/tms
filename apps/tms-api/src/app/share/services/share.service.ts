@@ -11,7 +11,18 @@ export class ShareService {
     @InjectModel(ShareTMS.name) private shareTMS: Model<ShareTMSDocument>
   ) {}
 
-  getAllStakeHolders(username: string) {}
+  async getAllStakeHolders(username: string) {
+    if (!username) return { message: 'Invalid username.', status: 'failure' };
+    try {
+      const owner = await this.shareTMS.findOne({ owner: username }).exec();
+      return owner.stakeholders;
+    } catch (error) {
+      return {
+        message: error,
+        status: 'failure',
+      };
+    }
+  }
 
   async addStakeHolder(stakeholderDTO: StakeholderInfo) {
     if (!stakeholderDTO.owner)
@@ -41,11 +52,63 @@ export class ShareService {
     }
   }
 
-  blockStakeHolder(
+  async blockStakeHolder(
     username: string,
     mobileNumber: string,
     isBlocked: boolean
-  ) {}
+  ) {
+    if (!username) return { message: 'Invalid Username', status: 'failure' };
+    if (!mobileNumber)
+      return { message: 'Invalid Mobile Number', status: 'failure' };
+
+    try {
+      const owner = await this.shareTMS.findOne({ owner: username }).exec();
+      if (!owner) return { message: 'User does not exist', status: 'failure' };
+
+      if (!owner.stakeholders.length)
+        return {
+          message: 'User does not have any stakeholder.',
+          status: 'failure',
+        };
+
+      if (
+        _.find(owner.stakeholders, {
+          mobileNumber: mobileNumber,
+        })
+      ) {
+        owner.stakeholders = _.map(owner.stakeholders, (stakeholder) => {
+          if (stakeholder.mobileNumber === mobileNumber)
+            stakeholder.isBlocked = !!isBlocked;
+
+          return stakeholder;
+        });
+
+        await this.shareTMS
+          .findOneAndUpdate(
+            {
+              owner: username,
+            },
+            owner,
+            { upsert: true }
+          )
+          .exec();
+        const modifiedOwner = await this.shareTMS
+          .findOne({ owner: username })
+          .exec();
+        return modifiedOwner;
+      } else {
+        return {
+          message: 'Stakeholder does not exist.',
+          status: 'failure',
+        };
+      }
+    } catch (error) {
+      return {
+        message: error,
+        status: 'failure',
+      };
+    }
+  }
 
   async deleteStakeHolder(username: string, mobileNumber: string) {
     if (!username) return { message: 'Invalid Username', status: 'failure' };
@@ -54,6 +117,11 @@ export class ShareService {
 
     try {
       const owner = await this.shareTMS.findOne({ owner: username }).exec();
+      if (!owner.stakeholders.length)
+        return {
+          message: 'User does not have any stakeholder.',
+          status: 'failure',
+        };
       if (
         _.find(owner.stakeholders, {
           mobileNumber: mobileNumber,

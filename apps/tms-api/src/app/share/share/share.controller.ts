@@ -1,4 +1,12 @@
-import { Controller, Delete, Get, Header, Put, Req } from '@nestjs/common';
+import {
+  Controller,
+  Delete,
+  Get,
+  Header,
+  Param,
+  Put,
+  Req,
+} from '@nestjs/common';
 import { ShareService } from '../services/share.service';
 import { Request } from 'express';
 
@@ -6,10 +14,10 @@ import { Request } from 'express';
 export class ShareController {
   constructor(private shareService: ShareService) {}
 
-  @Get('stakeholders')
+  @Get('stakeholders/:owner')
   @Header('Cache-Control', 'none')
-  getAllStakeHolders(@Req() req: Request) {
-    return this.shareService.getAllStakeHolders(req.body.owner);
+  getAllStakeHolders(@Param() params) {
+    return this.shareService.getAllStakeHolders(params.owner);
   }
 
   @Put('add-stakeholder')

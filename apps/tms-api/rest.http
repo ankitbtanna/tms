@@ -45,7 +45,9 @@ GET http://localhost:8080/api/auth/generateKey
 
 ############################################################
 
-GET http://localhost:8080/api/share/stakeholders
+GET http://localhost:8080/api/share/stakeholders/ankittanna11@hotmail.com
+Content-Type: application/json
+
 ############################################################
 
 PUT http://localhost:8080/api/share/add-stakeholder
@@ -71,4 +73,15 @@ Content-Type: application/json
 {
   "owner": "ankittanna11@hotmail.com",
   "mobileNumber": "9228839283"
+}
+
+############################################################
+
+PUT http://localhost:8080/api/share/block-stakeholder
+Content-Type: application/json
+
+{
+  "owner": "ankittanna11@hotmail.com",
+  "mobileNumber": "9228839283",
+  "isBlocked": false
 }

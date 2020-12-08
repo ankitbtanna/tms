@@ -13,7 +13,7 @@ export class Stakeholder extends Document {
   @Prop({ required: false })
   description: string;
 
-  @Prop({ default: false })
+  @Prop()
   isBlocked: boolean;
 }
 
