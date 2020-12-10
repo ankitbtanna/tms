@@ -20,6 +20,7 @@
         "quotes": [
             "error",
             "double"
-        ]
+        ],
+        "require-jsdoc": "off"
     }
 }

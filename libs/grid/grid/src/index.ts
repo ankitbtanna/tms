@@ -1,2 +1,2 @@
 export * from './lib/grid-grid.module';
-export * from './lib/button-cell-renderer/button-cell-renderer.component';
+export * from './lib/stake-holder-actions/stake-holder-actions.component';

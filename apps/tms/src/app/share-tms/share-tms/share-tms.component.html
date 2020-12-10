@@ -85,6 +85,9 @@
 >
   <mat-card-subtitle>Stakeholders</mat-card-subtitle>
   <mat-card-content fxFlex class="grid">
-    <tms-grid [columnDefs]="columnDefs" [rowData]="rowData"></tms-grid>
+    <tms-grid
+      [columnDefs]="columnDefs"
+      [rowData]="stakeholders$ | async"
+    ></tms-grid>
   </mat-card-content>
 </mat-card>

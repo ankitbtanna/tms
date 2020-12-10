@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
+
 import { GridSizeChangedEvent } from 'ag-grid-community';
-import { ButtonCellRendererComponent } from '../button-cell-renderer/button-cell-renderer.component';
+import { StakeholderActionsComponent } from '../stake-holder-actions/stake-holder-actions.component';
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -23,7 +24,7 @@ export class GridComponent {
 
   constructor() {
     this.frameworkComponents = {
-      btnCellRenderer: ButtonCellRendererComponent,
+      btnCellRenderer: StakeholderActionsComponent,
     };
   }
 }
