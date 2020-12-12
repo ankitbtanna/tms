@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { GridSizeChangedEvent } from 'ag-grid-community';
 import { StakeholderActionsComponent } from '../stake-holder-actions/stake-holder-actions.component';
@@ -26,5 +26,9 @@ export class GridComponent {
     this.frameworkComponents = {
       btnCellRenderer: StakeholderActionsComponent,
     };
+  }
+
+  validateData(params): string {
+    return params.data?.isBlocked ? 'is-blocked' : '';
   }
 }

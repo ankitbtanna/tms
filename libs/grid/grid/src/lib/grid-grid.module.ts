@@ -1,3 +1,4 @@
+import 'ag-grid-enterprise';
 import { AgGridModule } from 'ag-grid-angular';
 import { CommonModule } from '@angular/common';
 import { GridComponent } from './grid/grid.component';
@@ -16,4 +17,4 @@ import { StakeholderActionsComponent } from './stake-holder-actions/stake-holder
   declarations: [GridComponent, StakeholderActionsComponent],
   exports: [GridComponent, StakeholderActionsComponent],
 })
-export class GridGridModule {}
+export class GridGridModule { }

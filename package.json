@@ -52,6 +52,7 @@
     "@types/bcrypt": "^3.0.0",
     "ag-grid-angular": "^24.1.0",
     "ag-grid-community": "^24.1.0",
+    "ag-grid-enterprise": "^24.1.0",
     "bcrypt": "^5.0.0",
     "http-errors": "^1.8.0",
     "jsonwebtoken": "^8.5.1",

@@ -18,6 +18,7 @@ import { BlockStakeholderPayload } from '../models/block-stakeholder-payload.mod
 })
 export class ShareTmsComponent implements OnInit {
   private loggedInUser: string;
+  searchStakeholderKeyword = '';
   shareTMSForm = new FormGroup({
     name: new FormControl('', [
       Validators.required,
@@ -30,9 +31,24 @@ export class ShareTmsComponent implements OnInit {
     description: new FormControl('', [Validators.pattern(DESCRIPTION_REGEX)]),
   });
   columnDefs = [
-    { field: 'name', sortable: true, minWidth: 500 },
-    { field: 'mobileNumber', sortable: true, minWidth: 200 },
-    { field: 'description', minWidth: 500 },
+    {
+      field: 'name', sortable: true, minWidth: 500, filter: 'agSetColumnFilter', floatingFilter: true, filterParams: {
+        applyMiniFilterWhileTyping: true,
+        suppressSorting: true
+      }
+    },
+    {
+      field: 'mobileNumber', sortable: true, minWidth: 200, filter: 'agSetColumnFilter', floatingFilter: true, filterParams: {
+        applyMiniFilterWhileTyping: true,
+        suppressSorting: true
+      }
+    },
+    {
+      field: 'description', minWidth: 500, filter: 'agSetColumnFilter', floatingFilter: true, filterParams: {
+        applyMiniFilterWhileTyping: true,
+        suppressSorting: true
+      }
+    },
     {
       field: 'actions',
       cellRenderer: 'btnCellRenderer',
@@ -109,5 +125,9 @@ export class ShareTmsComponent implements OnInit {
       .subscribe(() => {
         this.stakeholders$ = this.getAllStakeholders(this.loggedInUser);
       });
+  }
+
+  filterStakeholders(data): void {
+    this.searchStakeholderKeyword = data.currentTarget.value;
   }
 }

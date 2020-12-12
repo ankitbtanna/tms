@@ -46,7 +46,9 @@
   </mat-card-content>
 </mat-card>
 <mat-card fxFlex fxLayout="column" fxLayoutAlign="start center" class="share-tms-grid">
-  <mat-card-subtitle>Stakeholders {{(stakeholders$ | async)?.length}}</mat-card-subtitle>
+  <mat-card-subtitle class="stakeholders-title">
+    Stakeholders({{(stakeholders$ | async)?.length || 0}})
+  </mat-card-subtitle>
   <mat-card-content fxFlex class="grid">
     <tms-grid [columnDefs]="columnDefs" [rowData]="stakeholders$ | async"></tms-grid>
   </mat-card-content>
