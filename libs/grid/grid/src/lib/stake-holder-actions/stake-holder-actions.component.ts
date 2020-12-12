@@ -9,7 +9,7 @@ import { ICellRendererParams } from 'ag-grid-community';
   styleUrls: ['./stake-holder-actions.component.scss'],
 })
 export class StakeholderActionsComponent implements ICellRendererAngularComp {
-  private params: any;
+  params: any;
 
   refresh(params: any): boolean {
     return true;

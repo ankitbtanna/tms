@@ -1,9 +1,4 @@
-<ag-grid-angular
-  class="ag-theme-alpine"
-  [rowData]="rowData"
-  [columnDefs]="columnDefs"
-  [frameworkComponents]="frameworkComponents"
-  (gridReady)="onGridReady($event)"
-  (gridSizeChanged)="onGridSizeChanged($event)"
->
+<ag-grid-angular #tmsGrid class="ag-theme-alpine" [rowData]="rowData" [columnDefs]="columnDefs"
+  [frameworkComponents]="frameworkComponents" (gridReady)="onGridReady($event)"
+  (gridSizeChanged)="onGridSizeChanged($event)">
 </ag-grid-angular>

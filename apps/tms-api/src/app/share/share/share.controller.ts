@@ -12,7 +12,7 @@ import { Request } from 'express';
 
 @Controller('share')
 export class ShareController {
-  constructor(private shareService: ShareService) {}
+  constructor(private shareService: ShareService) { }
 
   @Get('stakeholders/:owner')
   @Header('Cache-Control', 'none')
@@ -23,6 +23,7 @@ export class ShareController {
   @Put('add-stakeholder')
   @Header('Cache-Control', 'none')
   addStakeHolder(@Req() req: Request) {
+    console.log(req.body);
     return this.shareService.addStakeHolder(req.body);
   }
 

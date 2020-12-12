@@ -54,12 +54,12 @@ PUT http://localhost:8080/api/share/add-stakeholder
 Content-Type: application/json
 
 {
-  "owner": "ankittanna11@hotmail.com",
+  "owner": "ankittanna5@hotmail.com",
   "stakeholders": [
     {
-      "name": "Ankit Tanna",
-      "mobileNumber": "9228839283",
-      "description": "Some description",
+      "name": "Roop Bansal",
+      "mobileNumber": "9948594839",
+      "description": "CTO",
       "isBlocked": false
     }
   ]

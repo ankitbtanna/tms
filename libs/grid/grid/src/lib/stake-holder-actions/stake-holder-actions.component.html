@@ -1,6 +1,7 @@
-<button mat-raised-button color="primary" (click)="block()">
-  <mat-icon inline="true">block</mat-icon>
-  Block
+<button mat-raised-button color="primary" (click)="block()" [ngClass]="{'isBlocked': params.data.isBlocked}">
+  <mat-icon inline="true" *ngIf="!params.data.isBlocked">block</mat-icon>
+  <mat-icon inline="true" *ngIf="params.data.isBlocked">check_circle</mat-icon>
+  {{ params.data.isBlocked ? 'Unblock' : 'Block' }}
 </button>
 <button mat-raised-button color="warn" (click)="delete()">
   <mat-icon inline="true">delete_forever</mat-icon>
