@@ -1,11 +1,20 @@
-import { NgModule } from '@angular/core';
+import 'ag-grid-enterprise';
+import { AgGridModule } from 'ag-grid-angular';
 import { CommonModule } from '@angular/common';
 import { GridComponent } from './grid/grid.component';
-import { AgGridModule } from 'ag-grid-angular';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { NgModule } from '@angular/core';
+import { StakeholderActionsComponent } from './stake-holder-actions/stake-holder-actions.component';
 
 @NgModule({
-  imports: [CommonModule, AgGridModule.withComponents([])],
-  declarations: [GridComponent],
-  exports: [GridComponent],
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatIconModule,
+    AgGridModule.withComponents([StakeholderActionsComponent]),
+  ],
+  declarations: [GridComponent, StakeholderActionsComponent],
+  exports: [GridComponent, StakeholderActionsComponent],
 })
-export class GridGridModule {}
+export class GridGridModule { }

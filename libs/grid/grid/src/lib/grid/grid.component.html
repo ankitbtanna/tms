@@ -1,6 +1,4 @@
-<ag-grid-angular
-  class="ag-theme-alpine"
-  [rowData]="rowData"
-  [columnDefs]="columnDefs"
->
+<ag-grid-angular #agGrid class="ag-theme-alpine" [rowData]="rowData" [columnDefs]="columnDefs"
+  [frameworkComponents]="frameworkComponents" [getRowClass]="validateData" (gridReady)="onGridReady($event)"
+  (gridSizeChanged)="onGridSizeChanged($event)">
 </ag-grid-angular>

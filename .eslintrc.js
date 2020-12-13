@@ -1,19 +1,20 @@
 module.exports = {
-  'env': {
-    'browser': true,
-    'commonjs': true,
-    'es2021': true,
+  extends: ['eslint:recommended', 'airbnb', 'plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended', 'prettier', 'prettier/@typescript-eslint', 'plugin:node/recommended'],
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaVersion: 2020,
+    ecmaFeatures: {
+      impliedStrict: true,
+      classes: true,
+    },
   },
-  'extends': [
-    'google',
-  ],
-  'parser': '@typescript-eslint/parser',
-  'parserOptions': {
-    'ecmaVersion': 12,
+  env: {
+    browser: true,
+    node: true,
+    jquery: true,
+    jest: true,
+    es6: true
   },
-  'plugins': [
-    '@typescript-eslint',
-  ],
-  'rules': {
-  },
+  rules: {},
+  plugins: ['html', 'prettier', 'react-hooks'],
 };

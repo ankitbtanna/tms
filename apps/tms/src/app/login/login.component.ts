@@ -1,10 +1,11 @@
-import { ThrowStmt } from '@angular/compiler';
-import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { USERNAME_REGEX, PASSWORD_REGEX } from './login.constant';
-import { UserAuthentication } from './models/user-authentication.model';
+import { PASSWORD_REGEX, USERNAME_REGEX } from './login.constant';
+
+import { Component } from '@angular/core';
 import { LoginService } from './services/login.service';
+import { Router } from '@angular/router';
+import { ThrowStmt } from '@angular/compiler';
+import { UserAuthentication } from './models/user-authentication.model';
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -33,6 +34,7 @@ export class LoginComponent {
       const user: UserAuthentication = this.loginForm.value;
       this.loginService.login(user).subscribe((response) => {
         if (response.status === 'success') {
+          window.localStorage.setItem('loggedInUser', response.username);
           this.router.navigate(['/dashboard']);
         }
       });

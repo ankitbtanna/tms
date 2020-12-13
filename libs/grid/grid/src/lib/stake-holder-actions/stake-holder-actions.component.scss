@@ -1,0 +1,16 @@
+:host {
+  display: flex;
+  flex: 1;
+  flex-flow: row;
+  justify-content: space-around;
+}
+
+button {
+  text-align: center;
+  font-size: 15px;
+  height: 35px;
+
+  &.isBlocked {
+    background-color: #00ab0a !important;
+  }
+}

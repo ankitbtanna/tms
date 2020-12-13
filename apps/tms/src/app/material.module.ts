@@ -26,11 +26,11 @@ const MAT_MODULES = [
   MatRadioModule,
   MatDialogModule,
   MatDatepickerModule,
-  FlexLayoutModule,
+  FlexLayoutModule
 ];
 
 @NgModule({
   imports: MAT_MODULES,
-  exports: MAT_MODULES,
+  exports: MAT_MODULES
 })
 export class MaterialModule {}

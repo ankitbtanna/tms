@@ -1,5 +1,8 @@
 import { Component, Input } from '@angular/core';
 
+import { GridSizeChangedEvent } from 'ag-grid-community';
+import { StakeholderActionsComponent } from '../stake-holder-actions/stake-holder-actions.component';
+
 @Component({
   // tslint:disable-next-line: component-selector
   selector: 'tms-grid',
@@ -9,4 +12,23 @@ import { Component, Input } from '@angular/core';
 export class GridComponent {
   @Input() columnDefs;
   @Input() rowData;
+  frameworkComponents;
+
+  onGridReady(params) {
+    params.api.sizeColumnsToFit();
+  }
+
+  onGridSizeChanged(params: GridSizeChangedEvent) {
+    params.api.sizeColumnsToFit();
+  }
+
+  constructor() {
+    this.frameworkComponents = {
+      btnCellRenderer: StakeholderActionsComponent,
+    };
+  }
+
+  validateData(params): string {
+    return params.data?.isBlocked ? 'is-blocked' : '';
+  }
 }
