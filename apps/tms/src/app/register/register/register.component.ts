@@ -1,59 +1,66 @@
-import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
-  Validators,
+  Validators
 } from '@angular/forms';
+import {
+  MOBILE_NUMBER_REGEX,
+  PAN_CARD_REGEX,
+  PASSWORD_REGEX,
+  USERNAME_REGEX
+} from '../register.constant';
+
+import { Component } from '@angular/core';
+import { RegisterService } from '../services/register.service';
 import { Router } from '@angular/router';
 import { User } from '../models/users.model';
-import {
-  USERNAME_REGEX,
-  PASSWORD_REGEX,
-  PAN_CARD_REGEX,
-  MOBILE_NUMBER_REGEX,
-} from '../register.constant';
-import { RegisterService } from '../services/register.service';
 
 @Component({
   selector: 'tms-workspace-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss'],
+  styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
   isLinear = false;
+
   hide = true;
+
   isPasswordFocused = false;
+
   isConfirmPasswordFocused = false;
+
   showError = false;
+
   usernameExists = false;
+
   registerForm: FormGroup = new FormGroup({
     username: new FormControl('', [
       Validators.required,
-      Validators.pattern(USERNAME_REGEX),
+      Validators.pattern(USERNAME_REGEX)
     ]),
     companyName: new FormControl('', [
       Validators.required,
       Validators.minLength(3),
-      Validators.maxLength(100),
+      Validators.maxLength(100)
     ]),
     address: new FormControl('', [
       Validators.required,
       Validators.minLength(3),
-      Validators.maxLength(150),
+      Validators.maxLength(150)
     ]),
     panCardNumber: new FormControl('', [
       Validators.minLength(10),
       Validators.maxLength(10),
-      Validators.pattern(PAN_CARD_REGEX),
+      Validators.pattern(PAN_CARD_REGEX)
     ]),
     mobileNumber: new FormControl('', [
       Validators.required,
       Validators.minLength(10),
       Validators.maxLength(10),
-      Validators.pattern(MOBILE_NUMBER_REGEX),
+      Validators.pattern(MOBILE_NUMBER_REGEX)
     ]),
-    plan: new FormControl('trial', [Validators.required]),
+    plan: new FormControl('trial', [Validators.required])
   });
 
   passwordForm = this.formBuilder.group(
@@ -61,8 +68,8 @@ export class RegisterComponent implements OnInit {
       password: ['', [Validators.required, Validators.pattern(PASSWORD_REGEX)]],
       confirmPassword: [
         '',
-        [Validators.required, Validators.pattern(PASSWORD_REGEX)],
-      ],
+        [Validators.required, Validators.pattern(PASSWORD_REGEX)]
+      ]
     },
     { validator: this.checkPasswords }
   );
@@ -73,15 +80,14 @@ export class RegisterComponent implements OnInit {
     private registerService: RegisterService
   ) {}
 
-  ngOnInit(): void {}
-
-  checkPasswords(group: FormGroup) {
+  // eslint-disable-next-line class-methods-use-this
+  checkPasswords(group: FormGroup): { [key: string]: boolean } | null {
     const pass = group.controls.password.value;
     const confirmPass = group.controls.confirmPassword.value;
     return pass === confirmPass ? null : { notSame: true };
   }
 
-  checkUserRegistration() {
+  checkUserRegistration(): void {
     if (this.registerForm.controls.username.value) {
       this.registerService
         .checkUserRegistration(this.registerForm.controls.username.value)
@@ -91,11 +97,11 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  resetErrorMessage() {
+  resetErrorMessage(): void {
     this.usernameExists = false;
   }
 
-  registerUser() {
+  registerUser(): void {
     const registerForm = this.registerForm.value;
     const passwordForm = this.passwordForm.value;
     const isPremiumMember = registerForm.plan !== 'trial';
@@ -109,12 +115,12 @@ export class RegisterComponent implements OnInit {
       subscriptionEndDate: isPremiumMember
         ? new Date().setHours(0, 0, 0, 0).toString()
         : 'NA',
-      isPremiumMember: isPremiumMember,
+      isPremiumMember,
       premiumMembershipReferenceId: isPremiumMember ? '1234' : 'NA',
       companyName: registerForm.companyName,
       address: registerForm.address,
       panCardNumber: registerForm.panCardNumber,
-      mobileNumber: registerForm.mobileNumber,
+      mobileNumber: registerForm.mobileNumber
     };
     this.registerService.registerUser(user).subscribe((response: any) => {
       if (response.status === 'success') {
