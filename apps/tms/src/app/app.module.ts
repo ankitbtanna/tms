@@ -25,9 +25,9 @@ import { ShareTmsModule } from './share-tms/share-tms.module';
     DashboardModule,
     ContactUsModule,
     PaymentModule,
-    ShareTmsModule,
+    ShareTmsModule
   ],
   providers: [],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -1,0 +1,13 @@
+{
+  "css.lint.zeroUnits": "warning",
+  "tslint.jsEnable": true,
+  "prettier.useTabs": true,
+  "prettier.trailingComma": "all",
+  "prettier.singleQuote": true,
+  "prettier.requireConfig": true,
+  "eslint.enable": true,
+  "eslint.workingDirectories": [{
+    "mode": "auto"
+  }],
+  "eslint.validate": ["typescript", "typescriptreact"]
+}

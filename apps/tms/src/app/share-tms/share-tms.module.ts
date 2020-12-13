@@ -16,8 +16,8 @@ import { ShareTmsService } from './services/share-tms.service';
     GridGridModule,
     HttpClientModule,
     MaterialModule,
-    ShareTmsRoutingModule,
+    ShareTmsRoutingModule
   ],
-  providers: [ShareTmsService],
+  providers: [ShareTmsService]
 })
 export class ShareTmsModule {}

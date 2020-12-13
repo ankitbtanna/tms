@@ -5,12 +5,12 @@ import { ShareTmsComponent } from './share-tms/share-tms.component';
 const routes: Routes = [
   {
     path: '',
-    component: ShareTmsComponent,
-  },
+    component: ShareTmsComponent
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
 export class ShareTmsRoutingModule {}
