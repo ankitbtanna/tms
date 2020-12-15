@@ -85,3 +85,51 @@ Content-Type: application/json
   "mobileNumber": "9228839283",
   "isBlocked": false
 }
+
+############################################################
+# GET ALL TENDERS - ADMIN ONLY
+GET http://localhost:8080/api/tenders/all
+Content-Type: application/json
+
+############################################################
+# GET TENDERS BY USERNAME - Owner check with token
+GET http://localhost:8080/api/tenders/all-tenders/ankittanna5@hotmail.com
+Content-Type: application/json
+
+############################################################
+
+# CREATE TENDER
+POST  http://localhost:8080/api/tenders
+Content-Type: application/json
+
+{
+  "tenderName": "abc"
+}
+
+############################################################
+
+# CREATE TENDER
+POST  http://localhost:8080/api/tenders
+Content-Type: application/json
+
+{
+  "tenderName": "abc"
+}
+
+############################################################
+
+# DELETE TENDER
+DELETE  http://localhost:8080/api/tenders/delete/123
+Content-Type: application/json
+
+############################################################
+
+# DELETE TENDER PERMANENTLY
+DELETE  http://localhost:8080/api/tenders/delete-permanently/123
+Content-Type: application/json
+
+############################################################
+
+# UPDATE TENDER
+PUT  http://localhost:8080/api/tenders/update/123
+Content-Type: application/json

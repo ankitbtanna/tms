@@ -34,7 +34,8 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'comma-dangle': ['error', 'never'],
     'import/order': 'off',
-    'no-useless-constructor': 'off'
+    'no-useless-constructor': 'off',
+    'class-methods-use-this': 'off'
   },
   plugins: ['html', 'prettier', 'react-hooks', '@typescript-eslint'],
   settings: {
