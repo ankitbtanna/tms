@@ -1,3 +1,4 @@
+// eslint-disable-next-line max-len
 // 'eslint:recommended', 'airbnb', 'plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended', 'prettier', 'prettier/@typescript-eslint'
 module.exports = {
   root: true,
