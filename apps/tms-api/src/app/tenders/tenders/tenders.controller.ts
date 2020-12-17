@@ -1,9 +1,11 @@
 import {
   Controller, Delete, Get, Param, Post, Put, Req
 } from '@nestjs/common';
+import { TenderService } from '../services/tender.service';
 
 @Controller('tenders')
 export class TendersController {
+  constructor(private tendersService: TenderService) {}
   // All the APIs should work if the owner of the tender is the modifier
 
   // This should work for admin only - RBAC
@@ -21,16 +23,21 @@ export class TendersController {
 
     @Post()
     createTender(@Req() req): any {
-      console.log('Get tenders by user');
-      return req.body;
+      return this.tendersService.createTender(req.body);
     }
 
     // should be soft delete
     // Check ownership
     @Delete('delete/:tenderId')
     deleteTender(@Req() req, @Param() params): any {
-      console.log('Delete tenders by user');
-      return params.tenderId;
+      return this.tendersService.deleteTender(params.tenderId);
+    }
+
+    // should be soft delete
+    // Check ownership
+    @Get('retrieve/:tenderId')
+    retrieveTender(@Req() req, @Param() params): any {
+      return this.tendersService.retrieveTender(params.tenderId);
     }
 
     // should be hard delete

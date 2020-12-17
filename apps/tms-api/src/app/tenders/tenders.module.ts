@@ -1,20 +1,22 @@
 import { HttpModule, Module } from '@nestjs/common';
-import { Tenders, TendersSchema } from './models/tenders.schema';
+import { Tender, TendersSchema } from './models/tenders.schema';
 
 import { MongooseModule } from '@nestjs/mongoose';
+import { TenderService } from './services/tender.service';
 import { TendersController } from './tenders/tenders.controller';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
-      { name: Tenders.name, schema: TendersSchema }
+      { name: Tender.name, schema: TendersSchema }
     ]),
     HttpModule
   ],
   controllers: [TendersController],
+  providers: [TenderService],
   exports: [
     MongooseModule.forFeature([
-      { name: Tenders.name, schema: TendersSchema }
+      { name: Tender.name, schema: TendersSchema }
     ])
   ]
 })

@@ -7,7 +7,8 @@ export interface TenderProperties {
     isNotFilled?: boolean;
 }
 
-export interface Tender {
+export interface TenderModel {
+    _id?: string;
     name: string;
     amount: string;
     fee: string;

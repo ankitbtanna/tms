@@ -10,21 +10,21 @@ export class TenderProperties extends Document {
     @Prop({ required: true })
     createdDate: string;
 
-    @Prop({ required: false, default: '' })
+    @Prop({ required: true, default: '' })
     document: string;
 
-    @Prop({ required: false, default: false })
+    @Prop({ required: true, default: false })
     isDeleted: boolean;
 
-    @Prop({ required: false, default: false })
+    @Prop({ required: true, default: false })
     isComplete: boolean;
 
-    @Prop({ required: false, default: false })
+    @Prop({ required: true, default: false })
     isNotFilled: boolean;
 }
 
 @Schema()
-export class Tenders extends Document {
+export class Tender extends Document {
     @Prop({ required: true })
     name: string;
 
@@ -79,7 +79,7 @@ export class Tenders extends Document {
         createdDate: 'Thu Jan 01 1970 00:00:00 GMT+0530 (IST)'
       }
     })
-    tenderProperties: TenderProperties;
+    properties: TenderProperties;
 }
-export type TendersDocument = Tenders & Document;
-export const TendersSchema = SchemaFactory.createForClass(Tenders);
+export type TendersDocument = Tender & Document;
+export const TendersSchema = SchemaFactory.createForClass(Tender);
