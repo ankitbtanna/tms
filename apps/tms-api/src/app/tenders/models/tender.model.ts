@@ -9,6 +9,7 @@ export interface TenderProperties {
 
 export interface TenderModel {
     _id?: string;
+    __v?: number;
     name: string;
     amount: string;
     fee: string;

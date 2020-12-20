@@ -11,15 +11,20 @@ export class TendersController {
   // This should work for admin only - RBAC
     @Get('all')
   getAllTenders(@Req() req): any {
-    console.log('Get all tenders');
-    return [];
+    return this.tendersService.getAllTenders();
   }
 
-    @Get('all-tenders/:username')
-    getTendersByUser(@Req() req, @Param() params): any {
-      console.log('Get tenders by user');
-      return [params.username];
+    // This gives you all tenders, including deleted(soft)
+  @Get('all/:username')
+    getAllTendersByUser(@Param() params): any {
+      return this.tendersService.getAllTendersByUserName(params.username);
     }
+
+    // This gives you all non-deleted(soft) tenders
+    @Get('all-tenders/:username')
+  getTendersByUser(@Param() params): any {
+    return this.tendersService.getTendersByUserName(params.username);
+  }
 
     @Post()
     createTender(@Req() req): any {
@@ -43,14 +48,12 @@ export class TendersController {
     // should be hard delete
     // This should work for admin only - RBAC
     @Delete('delete-permanently/:tenderId')
-    deleteTenderPermanently(@Req() req, @Param() params): any {
-      console.log('Get tenders by user');
-      return params.tenderId;
+    deleteTenderPermanently(@Param() params): any {
+      return this.tendersService.deleteTenderPermanently(params.tenderId);
     }
 
     @Put('update/:tenderId')
     updateTender(@Req() req, @Param() params): any {
-      console.log('Get tenders by user');
-      return params.tenderId;
+      return this.tendersService.updateTender(req.body, params.tenderId);
     }
 }
