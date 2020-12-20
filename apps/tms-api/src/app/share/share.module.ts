@@ -11,6 +11,7 @@ import { AuthTokenMiddleware } from '../auth/middlewares/auth-token-middleware.s
 import { MongooseModule } from '@nestjs/mongoose';
 import { ShareController } from './share/share.controller';
 import { ShareService } from './services/share.service';
+import { TokenService } from '../auth/services/token.service';
 
 @Module({
   imports: [
@@ -20,7 +21,7 @@ import { ShareService } from './services/share.service';
     HttpModule
   ],
   controllers: [ShareController],
-  providers: [ShareService],
+  providers: [ShareService, TokenService],
   exports: [
     MongooseModule.forFeature([
       { name: ShareTMS.name, schema: ShareTMSSchema }

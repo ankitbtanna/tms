@@ -1,8 +1,12 @@
 import { Injectable, Logger, NestMiddleware } from '@nestjs/common';
 import { Request, Response } from 'express';
 
+import { TokenService } from '../services/token.service';
+
 @Injectable()
 export class AuthTokenMiddleware implements NestMiddleware {
+  constructor(private tokenService: TokenService) {}
+
   // eslint-disable-next-line @typescript-eslint/ban-types
   use(req: Request, res: Response, next: Function): void {
     Logger.log(`################# REQUEST BEGIN ${req.method} - ${req.originalUrl} ###################`);
@@ -13,6 +17,7 @@ export class AuthTokenMiddleware implements NestMiddleware {
     Logger.log(`Request Headers: ${JSON.stringify(req.headers, null, '\t')}`);
     Logger.log(`Request Cookies: ${req.cookies}`);
     Logger.log(`################# REQUEST END ${req.method} - ${req.originalUrl} ###################`);
-    next();
+
+    this.tokenService.verifyAccessToken(req, res, next);
   }
 }

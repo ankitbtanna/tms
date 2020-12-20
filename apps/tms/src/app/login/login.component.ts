@@ -38,8 +38,8 @@ export class LoginComponent {
       this.loginService.login(user).subscribe((response) => {
         if (response.status === 'success') {
           window.localStorage.setItem('loggedInUser', response.username);
-          this.cookieService.set('loggedInUser', response.username);
-          this.cookieService.set('accessToken', response.accessToken);
+          this.cookieService.set('logged-in-user', response.username);
+          this.cookieService.set('access-token', response.accessToken);
           this.router.navigate(['/dashboard']);
         }
       });
