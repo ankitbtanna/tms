@@ -1,11 +1,11 @@
+import { API_PATHS } from '../../api-paths';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { API_PATHS } from '../../api-paths';
 import { UserAuthentication } from '../models/user-authentication.model';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class LoginService {
   constructor(private http: HttpClient) {}

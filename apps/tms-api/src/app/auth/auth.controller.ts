@@ -1,4 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
+
 import { KeyGeneratorService } from './services/key-generator.service';
 
 @Controller('auth')

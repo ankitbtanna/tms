@@ -3,13 +3,14 @@
  * This is only a minimal backend to get started.
  */
 
-import { Logger } from '@nestjs/common';
-import { NestFactory } from '@nestjs/core';
+import * as mongoose from 'mongoose';
+import * as morgan from 'morgan';
+
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 import { AppModule } from './app/app.module';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import * as morgan from 'morgan';
-import * as mongoose from 'mongoose';
+import { Logger } from '@nestjs/common';
+import { NestFactory } from '@nestjs/core';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -30,7 +31,7 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
   await app.listen(port, () => {
-    Logger.log('Listening at http://localhost:' + port + '/' + globalPrefix);
+    Logger.log(`Listening at http://localhost:${port}/${globalPrefix}`);
   });
   process.on('SIGINT', async () => {
     await mongoose.connection.close();
