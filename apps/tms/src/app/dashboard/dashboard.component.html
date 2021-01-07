@@ -57,3 +57,8 @@
 <div fxFlex fxLayout="row">
   <tms-grid [columnDefs]="columnDefs" [rowData]="rowData"></tms-grid>
 </div>
+<tms-modal-popup #createTenderModalWrapper>
+  <tms-create-tender 
+  (onCreateTender)="createTender($event)" 
+  fxFlex fxLayout="column"></tms-create-tender>
+</tms-modal-popup>

@@ -1,6 +1,11 @@
 import * as _moment from 'moment';
 
 import {
+  Component,
+  EventEmitter,
+  Output
+} from '@angular/core';
+import {
   DateAdapter,
   MAT_DATE_FORMATS,
   MAT_DATE_LOCALE
@@ -20,11 +25,10 @@ import {
   TENDER_FEE_REGEX,
   TENDER_ID_REGEX,
   TENDER_NAME_REGEX,
-  TENDER_REFERENCE_NUMBER_REGEX,
-  TENDER_USER_WEBSITE_REGEX
+  TENDER_REFERENCE_NUMBER_REGEX
 } from '../dashboard.constant';
 
-import { Component } from '@angular/core';
+import { TenderModel } from '../models/tender.model';
 
 const moment = _moment;
 
@@ -41,7 +45,7 @@ export const MY_FORMATS = {
 };
 
 @Component({
-  selector: 'tms-workspace-create-tender',
+  selector: 'tms-create-tender',
   templateUrl: './create-tender.component.html',
   styleUrls: ['./create-tender.component.scss'],
   providers: [
@@ -58,6 +62,8 @@ export class CreateTenderComponent {
   date = new FormControl(moment());
 
   hide = true;
+
+  @Output() onCreateTender: EventEmitter<TenderModel> = new EventEmitter();
 
   addTenderForm: FormGroup = new FormGroup({
     tenderName: new FormControl('', [
@@ -93,10 +99,39 @@ export class CreateTenderComponent {
     tenderUserKeyName: new FormControl(''),
     tenderUserLoginId: new FormControl(''),
     tenderUserPassword: new FormControl(''),
-    tenderUserWebsite: new FormControl('', [
-      Validators.pattern(TENDER_USER_WEBSITE_REGEX)
-    ])
+    tenderUserWebsite: new FormControl('')
   });
+
+  createTender(): void {
+    this.onCreateTender.emit(this.generateTenderPayload());
+  }
+
+  private generateTenderPayload(): TenderModel {
+    const tenderPayload: TenderModel = {
+      name: this.addTenderForm.controls.tenderName.value,
+      amount: this.addTenderForm.controls.tenderAmount.value,
+      fee: this.addTenderForm.controls.tenderFee.value,
+      emd: this.addTenderForm.controls.tenderEMD.value,
+      referenceNumber: this.addTenderForm.controls.tenderReferenceNumber.value,
+      tenderId: this.addTenderForm.controls.tenderId.value,
+      publishedDate: this.addTenderForm.controls.tenderPublishedDate.value,
+      bidDueDate: this.addTenderForm.controls.tenderBidDueDate.value,
+      bidCutOffTime: this.addTenderForm.controls.tenderBidCutOffTime.value,
+      userKeyName: this.addTenderForm.controls.tenderUserKeyName.value,
+      userLoginId: this.addTenderForm.controls.tenderUserLoginId.value,
+      userPassword: this.addTenderForm.controls.tenderUserPassword.value,
+      userWebsite: this.addTenderForm.controls.tenderUserWebsite.value,
+      properties: {
+        owner: '',
+        createdDate: (new Date()).toString(),
+        document: '',
+        isDeleted: false,
+        isComplete: false,
+        isNotFilled: false
+      }
+    };
+    return tenderPayload;
+  }
 
   private forbiddenBidDueDate(control: FormControl) {
     const currentDate = new Date();

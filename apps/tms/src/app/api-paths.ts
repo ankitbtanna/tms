@@ -12,6 +12,7 @@ export const API_PATHS = {
     BLOCK_SHAKEHOLDER: 'http://localhost:8080/api/share/block-stakeholder'
   },
   TENDERS: {
-    GET_TENDER_BY_USERNAME: 'http://localhost:8080/api/tenders/tenders/${username}'
+    GET_TENDER_BY_USERNAME: 'http://localhost:8080/api/tenders/tenders/${username}',
+    CREATE_TENDER: 'http://localhost:8080/api/tenders'
   }
 };
