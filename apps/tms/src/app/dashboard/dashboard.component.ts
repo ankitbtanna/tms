@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { APP_COOKIES } from '../app.constant';
 import { CookieService } from 'ngx-cookie-service';
+import { CreateTenderComponent } from './create-tender/create-tender.component';
 import { GRAPH_COLOURS } from './dashboard.constant';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalPopupComponent } from '@tms/ui';
@@ -18,13 +19,14 @@ export class DashboardComponent implements OnInit {
   @ViewChild('createTenderModalWrapper')
   createTenderModalWrapper: ModalPopupComponent
 
+  @ViewChild('createTenderForm')
+  createTenderForm: CreateTenderComponent;
+
   graphColours = GRAPH_COLOURS;
 
   owner: string;
 
   columnDefs = [{ field: 'make' }, { field: 'model' }, { field: 'price' }];
-
-  isCreatingTender = false;
 
   rowData = [
     { make: 'Toyota', model: 'Celica', price: 35000 },
@@ -45,11 +47,10 @@ export class DashboardComponent implements OnInit {
   }
 
   createTender(tender: TenderModel): void {
-    this.isCreatingTender = true;
     // eslint-disable-next-line no-param-reassign
     tender.properties.owner = this.owner;
     this.tendersService.createTender(tender).subscribe((tender) => {
-      this.isCreatingTender = false;
+      this.createTenderForm.setLoader(false);
     });
   }
 }

@@ -63,6 +63,8 @@ export class CreateTenderComponent {
 
   hide = true;
 
+  isCreatingTender = false;
+
   @Output() onCreateTender: EventEmitter<TenderModel> = new EventEmitter();
 
   addTenderForm: FormGroup = new FormGroup({
@@ -103,7 +105,12 @@ export class CreateTenderComponent {
   });
 
   createTender(): void {
+    this.setLoader(true);
     this.onCreateTender.emit(this.generateTenderPayload());
+  }
+
+  setLoader(isLoading: boolean): void {
+    this.isCreatingTender = isLoading;
   }
 
   private generateTenderPayload(): TenderModel {

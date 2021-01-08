@@ -58,9 +58,9 @@
   <tms-grid [columnDefs]="columnDefs" [rowData]="rowData"></tms-grid>
 </div>
 <tms-modal-popup #createTenderModalWrapper>
-  <tms-create-tender 
+  <tms-create-tender
+  #createTenderForm 
   (onCreateTender)="createTender($event)" 
   fxFlex fxLayout="column">
 </tms-create-tender>
-<tms-overlay-spinner loadingText="Creating Tender..." size="32" *ngIf="isCreatingTender"></tms-overlay-spinner>
 </tms-modal-popup>
