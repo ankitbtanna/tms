@@ -24,6 +24,8 @@ export class DashboardComponent implements OnInit {
 
   columnDefs = [{ field: 'make' }, { field: 'model' }, { field: 'price' }];
 
+  isCreatingTender = false;
+
   rowData = [
     { make: 'Toyota', model: 'Celica', price: 35000 },
     { make: 'Ford', model: 'Mondeo', price: 32000 },
@@ -43,8 +45,11 @@ export class DashboardComponent implements OnInit {
   }
 
   createTender(tender: TenderModel): void {
+    this.isCreatingTender = true;
     // eslint-disable-next-line no-param-reassign
     tender.properties.owner = this.owner;
-    this.tendersService.createTender(tender).subscribe((tender) => {});
+    this.tendersService.createTender(tender).subscribe((tender) => {
+      this.isCreatingTender = false;
+    });
   }
 }
