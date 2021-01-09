@@ -55,7 +55,7 @@
   </mat-card>
 </div>
 <div fxFlex fxLayout="row" *ngIf="(tenders$ | async)?.length">
-  <tms-grid [columnDefs]="columnDefs" [rowData]="rowData"></tms-grid>
+  <tms-grid [columnDefs]="columnDefs" [rowData]="rowData" [frameworkComponents]="frameworkComponents"></tms-grid>
 </div>
 <tms-modal-popup #createTenderModalWrapper>
   <tms-create-tender
@@ -63,5 +63,8 @@
   (onCreateTender)="createTender($event)" 
   fxFlex fxLayout="column">
 </tms-create-tender>
+</tms-modal-popup>
+<tms-modal-popup #deleteTenderModalWrapper>
+  <tms-delete-popup #deleteTenderPopup [tender]="tender" (onDelete)="delete()" (onCancel)="cancel()"></tms-delete-popup>
 </tms-modal-popup>
 <tms-overlay-spinner loadingText="Loading Tenders..." size="64" *ngIf="isLoadingTenders"></tms-overlay-spinner>

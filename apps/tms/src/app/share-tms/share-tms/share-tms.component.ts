@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import { Component, OnInit } from '@angular/core';
 import { DESCRIPTION_REGEX, NAME_REGEX } from '../share-tms.constant';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -9,6 +10,7 @@ import { DeleteStakeholderPayload } from '../models/delete-stakeholder-payload.m
 import { MOBILE_NUMBER_REGEX } from '../../register/register.constant';
 import { ShareTmsService } from '../services/share-tms.service';
 import { Stakeholder } from '../models/stakeholder.model';
+import { StakeholderActionsComponent } from '@tms/grid';
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -20,6 +22,8 @@ export class ShareTmsComponent implements OnInit {
   private loggedInUser: string;
 
   searchStakeholderKeyword = '';
+
+  frameworkComponents;
 
   shareTMSForm = new FormGroup({
     name: new FormControl('', [
@@ -79,7 +83,11 @@ export class ShareTmsComponent implements OnInit {
 
   stakeholders$: Observable<Stakeholder[]>;
 
-  constructor(private shareTmsService: ShareTmsService) {}
+  constructor(private shareTmsService: ShareTmsService) {
+    this.frameworkComponents = {
+      btnCellRenderer: StakeholderActionsComponent
+    };
+  }
 
   ngOnInit(): void {
     this.loggedInUser = window.localStorage.getItem('loggedInUser');

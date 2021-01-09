@@ -6,9 +6,11 @@ import { finalize, map } from 'rxjs/operators';
 import { APP_COOKIES } from '../app.constant';
 import { CookieService } from 'ngx-cookie-service';
 import { CreateTenderComponent } from './create-tender/create-tender.component';
+import { DeletePopupComponent } from './delete-popup/delete-popup.component';
 import { GRAPH_COLOURS } from './dashboard.constant';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalPopupComponent } from '@tms/ui';
+import { TenderActionsComponent } from 'libs/grid/grid/src/lib/tender-actions/tender-actions.component';
 import { TenderGridModel } from './models/tender-grid.model';
 import { TenderModel } from './models/tender.model';
 import { TendersModelMapper } from './services/tenders.modelmapper';
@@ -21,14 +23,22 @@ import { TendersService } from './services/tenders.service';
 })
 export class DashboardComponent implements OnInit {
   @ViewChild('createTenderModalWrapper')
-  createTenderModalWrapper: ModalPopupComponent
+  createTenderModalWrapper: ModalPopupComponent;
+
+  @ViewChild('deleteTenderModalWrapper')
+  deleteTenderModalWrapper: ModalPopupComponent;
 
   @ViewChild('createTenderForm', { static: true, read: CreateTenderComponent })
   createTenderForm: CreateTenderComponent;
 
+  @ViewChild('deleteTenderPopup', { static: true, read: DeletePopupComponent })
+  deleteTenderPopup: DeletePopupComponent;
+
   graphColours = GRAPH_COLOURS;
 
   owner: string;
+
+  frameworkComponents;
 
   columnDefs = [
     {
@@ -129,7 +139,17 @@ export class DashboardComponent implements OnInit {
       sortable: true,
       resizable: true,
       minWidth: 200,
-      pinned: 'right'
+      pinned: 'right',
+      cellRenderer: 'btnCellRenderer',
+      cellRendererParams: {
+        completeTender: this.completeTender.bind(this),
+        cancelTenderFiling: this.cancelTenderFiling.bind(this),
+        copyTenderInformation: this.copyTenderInformation.bind(this),
+        downloadTenderDocument: this.downloadTenderDocument.bind(this),
+        addTenderDocument: this.addTenderDocument.bind(this),
+        downloadTenderCalendar: this.downloadTenderCalendar.bind(this),
+        deleteTender: this.deleteTender.bind(this)
+      }
     }
   ];
 
@@ -139,13 +159,19 @@ export class DashboardComponent implements OnInit {
 
   rowData: TenderGridModel[] = [];
 
+  tender: TenderGridModel;
+
   // eslint-disable-next-line max-len
   constructor(
     private tendersService: TendersService,
     private tendersModelMapper: TendersModelMapper,
     private cookieService: CookieService,
     private dialog: MatDialog
-  ) { }
+  ) {
+    this.frameworkComponents = {
+      btnCellRenderer: TenderActionsComponent
+    };
+  }
 
   ngOnInit(): void {
     this.owner = this.cookieService.get(APP_COOKIES.LOGGED_IN_USER);
@@ -179,5 +205,42 @@ export class DashboardComponent implements OnInit {
         }, 5000);
       })
     );
+  }
+
+  private completeTender(tender: TenderGridModel): void {
+    console.log(tender);
+  }
+
+  private cancelTenderFiling(tender: TenderGridModel): void {
+    console.log(tender);
+  }
+
+  private copyTenderInformation(tender: TenderGridModel): void {
+    console.log(tender);
+  }
+
+  private downloadTenderDocument(tender: TenderGridModel): void {
+    console.log(tender);
+  }
+
+  private addTenderDocument(tender: TenderGridModel): void {
+    console.log(tender);
+  }
+
+  private downloadTenderCalendar(tender: TenderGridModel): void {
+    console.log(tender);
+  }
+
+  private deleteTender(tender: TenderGridModel): void {
+    this.tender = tender;
+    this.deleteTenderModalWrapper.open();
+  }
+
+  delete(): void {
+    this.deleteTenderModalWrapper.close();
+  }
+
+  cancel(): void {
+    this.deleteTenderModalWrapper.close();
   }
 }

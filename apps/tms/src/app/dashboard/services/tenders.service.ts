@@ -4,6 +4,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { TenderGridModel } from '../models/tender-grid.model';
 import { TenderModel } from '../models/tender.model';
 import { map } from 'rxjs/operators';
 
@@ -23,6 +24,13 @@ export class TendersService {
 
   createTender(tender: TenderModel): Observable<TenderModel> {
     return this.http.post(API_PATHS.TENDERS.CREATE_TENDER, tender)
+      .pipe(
+        map((response: TenderModel) => response)
+      );
+  }
+
+  deleteTender(tender: TenderGridModel): Observable<TenderModel> {
+    return this.http.delete(API_PATHS.TENDERS.GET_TENDER_BY_USERNAME)
       .pipe(
         map((response: TenderModel) => response)
       );

@@ -4,6 +4,7 @@ import { CreateTenderComponent } from './create-tender/create-tender.component';
 import { CurrencyFormatterDirective } from './directives/currency-formatter/currency-formatter.directive';
 import { DashboardComponent } from './dashboard.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
+import { DeletePopupComponent } from './delete-popup/delete-popup.component';
 import { GridGridModule } from '@tms/grid';
 import { MaterialModule } from '../material.module';
 import { NgCircleProgressModule } from 'ng-circle-progress';
@@ -17,7 +18,8 @@ import { UiModule } from '@tms/ui';
     CreateTenderComponent,
     CurrencyFormatterDirective,
     DashboardComponent,
-    ProgressGraphComponent
+    ProgressGraphComponent,
+    DeletePopupComponent
   ],
   imports: [
     CommonModule,

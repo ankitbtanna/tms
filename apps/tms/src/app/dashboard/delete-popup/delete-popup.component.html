@@ -1,0 +1,19 @@
+<mat-card fxFlex fxLayout="column">
+  <mat-card-title>Delete Tender</mat-card-title>
+  <mat-card-content>
+    Are you sure you want to delete this tender? This request cannot be undone.
+    <p><strong>[{{tender?.tenderId}}] - {{tender?.name}}</strong></p>
+    If you wish to undo delete of this tender, please contact the admin.
+  </mat-card-content>
+  <mat-card-actions fxFlex fxFlexAlign="end">
+      <button
+        mat-raised-button
+        color="warn"
+        (click)="delete()"
+      >
+        Delete
+      </button>
+      <button mat-raised-button (click)="cancel()">Cancel</button>
+  </mat-card-actions>
+</mat-card>
+<tms-overlay-spinner loadingText="Deleting Tender..." size="32" *ngIf="isDeletingTender"></tms-overlay-spinner>
