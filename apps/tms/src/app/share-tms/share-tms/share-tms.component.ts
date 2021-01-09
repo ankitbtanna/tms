@@ -3,12 +3,12 @@ import { DESCRIPTION_REGEX, NAME_REGEX } from '../share-tms.constant';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 
+import { AddStakeholderPayload } from '../models/add-stakeholder-payload.model';
+import { BlockStakeholderPayload } from '../models/block-stakeholder-payload.model';
+import { DeleteStakeholderPayload } from '../models/delete-stakeholder-payload.model';
 import { MOBILE_NUMBER_REGEX } from '../../register/register.constant';
 import { ShareTmsService } from '../services/share-tms.service';
 import { Stakeholder } from '../models/stakeholder.model';
-import { AddStakeholderPayload } from '../models/add-stakeholder-payload.model';
-import { DeleteStakeholderPayload } from '../models/delete-stakeholder-payload.model';
-import { BlockStakeholderPayload } from '../models/block-stakeholder-payload.model';
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -18,7 +18,9 @@ import { BlockStakeholderPayload } from '../models/block-stakeholder-payload.mod
 })
 export class ShareTmsComponent implements OnInit {
   private loggedInUser: string;
+
   searchStakeholderKeyword = '';
+
   shareTMSForm = new FormGroup({
     name: new FormControl('', [
       Validators.required,
@@ -30,6 +32,7 @@ export class ShareTmsComponent implements OnInit {
     ]),
     description: new FormControl('', [Validators.pattern(DESCRIPTION_REGEX)])
   });
+
   columnDefs = [
     {
       field: 'name',
@@ -73,6 +76,7 @@ export class ShareTmsComponent implements OnInit {
       width: 200
     }
   ];
+
   stakeholders$: Observable<Stakeholder[]>;
 
   constructor(private shareTmsService: ShareTmsService) {}

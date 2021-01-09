@@ -54,7 +54,7 @@
     </mat-card-actions>
   </mat-card>
 </div>
-<div fxFlex fxLayout="row">
+<div fxFlex fxLayout="row" *ngIf="(tenders$ | async)?.length">
   <tms-grid [columnDefs]="columnDefs" [rowData]="rowData"></tms-grid>
 </div>
 <tms-modal-popup #createTenderModalWrapper>
@@ -64,3 +64,4 @@
   fxFlex fxLayout="column">
 </tms-create-tender>
 </tms-modal-popup>
+<tms-overlay-spinner loadingText="Loading Tenders..." size="64" *ngIf="isLoadingTenders"></tms-overlay-spinner>

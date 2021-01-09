@@ -67,7 +67,7 @@ export class CreateTenderComponent {
 
   @Output() onCreateTender: EventEmitter<TenderModel> = new EventEmitter();
 
-  addTenderForm: FormGroup = new FormGroup({
+  createTenderForm: FormGroup = new FormGroup({
     tenderName: new FormControl('', [
       Validators.required,
       Validators.pattern(TENDER_NAME_REGEX)
@@ -113,21 +113,25 @@ export class CreateTenderComponent {
     this.isCreatingTender = isLoading;
   }
 
+  resetForm(): void {
+    this.createTenderForm.reset();
+  }
+
   private generateTenderPayload(): TenderModel {
     const tenderPayload: TenderModel = {
-      name: this.addTenderForm.controls.tenderName.value,
-      amount: this.addTenderForm.controls.tenderAmount.value,
-      fee: this.addTenderForm.controls.tenderFee.value,
-      emd: this.addTenderForm.controls.tenderEMD.value,
-      referenceNumber: this.addTenderForm.controls.tenderReferenceNumber.value,
-      tenderId: this.addTenderForm.controls.tenderId.value,
-      publishedDate: this.addTenderForm.controls.tenderPublishedDate.value,
-      bidDueDate: this.addTenderForm.controls.tenderBidDueDate.value,
-      bidCutOffTime: this.addTenderForm.controls.tenderBidCutOffTime.value,
-      userKeyName: this.addTenderForm.controls.tenderUserKeyName.value,
-      userLoginId: this.addTenderForm.controls.tenderUserLoginId.value,
-      userPassword: this.addTenderForm.controls.tenderUserPassword.value,
-      userWebsite: this.addTenderForm.controls.tenderUserWebsite.value,
+      name: this.createTenderForm.controls.tenderName.value,
+      amount: this.createTenderForm.controls.tenderAmount.value,
+      fee: this.createTenderForm.controls.tenderFee.value,
+      emd: this.createTenderForm.controls.tenderEMD.value,
+      referenceNumber: this.createTenderForm.controls.tenderReferenceNumber.value,
+      tenderId: this.createTenderForm.controls.tenderId.value,
+      publishedDate: this.createTenderForm.controls.tenderPublishedDate.value,
+      bidDueDate: this.createTenderForm.controls.tenderBidDueDate.value,
+      bidCutOffTime: this.createTenderForm.controls.tenderBidCutOffTime.value,
+      userKeyName: this.createTenderForm.controls.tenderUserKeyName.value,
+      userLoginId: this.createTenderForm.controls.tenderUserLoginId.value,
+      userPassword: this.createTenderForm.controls.tenderUserPassword.value,
+      userWebsite: this.createTenderForm.controls.tenderUserWebsite.value,
       properties: {
         owner: '',
         createdDate: (new Date()).toString(),

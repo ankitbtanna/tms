@@ -1,6 +1,6 @@
 <h2 mat-dialog-title fxFlex fxFlexAlign="center">Add Tender</h2>
 <mat-dialog-content class="mat-typography" fxLayout="row" class="tender">
-  <div [formGroup]="addTenderForm" fxLayout="row" fxFlex autocomplete="off">
+  <div [formGroup]="createTenderForm" fxLayout="row" fxFlex autocomplete="off">
     <div class="form" fxFlex fxLayout="column">
       <mat-form-field fxFlex appearance="outline">
         <mat-label>Tender Name</mat-label>
@@ -9,7 +9,7 @@
           placeholder="State Govt Tender for Road Construction"
           formControlName="tenderName"
         ></textarea>
-        <mat-error *ngIf="!addTenderForm.controls.tenderName.valid"
+        <mat-error *ngIf="!createTenderForm.controls.tenderName.valid"
           >Tender Name is invalid.</mat-error
         >
       </mat-form-field>
@@ -22,11 +22,11 @@
           formControlName="tenderAmount"
           tmsCurrencyFormatter
         />
-        <mat-error *ngIf="!addTenderForm.controls.tenderName.valid"
+        <mat-error *ngIf="!createTenderForm.controls.tenderName.valid"
           >Tender Amount is invalid.</mat-error
         >
         <mat-error
-          *ngIf="!addTenderForm.controls.tenderName.hasError('pattern')"
+          *ngIf="!createTenderForm.controls.tenderName.hasError('pattern')"
           >Tender Amount can contain 0-9 a decimal and a comma(,).</mat-error
         >
       </mat-form-field>
@@ -39,10 +39,10 @@
           formControlName="tenderFee"
           tmsCurrencyFormatter
         />
-        <mat-error *ngIf="!addTenderForm.controls.tenderFee.valid"
+        <mat-error *ngIf="!createTenderForm.controls.tenderFee.valid"
           >Tender Fee is invalid.</mat-error
         >
-        <mat-error *ngIf="!addTenderForm.controls.tenderFee.hasError('pattern')"
+        <mat-error *ngIf="!createTenderForm.controls.tenderFee.hasError('pattern')"
           >Tender Fee can contain 0-9 a decimal and a comma(,).</mat-error
         >
       </mat-form-field>
@@ -54,7 +54,7 @@
           type="text"
           formControlName="tenderEMD"
         />
-        <mat-error *ngIf="!addTenderForm.controls.tenderEMD.valid"
+        <mat-error *ngIf="!createTenderForm.controls.tenderEMD.valid"
           >Tender EMD is invalid.</mat-error
         >
       </mat-form-field>
@@ -66,7 +66,7 @@
           type="text"
           formControlName="tenderReferenceNumber"
         />
-        <mat-error *ngIf="!addTenderForm.controls.tenderReferenceNumber.valid"
+        <mat-error *ngIf="!createTenderForm.controls.tenderReferenceNumber.valid"
           >Tender Reference Number is invalid.</mat-error
         >
       </mat-form-field>
@@ -78,7 +78,7 @@
           type="text"
           formControlName="tenderId"
         />
-        <mat-error *ngIf="!addTenderForm.controls.tenderId.valid"
+        <mat-error *ngIf="!createTenderForm.controls.tenderId.valid"
           >Tender ID is invalid.</mat-error
         >
       </mat-form-field>
@@ -111,8 +111,8 @@
         <mat-datepicker #datePickerBidDueDate></mat-datepicker>
         <mat-error
           *ngIf="
-            !addTenderForm.controls.tenderBidDueDate.valid &&
-            !addTenderForm.controls.tenderBidDueDate.hasError(
+            !createTenderForm.controls.tenderBidDueDate.valid &&
+            !createTenderForm.controls.tenderBidDueDate.hasError(
               'forbiddenBidDueDate'
             )
           "
@@ -120,7 +120,7 @@
         >
         <mat-error
           *ngIf="
-            addTenderForm.controls.tenderBidDueDate.hasError(
+            createTenderForm.controls.tenderBidDueDate.hasError(
               'forbiddenBidDueDate'
             )
           "
@@ -181,7 +181,7 @@
           type="text"
           formControlName="tenderUserWebsite"
         />
-        <mat-error *ngIf="!addTenderForm.controls.tenderUserWebsite.valid"
+        <mat-error *ngIf="!createTenderForm.controls.tenderUserWebsite.valid"
           >Tender Website is invalid.</mat-error
         >
       </mat-form-field>
@@ -193,7 +193,7 @@
     mat-raised-button
     cdkFocusInitial
     color="primary"
-    [disabled]="!addTenderForm.valid"
+    [disabled]="!createTenderForm.valid"
     (click)="createTender()"
   >
     Add Tender
