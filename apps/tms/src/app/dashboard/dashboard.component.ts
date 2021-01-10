@@ -33,6 +33,9 @@ export class DashboardComponent implements OnInit {
   @ViewChild('deleteTenderModalWrapper')
   deleteTenderModalWrapper: ModalPopupComponent;
 
+  @ViewChild('pdfViewerModalMapper')
+  pdfViewerModalMapper: ModalPopupComponent;
+
   @ViewChild('createTenderForm', { static: true, read: CreateTenderComponent })
   createTenderForm: CreateTenderComponent;
 
@@ -143,13 +146,15 @@ export class DashboardComponent implements OnInit {
       field: 'actions',
       sortable: true,
       resizable: true,
-      minWidth: 200,
+      minWidth: 250,
       pinned: 'right',
       cellRenderer: 'btnCellRenderer',
       cellRendererParams: {
+        activateTender: this.activateTender.bind(this),
         completeTender: this.completeTender.bind(this),
         cancelTenderFiling: this.cancelTenderFiling.bind(this),
         copyTenderInformation: this.copyTenderInformation.bind(this),
+        viewTenderDocument: this.viewTenderDocument.bind(this),
         downloadTenderDocument: this.downloadTenderDocument.bind(this),
         addTenderDocument: this.addTenderDocument.bind(this),
         downloadTenderCalendar: this.downloadTenderCalendar.bind(this),
@@ -252,6 +257,22 @@ export class DashboardComponent implements OnInit {
       this.getTenders();
       this.toasterService.showToast('Tender is cancelled.');
     });
+  }
+
+  private viewTenderDocument(tender: TenderGridModel): void {
+    this.tender = tender;
+    this.pdfViewerModalMapper.open();
+  }
+
+  private activateTender(tender: TenderGridModel): void {
+    if (tender.isComplete || tender.isNotFilled || tender.isDeleted) {
+      this.tendersService.activateTender(tender).subscribe(() => {
+        this.getTenders();
+        this.toasterService.showToast('Tender is activated.');
+      });
+    } else {
+      this.toasterService.showToast('Tender is already activate.', 'info');
+    }
   }
 
   private copyTenderInformation(tender: TenderGridModel): void {

@@ -1,5 +1,14 @@
 <mat-icon 
 inline="true" 
+matTooltip="Make Tender Active"
+(click)="activateTender()"
+(mouseenter)="isActiveHovered = true"
+(mouseout)="isActiveHovered = false"
+class="actions actions--activate" [ngClass]="{'material-icons-outlined': !isActiveHovered}">
+play_circle
+</mat-icon>
+<mat-icon 
+inline="true" 
 matTooltip="Complete Tender"
 (click)="completeTender()"
 (mouseenter)="isCompleteHovered = true"
@@ -24,6 +33,15 @@ matTooltip="Copy Tender Information"
 (mouseout)="isCopyHovered = false"  
 class="actions actions--copy" [ngClass]="{'material-icons-outlined': !isCopyHovered}">
   file_copy
+</mat-icon>
+<mat-icon 
+inline="true" 
+matTooltip="View Document"
+(click)="viewTenderDocument()"
+(mouseenter)="isViewDocumentHovered = true"
+(mouseout)="isViewDocumentHovered = false" 
+class="actions actions--viewDocument" [ngClass]="{'material-icons-outlined': !isViewDocumentHovered}">
+  text_snippet
 </mat-icon>
 <mat-icon 
 inline="true" 

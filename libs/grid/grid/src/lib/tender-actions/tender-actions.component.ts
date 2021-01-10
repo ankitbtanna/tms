@@ -25,12 +25,20 @@ export class TenderActionsComponent implements ICellRendererAngularComp {
 
   isDeleteHovered = false;
 
+  isActiveHovered = false;
+
+  isViewDocumentHovered = false
+
   refresh(params: any): boolean {
     return true;
   }
 
   agInit(params: ICellRendererParams): void {
     this.params = params;
+  }
+
+  activateTender(): void {
+    this.params.activateTender(this.params.data);
   }
 
   completeTender(): void {
@@ -43,6 +51,10 @@ export class TenderActionsComponent implements ICellRendererAngularComp {
 
   copyTenderInformation(): void {
     this.params.copyTenderInformation(this.params.data);
+  }
+
+  viewTenderDocument(): void {
+    this.params.viewTenderDocument(this.params.data);
   }
 
   downloadTenderDocument(): void {

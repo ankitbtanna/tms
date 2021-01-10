@@ -15,9 +15,14 @@ body {
   width: 100%;
 }
 
-.is-blocked {
+.is-blocked, .is-cancelled {
   background-color: #ffd1d1 !important;
   color: #8a0000 !important;
+}
+
+.is-complete {
+  background-color: #d1ffd1 !important;
+  color: #075200 !important;
 }
 
 .mat-dialog-container {

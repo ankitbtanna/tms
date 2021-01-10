@@ -40,6 +40,7 @@ export class TendersService {
   completeTender(tender: TenderGridModel, isComplete: boolean): Observable<TenderModel> {
     const tenderPayload = this.transformTenderGridModelToTenderModel(tender);
     tenderPayload.properties.isComplete = isComplete;
+    tenderPayload.properties.isNotFilled = false;
     return this.http.put(API_PATHS.TENDERS.UPDATE_TENDER.replace('${tenderId}', tender._id), tenderPayload)
       .pipe(
         map((response: TenderModel) => response)
@@ -49,6 +50,18 @@ export class TendersService {
   cancelTender(tender: TenderGridModel, isCancelled: boolean): Observable<TenderModel> {
     const tenderPayload = this.transformTenderGridModelToTenderModel(tender);
     tenderPayload.properties.isNotFilled = isCancelled;
+    tenderPayload.properties.isComplete = false;
+    return this.http.put(API_PATHS.TENDERS.UPDATE_TENDER.replace('${tenderId}', tender._id), tenderPayload)
+      .pipe(
+        map((response: TenderModel) => response)
+      );
+  }
+
+  activateTender(tender: TenderGridModel): Observable<TenderModel> {
+    const tenderPayload = this.transformTenderGridModelToTenderModel(tender);
+    tenderPayload.properties.isNotFilled = false;
+    tenderPayload.properties.isComplete = false;
+    tenderPayload.properties.isDeleted = false;
     return this.http.put(API_PATHS.TENDERS.UPDATE_TENDER.replace('${tenderId}', tender._id), tenderPayload)
       .pipe(
         map((response: TenderModel) => response)
