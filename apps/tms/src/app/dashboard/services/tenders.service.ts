@@ -46,6 +46,15 @@ export class TendersService {
       );
   }
 
+  cancelTender(tender: TenderGridModel, isCancelled: boolean): Observable<TenderModel> {
+    const tenderPayload = this.transformTenderGridModelToTenderModel(tender);
+    tenderPayload.properties.isNotFilled = isCancelled;
+    return this.http.put(API_PATHS.TENDERS.UPDATE_TENDER.replace('${tenderId}', tender._id), tenderPayload)
+      .pipe(
+        map((response: TenderModel) => response)
+      );
+  }
+
   getTenderStats(tenders: TenderModel[]): { [key: string]: number } {
     let [completed, active, cancelled] = [0, 0, 0];
     tenders.forEach((tender) => {
@@ -58,7 +67,6 @@ export class TendersService {
       }
     });
     active = tenders.length - completed - cancelled;
-    console.log(`Tenders: ${tenders.length}, completed: ${completed}, cancelled: ${cancelled}, active: ${active}`);
     return {
       completed,
       active,

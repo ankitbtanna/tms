@@ -1,0 +1,39 @@
+:host {
+    display: flex;
+    flex: 1;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+}
+
+.toast {
+    display: flex;
+    flex: 1;
+    padding: 10px;
+    align-items: center;
+    font-size: 16px;
+}
+
+.success {
+    background-color: rgb(208, 255, 138);
+    color: darkgreen;
+    border-left: 10px solid darkgreen;
+}
+
+.error {
+  background-color: rgb(255, 201, 201);
+  color: rgb(100, 0, 0);
+  border-left: 10px solid rgb(100, 0, 0);
+}
+
+.warning {
+  background-color: rgb(255, 238, 184);
+  color: rgb(117, 63, 0);
+  border-left: 10px solid rgb(117, 63, 0);
+}
+
+.info {
+  background-color: rgb(192, 225, 255);
+  color: rgb(0, 2, 100);
+  border-left: 10px solid rgb(0, 2, 100);
+}

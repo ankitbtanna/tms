@@ -19,6 +19,7 @@ import { TenderGridModel } from './models/tender-grid.model';
 import { TenderModel } from './models/tender.model';
 import { TendersModelMapper } from './services/tenders.modelmapper';
 import { TendersService } from './services/tenders.service';
+import { ToasterService } from 'libs/ui/src/lib/toaster/services/toaster.service';
 
 @Component({
   selector: 'tms-workspace-dashboard',
@@ -180,6 +181,7 @@ export class DashboardComponent implements OnInit {
   constructor(
     private tendersService: TendersService,
     private tendersModelMapper: TendersModelMapper,
+    private toasterService: ToasterService,
     private cookieService: CookieService
   ) {
     this.frameworkComponents = {
@@ -203,6 +205,9 @@ export class DashboardComponent implements OnInit {
       this.createTenderForm.setLoader(false);
       this.createTenderModalWrapper.close();
       this.getTenders();
+      this.toasterService.showToast('Tender created successfully.');
+    }, () => {
+      this.toasterService.showToast('Error creating tender. Please contact admin.', 'error');
     });
   }
 
@@ -213,31 +218,37 @@ export class DashboardComponent implements OnInit {
       map((tenders) => {
         this.rowData = this.tendersModelMapper.getTenderDataForGrid(tenders);
         this.tenderStats = this.tendersService.getTenderStats(tenders);
-        console.log(this.tenderStats);
         this.showDashboard = true;
         return tenders;
       }),
       finalize(() => {
         setTimeout(() => {
           this.isLoadingTenders = false;
+          this.toasterService.showToast('Showing all tenders.');
         }, 5000);
       })
     );
   }
 
   private completeTender(tender: TenderGridModel): void {
-    console.log(tender);
     this.tendersService.completeTender(tender, true).subscribe(() => {
       this.getTenders();
+      this.toasterService.showToast('Tender is completed.');
     });
   }
 
   private cancelTenderFiling(tender: TenderGridModel): void {
-    console.log(tender);
+    this.tendersService.cancelTender(tender, true).subscribe(() => {
+      this.getTenders();
+      this.toasterService.showToast('Tender is cancelled.');
+    });
   }
 
   private copyTenderInformation(tender: TenderGridModel): void {
-    console.log(tender);
+    const tenderInformation = JSON.stringify(tender, null, 4);
+    navigator.clipboard.writeText(tenderInformation).then(() => {
+      this.toasterService.showToast('Copied to clipboard.');
+    });
   }
 
   private downloadTenderDocument(tender: TenderGridModel): void {
@@ -262,6 +273,7 @@ export class DashboardComponent implements OnInit {
       this.getTenders();
       this.deleteTenderPopup.setDeletingTender(false);
       this.deleteTenderModalWrapper.close();
+      this.toasterService.showToast('Tender is deleted.');
     });
   }
 

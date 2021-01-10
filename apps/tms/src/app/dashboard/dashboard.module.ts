@@ -11,6 +11,7 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
 import { NgModule } from '@angular/core';
 import { ProgressGraphComponent } from './progress-graph/progress-graph.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ToasterModule } from 'libs/ui/src/lib/toaster/toaster.module';
 import { UiModule } from '@tms/ui';
 
 @NgModule({
@@ -26,6 +27,7 @@ import { UiModule } from '@tms/ui';
     DashboardRoutingModule,
     GridGridModule,
     MaterialModule,
+    ToasterModule,
     NgCircleProgressModule.forRoot({
       radius: 60,
       outerStrokeWidth: 10,
