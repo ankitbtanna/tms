@@ -3,6 +3,10 @@ pdf-viewer {
     overflow-y: scroll;
 }
 
-.close-viewer {
-    float: right;
+.title {
+    display: flex;
+    flex: 1;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
 }

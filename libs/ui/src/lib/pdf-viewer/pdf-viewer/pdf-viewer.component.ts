@@ -18,6 +18,7 @@ export class PDFViewerComponent {
     @Output() onClose: EventEmitter<void> = new EventEmitter();
 
     close(): void {
+      this.pdfSrc = undefined;
       this.onClose.emit();
     }
 }
