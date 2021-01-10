@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable import/no-unresolved */
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable, of } from 'rxjs';
@@ -237,7 +238,11 @@ export class DashboardComponent implements OnInit {
   }
 
   delete(): void {
-    this.deleteTenderModalWrapper.close();
+    this.tendersService.deleteTender(this.tender._id).subscribe(() => {
+      this.getTenders();
+      this.deleteTenderPopup.setDeletingTender(false);
+      this.deleteTenderModalWrapper.close();
+    });
   }
 
   cancel(): void {
