@@ -1,6 +1,7 @@
 <mat-card>
     <mat-card-title>
         {{title}}
+        <button mat-raised-button color="warn" class="close-viewer" (click)="close()">Close</button>
     </mat-card-title>
     <mat-card-content>
         <pdf-viewer [src]="pdfSrc" [render-text]="true" [show-all]="true" style="display: block;">

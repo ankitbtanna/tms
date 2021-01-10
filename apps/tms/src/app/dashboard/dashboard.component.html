@@ -68,6 +68,6 @@
   <tms-delete-popup #deleteTenderPopup [tender]="tender" (onDelete)="delete()" (onCancel)="cancel()"></tms-delete-popup>
 </tms-modal-popup>
 <tms-modal-popup #pdfViewerModalMapper>
-  <tms-pdf-viewer [title]="'['+tender?.tenderId+'] ' + tender?.name"></tms-pdf-viewer>
+  <tms-pdf-viewer [title]="'['+tender?.tenderId+'] ' + tender?.name" (onClose)="closePdfViewer()"></tms-pdf-viewer>
 </tms-modal-popup>
 <tms-overlay-spinner loadingText="Loading Tenders..." size="64" *ngIf="isLoadingTenders"></tms-overlay-spinner>

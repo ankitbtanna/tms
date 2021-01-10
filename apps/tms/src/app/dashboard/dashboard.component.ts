@@ -311,4 +311,8 @@ export class DashboardComponent implements OnInit {
   cancel(): void {
     this.deleteTenderModalWrapper.close();
   }
+
+  closePdfViewer(): void {
+    this.pdfViewerModalMapper.close();
+  }
 }

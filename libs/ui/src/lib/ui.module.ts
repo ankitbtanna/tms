@@ -1,6 +1,7 @@
 import { AlertComponent } from './alert/alert.component';
 import { CommonModule } from '@angular/common';
 import { IconRegistryModule } from './icon-registry/icon-registry.module';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -16,6 +17,7 @@ import { ToasterModule } from './toaster/toaster.module';
     CommonModule,
     MatIconModule,
     MatDialogModule,
+    MatButtonModule,
     ToasterModule,
     MatCardModule,
     PdfViewerModule
