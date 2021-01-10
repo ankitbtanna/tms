@@ -50,6 +50,6 @@
     Stakeholders({{(stakeholders$ | async)?.length || 0}})
   </mat-card-subtitle>
   <mat-card-content fxFlex class="grid">
-    <tms-grid [frameworkComponents]="frameworkComponents" [columnDefs]="columnDefs" [rowData]="stakeholders$ | async"></tms-grid>
+    <tms-grid [validateData]="validateData" [frameworkComponents]="frameworkComponents" [columnDefs]="columnDefs" [rowData]="stakeholders$ | async"></tms-grid>
   </mat-card-content>
 </mat-card>

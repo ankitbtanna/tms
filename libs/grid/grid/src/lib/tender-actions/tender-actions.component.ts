@@ -11,6 +11,20 @@ import { ICellRendererParams } from 'ag-grid-community';
 export class TenderActionsComponent implements ICellRendererAngularComp {
   params: any;
 
+  isCompleteHovered = false;
+
+  isCancelledHovered = false;
+
+  isCopyHovered = false;
+
+  isDownloadHovered = false;
+
+  isUploadHovered = false;
+
+  isInvitationHovered = false;
+
+  isDeleteHovered = false;
+
   refresh(params: any): boolean {
     return true;
   }

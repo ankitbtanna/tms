@@ -55,7 +55,7 @@
   </mat-card>
 </div>
 <div fxFlex fxLayout="row" *ngIf="(tenders$ | async)?.length">
-  <tms-grid [columnDefs]="columnDefs" [rowData]="rowData" [frameworkComponents]="frameworkComponents"></tms-grid>
+  <tms-grid [validateData]="validateData" [columnDefs]="columnDefs" [rowData]="rowData" [frameworkComponents]="frameworkComponents"></tms-grid>
 </div>
 <tms-modal-popup #createTenderModalWrapper>
   <tms-create-tender

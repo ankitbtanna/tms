@@ -1,50 +1,64 @@
 <mat-icon 
 inline="true" 
 matTooltip="Complete Tender"
-(click)="completeTender()" 
-class="actions actions--complete">
+(click)="completeTender()"
+(mouseenter)="isCompleteHovered = true"
+(mouseout)="isCompleteHovered = false"
+class="actions actions--complete" [ngClass]="{'material-icons-outlined': !isCompleteHovered}">
 check_circle
 </mat-icon>
 <mat-icon 
 inline="true" 
 matTooltip="Cancel Tender Filing"
 (click)="cancelTenderFiling()" 
-class="actions actions--cancel-filing">
+(mouseenter)="isCancelledHovered = true"
+(mouseout)="isCancelledHovered = false" 
+class="actions actions--cancel-filing" [ngClass]="{'material-icons-outlined': !isCancelledHovered}">
 cancel
 </mat-icon>
 <mat-icon 
 inline="true" 
 matTooltip="Copy Tender Information"
-(click)="copyTenderInformation()" 
-class="actions actions--copy">
-  content_copy
+(click)="copyTenderInformation()"
+(mouseenter)="isCopyHovered = true"
+(mouseout)="isCopyHovered = false"  
+class="actions actions--copy" [ngClass]="{'material-icons-outlined': !isCopyHovered}">
+  file_copy
 </mat-icon>
 <mat-icon 
 inline="true" 
 matTooltip="Download Document"
-(click)="downloadTenderDocument()" 
-class="actions actions--download">
+(click)="downloadTenderDocument()"
+(mouseenter)="isDownloadHovered = true"
+(mouseout)="isDownloadHovered = false" 
+class="actions actions--download" [ngClass]="{'material-icons-outlined': !isDownloadHovered}">
   file_download
 </mat-icon>
 <mat-icon 
 inline="true" 
 matTooltip="Add Tender Document" 
-(click)="addTenderDocument()" 
-class="actions actions--upload">
+(click)="addTenderDocument()"
+(mouseenter)="isUploadHovered = true"
+(mouseout)="isUploadHovered = false" 
+class="actions actions--upload" [ngClass]="{'material-icons-outlined': !isUploadHovered}">
   file_upload
 </mat-icon>
 <mat-icon 
 inline="true" 
 disabled
 matTooltip="Download Tender Calendar" 
-(click)="downloadTenderCalendar()" 
-class="actions actions--calendar">
+(click)="downloadTenderCalendar()"
+(mouseenter)="isInvitationHovered = true"
+(mouseout)="isInvitationHovered = false"  
+class="actions actions--calendar" [ngClass]="{'material-icons-outlined': !isInvitationHovered}">
   insert_invitation
 </mat-icon>
 <mat-icon 
 inline="true" 
 matTooltip="Delete Tender" 
-(click)="deleteTender()" 
-class="actions actions--delete">
+(click)="deleteTender()"
+(mouseenter)="isDeleteHovered = true"
+(mouseout)="isDeleteHovered = false" 
+class="actions actions--delete" [ngClass]="{'material-icons-outlined': !isDeleteHovered}">
   delete_forever
 </mat-icon>

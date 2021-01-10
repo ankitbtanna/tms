@@ -168,6 +168,16 @@ export class DashboardComponent implements OnInit {
 
   showDashboard = false;
 
+  validateData = (params) => {
+    if (params.data?.isComplete) {
+      return 'is-complete';
+    }
+    if (params.data?.isNotFilled) {
+      return 'is-cancelled';
+    }
+    return '';
+  };
+
   tenderStats: { [key: string]: number } = {
     completed: 0,
     completedPercentage: 0,

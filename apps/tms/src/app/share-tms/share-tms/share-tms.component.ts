@@ -25,6 +25,8 @@ export class ShareTmsComponent implements OnInit {
 
   frameworkComponents;
 
+  validateData = (params) => (params.data?.isBlocked ? 'is-blocked' : '');
+
   shareTMSForm = new FormGroup({
     name: new FormControl('', [
       Validators.required,

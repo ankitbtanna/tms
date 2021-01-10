@@ -15,6 +15,8 @@ export class GridComponent {
 
   @Input() frameworkComponents;
 
+  @Input() validateData;
+
   onGridReady(params) {
     params.api.sizeColumnsToFit();
   }
@@ -23,7 +25,7 @@ export class GridComponent {
     params.api.sizeColumnsToFit();
   }
 
-  validateData(params): string {
-    return params.data?.isBlocked ? 'is-blocked' : '';
-  }
+  // validateData(params): string {
+  //   return params.data?.isBlocked ? 'is-blocked' : '';
+  // }
 }
