@@ -10,11 +10,11 @@
     Add Tender
   </button>
 </mat-toolbar>
-<div class="dashboard" fxLayout="row">
+<div class="dashboard" fxLayout="row" *ngIf="showDashboard">
   <mat-card class="dashboard--graph" fxLayout="column">
     <tms-progress-graph
-      [percent]="90"
-      [title]="['90', 'COMPLETE']"
+      [percent]="tenderStats.completedPercentage"
+      [title]="[tenderStats.completed?.toString()+'('+tenderStats.completedPercentage+'%)', 'COMPLETE']"
       [outerStrokeColor]="graphColours.completeOuterStrokeColor"
       [innerStrokeColor]="graphColours.completeInnerStrokeColor"
     ></tms-progress-graph>
@@ -27,8 +27,8 @@
   </mat-card>
   <mat-card class="dashboard--graph" fxLayout="column">
     <tms-progress-graph
-      [percent]="60"
-      [title]="['60', 'ACTIVE']"
+      [percent]="tenderStats.activePercentage"
+      [title]="[tenderStats.active?.toString()+'('+tenderStats.activePercentage+'%)', 'ACTIVE']"
       [outerStrokeColor]="graphColours.activeOuterStrokeColor"
       [innerStrokeColor]="graphColours.activeInnerStrokeColor"
     ></tms-progress-graph>
@@ -41,8 +41,8 @@
   </mat-card>
   <mat-card class="dashboard--graph" fxLayout="column">
     <tms-progress-graph
-      [percent]="25"
-      [title]="['25', 'NOT FILLED']"
+      [percent]="tenderStats.cancelledPercentage"
+      [title]="[tenderStats.cancelled?.toString()+'('+tenderStats.cancelledPercentage+'%)', 'NOT FILLED']"
       [outerStrokeColor]="graphColours.incompleteOuterStrokeColor"
       [innerStrokeColor]="graphColours.incompleteInnerStrokeColor"
     ></tms-progress-graph>

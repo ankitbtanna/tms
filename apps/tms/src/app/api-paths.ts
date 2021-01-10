@@ -14,6 +14,7 @@ export const API_PATHS = {
   TENDERS: {
     GET_TENDER_BY_USERNAME: 'http://localhost:8080/api/tenders/all-tenders/${username}',
     CREATE_TENDER: 'http://localhost:8080/api/tenders',
-    DELETE_TENDER: 'http://localhost:8080/api/tenders/delete/${tenderId}'
+    DELETE_TENDER: 'http://localhost:8080/api/tenders/delete/${tenderId}',
+    UPDATE_TENDER: 'http://localhost:8080/api/tenders/update/${tenderId}'
   }
 };

@@ -1,6 +1,10 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable import/no-unresolved */
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild
+} from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
 
@@ -9,7 +13,6 @@ import { CookieService } from 'ngx-cookie-service';
 import { CreateTenderComponent } from './create-tender/create-tender.component';
 import { DeletePopupComponent } from './delete-popup/delete-popup.component';
 import { GRAPH_COLOURS } from './dashboard.constant';
-import { MatDialog } from '@angular/material/dialog';
 import { ModalPopupComponent } from '@tms/ui';
 import { TenderActionsComponent } from 'libs/grid/grid/src/lib/tender-actions/tender-actions.component';
 import { TenderGridModel } from './models/tender-grid.model';
@@ -162,12 +165,22 @@ export class DashboardComponent implements OnInit {
 
   tender: TenderGridModel;
 
+  showDashboard = false;
+
+  tenderStats: { [key: string]: number } = {
+    completed: 0,
+    completedPercentage: 0,
+    active: 0,
+    activePercentage: 0,
+    cancelled: 0,
+    cancelledPercentage: 0
+  };
+
   // eslint-disable-next-line max-len
   constructor(
     private tendersService: TendersService,
     private tendersModelMapper: TendersModelMapper,
-    private cookieService: CookieService,
-    private dialog: MatDialog
+    private cookieService: CookieService
   ) {
     this.frameworkComponents = {
       btnCellRenderer: TenderActionsComponent
@@ -195,9 +208,13 @@ export class DashboardComponent implements OnInit {
 
   private getTenders() {
     this.isLoadingTenders = true;
+    this.showDashboard = false;
     this.tenders$ = this.tendersService.getTendersByUsername().pipe(
       map((tenders) => {
         this.rowData = this.tendersModelMapper.getTenderDataForGrid(tenders);
+        this.tenderStats = this.tendersService.getTenderStats(tenders);
+        console.log(this.tenderStats);
+        this.showDashboard = true;
         return tenders;
       }),
       finalize(() => {
@@ -210,6 +227,9 @@ export class DashboardComponent implements OnInit {
 
   private completeTender(tender: TenderGridModel): void {
     console.log(tender);
+    this.tendersService.completeTender(tender, true).subscribe(() => {
+      this.getTenders();
+    });
   }
 
   private cancelTenderFiling(tender: TenderGridModel): void {
