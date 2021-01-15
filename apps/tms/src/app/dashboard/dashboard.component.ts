@@ -216,7 +216,7 @@ export class DashboardComponent implements OnInit {
   createTender(tender: TenderModel): void {
     // eslint-disable-next-line no-param-reassign
     tender.properties.owner = this.owner;
-    this.tendersService.createTender(tender).subscribe((tender) => {
+    this.tendersService.createTender(tender).subscribe(() => {
       this.createTenderForm.setLoader(false);
       this.createTenderModalWrapper.close();
       this.getTenders();

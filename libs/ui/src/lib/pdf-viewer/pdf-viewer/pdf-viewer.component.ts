@@ -13,7 +13,9 @@ import {
 export class PDFViewerComponent {
     @Input() title: string;
 
-    @Input() pdfSrc = 'https://vadimdez.github.io/ng2-pdf-viewer/assets/pdf-test.pdf';
+    @Input() pdfSrc = 'https://storage.googleapis.com/tms-docs/sample-pdf.pdf';
+    // 'https://vadimdez.github.io/ng2-pdf-viewer/assets/pdf-test.pdf';
+    // https://storage.googleapis.com/tms-docs/sample-pdf.pdf
 
     @Output() onClose: EventEmitter<void> = new EventEmitter();
 
