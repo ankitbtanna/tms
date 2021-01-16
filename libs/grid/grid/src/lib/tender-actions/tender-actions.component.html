@@ -1,82 +1,45 @@
-<mat-icon 
-inline="true" 
-matTooltip="Make Tender Active"
-(click)="activateTender()"
-(mouseenter)="isActiveHovered = true"
-(mouseout)="isActiveHovered = false"
-class="actions actions--activate" [ngClass]="{'material-icons-outlined': !isActiveHovered}">
-play_circle
+<mat-icon inline="true" matTooltip="Make Tender Active" (click)="activateTender()" (mouseenter)="isActiveHovered = true"
+  (mouseout)="isActiveHovered = false" class="actions actions--activate"
+  [ngClass]="{'material-icons-outlined': !isActiveHovered}">
+  play_circle
 </mat-icon>
-<mat-icon 
-inline="true" 
-matTooltip="Complete Tender"
-(click)="completeTender()"
-(mouseenter)="isCompleteHovered = true"
-(mouseout)="isCompleteHovered = false"
-class="actions actions--complete" [ngClass]="{'material-icons-outlined': !isCompleteHovered}">
-check_circle
+<mat-icon inline="true" matTooltip="Complete Tender" (click)="completeTender()" (mouseenter)="isCompleteHovered = true"
+  (mouseout)="isCompleteHovered = false" class="actions actions--complete"
+  [ngClass]="{'material-icons-outlined': !isCompleteHovered}">
+  check_circle
 </mat-icon>
-<mat-icon 
-inline="true" 
-matTooltip="Cancel Tender Filing"
-(click)="cancelTenderFiling()" 
-(mouseenter)="isCancelledHovered = true"
-(mouseout)="isCancelledHovered = false" 
-class="actions actions--cancel-filing" [ngClass]="{'material-icons-outlined': !isCancelledHovered}">
-cancel
+<mat-icon inline="true" matTooltip="Cancel Tender Filing" (click)="cancelTenderFiling()"
+  (mouseenter)="isCancelledHovered = true" (mouseout)="isCancelledHovered = false"
+  class="actions actions--cancel-filing" [ngClass]="{'material-icons-outlined': !isCancelledHovered}">
+  cancel
 </mat-icon>
-<mat-icon 
-inline="true" 
-matTooltip="Copy Tender Information"
-(click)="copyTenderInformation()"
-(mouseenter)="isCopyHovered = true"
-(mouseout)="isCopyHovered = false"  
-class="actions actions--copy" [ngClass]="{'material-icons-outlined': !isCopyHovered}">
+<mat-icon inline="true" matTooltip="Copy Tender Information" (click)="copyTenderInformation()"
+  (mouseenter)="isCopyHovered = true" (mouseout)="isCopyHovered = false" class="actions actions--copy"
+  [ngClass]="{'material-icons-outlined': !isCopyHovered}">
   file_copy
 </mat-icon>
-<mat-icon 
-inline="true" 
-matTooltip="View Document"
-(click)="viewTenderDocument()"
-(mouseenter)="isViewDocumentHovered = true"
-(mouseout)="isViewDocumentHovered = false" 
-class="actions actions--viewDocument" [ngClass]="{'material-icons-outlined': !isViewDocumentHovered}">
+<mat-icon inline="true" matTooltip="View Document" (click)="viewTenderDocument()"
+  (mouseenter)="isViewDocumentHovered = true" (mouseout)="isViewDocumentHovered = false"
+  class="actions actions--viewDocument" [ngClass]="{'material-icons-outlined': !isViewDocumentHovered}">
   text_snippet
 </mat-icon>
-<mat-icon 
-inline="true" 
-matTooltip="Download Document"
-(click)="downloadTenderDocument()"
-(mouseenter)="isDownloadHovered = true"
-(mouseout)="isDownloadHovered = false" 
-class="actions actions--download" [ngClass]="{'material-icons-outlined': !isDownloadHovered}">
+<mat-icon inline="true" matTooltip="Download Document" (click)="downloadTenderDocument()"
+  (mouseenter)="isDownloadHovered = true" (mouseout)="isDownloadHovered = false" class="actions actions--download"
+  [ngClass]="{'material-icons-outlined': !isDownloadHovered}">
   file_download
 </mat-icon>
-<mat-icon 
-inline="true" 
-matTooltip="Add Tender Document" 
-(click)="addTenderDocument()"
-(mouseenter)="isUploadHovered = true"
-(mouseout)="isUploadHovered = false" 
-class="actions actions--upload" [ngClass]="{'material-icons-outlined': !isUploadHovered}">
+<mat-icon inline="true" matTooltip="Add Tender Document" (click)="addTenderDocument()"
+  (mouseenter)="isUploadHovered = true" (mouseout)="isUploadHovered = false" class="actions actions--upload"
+  [ngClass]="{'material-icons-outlined': !isUploadHovered}">
   file_upload
 </mat-icon>
-<mat-icon 
-inline="true" 
-disabled
-matTooltip="Download Tender Calendar" 
-(click)="downloadTenderCalendar()"
-(mouseenter)="isInvitationHovered = true"
-(mouseout)="isInvitationHovered = false"  
-class="actions actions--calendar" [ngClass]="{'material-icons-outlined': !isInvitationHovered}">
+<mat-icon inline="true" disabled matTooltip="Download Tender Calendar" (click)="downloadTenderCalendar()"
+  (mouseenter)="isInvitationHovered = true" (mouseout)="isInvitationHovered = false" class="actions actions--calendar"
+  [ngClass]="{'material-icons-outlined': !isInvitationHovered}">
   insert_invitation
 </mat-icon>
-<mat-icon 
-inline="true" 
-matTooltip="Delete Tender" 
-(click)="deleteTender()"
-(mouseenter)="isDeleteHovered = true"
-(mouseout)="isDeleteHovered = false" 
-class="actions actions--delete" [ngClass]="{'material-icons-outlined': !isDeleteHovered}">
+<mat-icon inline="true" matTooltip="Delete Tender" (click)="deleteTender()" (mouseenter)="isDeleteHovered = true"
+  (mouseout)="isDeleteHovered = false" class="actions actions--delete"
+  [ngClass]="{'material-icons-outlined': !isDeleteHovered}">
   delete_forever
 </mat-icon>

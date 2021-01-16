@@ -1,17 +1,21 @@
 <mat-toolbar class="header">
   <span>All Tenders - Summary</span>
-  <button
-    mat-raised-button
-    color="primary"
-    class="action"
-    (click)="openAddTenderDialog()"
-  >
+  <button mat-raised-button color="primary" class="action" (click)="openAddTenderDialog()">
     <mat-icon>library_add</mat-icon>
     Add Tender
   </button>
 </mat-toolbar>
-<div class="dashboard" fxLayout="row" *ngIf="showDashboard">
-  <mat-card class="dashboard--graph" fxLayout="column">
+<!-- <div class="dashboard" fxLayout="row" *ngIf="showDashboard">
+  <mat-accordion>
+  <mat-expansion-panel (opened)="panelOpenState = true"
+                       (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{!panelOpenState ? 'Show Dashboard' : 'Hide Dashboard'}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div fxLayout="row">
+      <mat-card class="dashboard--graph" fxLayout="column">
     <tms-progress-graph
       [percent]="tenderStats.completedPercentage"
       [title]="[tenderStats.completed?.toString()+'('+tenderStats.completedPercentage+'%)', 'COMPLETE']"
@@ -53,16 +57,38 @@
       </button>
     </mat-card-actions>
   </mat-card>
-</div>
-<div fxFlex fxLayout="row" *ngIf="(tenders$ | async)?.length">
-  <tms-grid [validateData]="validateData" [columnDefs]="columnDefs" [rowData]="rowData" [frameworkComponents]="frameworkComponents"></tms-grid>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
+</div> -->
+<div fxFlex fxLayout="row">
+  <div fxFlex fxLayout="column">
+    <div class="tms-filter" fxLayoutAlign="start start" fxLayout="column">
+      <label>Filter Tenders By:</label>
+      <mat-form-field appearance="outline" class="dropdown">
+        <mat-select [(value)]="selected">
+          <mat-option value="NONE">None</mat-option>
+          <mat-option value="TODAY">Today</mat-option>
+          <mat-option value="YESTERDAY">Yesterday</mat-option>
+          <mat-option value="LAST_WEEK">Last Week</mat-option>
+          <mat-option value="LAST_MONTH">Last Month</mat-option>
+          <mat-option value="LAST_YEAR">Last Year</mat-option>
+          <mat-option value="CUSTOM">Custom</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div fxFlex fxLayout="row" *ngIf="(tenders$ | async)?.length">
+      <tms-grid [validateData]="validateData" [columnDefs]="columnDefs" [rowData]="rowData"
+        [frameworkComponents]="frameworkComponents" (onRowSelection)="toggleTenderDetails($event)"></tms-grid>
+    </div>
+  </div>
+  <div fxFlex class="details" *ngIf="selectedTender">
+    <tms-tender-details [tender]="selectedTender" (onCloseTender)="closeTenderDetails()"></tms-tender-details>
+  </div>
 </div>
 <tms-modal-popup #createTenderModalWrapper>
-  <tms-create-tender
-  #createTenderForm 
-  (onCreateTender)="createTender($event)" 
-  fxFlex fxLayout="column">
-</tms-create-tender>
+  <tms-create-tender #createTenderForm (onCreateTender)="createTender($event)" fxFlex fxLayout="column">
+  </tms-create-tender>
 </tms-modal-popup>
 <tms-modal-popup #deleteTenderModalWrapper>
   <tms-delete-popup #deleteTenderPopup [tender]="tender" (onDelete)="delete()" (onCancel)="cancel()"></tms-delete-popup>

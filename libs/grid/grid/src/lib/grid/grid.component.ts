@@ -1,4 +1,9 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output
+} from '@angular/core';
 
 import { GridSizeChangedEvent } from 'ag-grid-community';
 
@@ -17,12 +22,21 @@ export class GridComponent {
 
   @Input() validateData;
 
+  @Output() onRowSelection: EventEmitter<any> = new EventEmitter();
+
+  rowSelection = 'single';
+
   onGridReady(params) {
     params.api.sizeColumnsToFit();
   }
 
   onGridSizeChanged(params: GridSizeChangedEvent) {
     params.api.sizeColumnsToFit();
+  }
+
+  onSelectionChanged(data): void {
+    const rowData = data.api.getSelectedRows();
+    this.onRowSelection.emit(rowData);
   }
 
   // validateData(params): string {

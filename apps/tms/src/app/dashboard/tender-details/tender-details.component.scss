@@ -1,0 +1,37 @@
+:host {
+  padding: 20px;
+  height: 100%;
+}
+
+.tender {
+  &--title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 26ch;
+  }
+
+  &--close {
+    cursor: pointer;
+    float: right;
+  }
+
+  &--detail {
+    height: 40px;
+    border-bottom: 1px solid rgb(220, 220, 220);
+
+    &--key {
+      font-weight: 100;
+      padding-right: 10px;
+    }
+
+    &--value {
+      font-weight: 500;
+      padding-left: 10px;
+    }
+  }
+}
+
+.close {
+  max-width: 25px;
+}

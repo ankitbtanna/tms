@@ -15,6 +15,7 @@ import { ProgressGraphComponent } from './progress-graph/progress-graph.componen
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToasterModule } from 'libs/ui/src/lib/toaster/toaster.module';
 import { UiModule } from '@tms/ui';
+import { TenderDetailsComponent } from './tender-details/tender-details.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { UiModule } from '@tms/ui';
     CurrencyFormatterDirective,
     DashboardComponent,
     ProgressGraphComponent,
-    DeletePopupComponent
+    DeletePopupComponent,
+    TenderDetailsComponent
   ],
   imports: [
     CommonModule,

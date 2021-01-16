@@ -15,7 +15,8 @@ body {
   width: 100%;
 }
 
-.is-blocked, .is-cancelled {
+.is-blocked,
+.is-cancelled {
   background-color: #ffd1d1 !important;
   color: #8a0000 !important;
 }
@@ -31,4 +32,9 @@ body {
 
 .mat-snack-bar-container {
   padding: 0 !important;
+}
+
+.separator {
+  width: 100%;
+  border: 1px solid rgb(201, 201, 201);
 }

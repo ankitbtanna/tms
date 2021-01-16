@@ -1,7 +1,9 @@
+/* eslint-disable prefer-destructuring */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable import/no-unresolved */
 import {
   Component,
+  OnDestroy,
   OnInit,
   ViewChild
 } from '@angular/core';
@@ -26,7 +28,7 @@ import { ToasterService } from 'libs/ui/src/lib/toaster/services/toaster.service
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
   @ViewChild('createTenderModalWrapper')
   createTenderModalWrapper: ModalPopupComponent;
 
@@ -44,9 +46,15 @@ export class DashboardComponent implements OnInit {
 
   graphColours = GRAPH_COLOURS;
 
+  panelOpenState = false;
+
+  selected = 'NONE';
+
   owner: string;
 
   frameworkComponents;
+
+  selectedTender: TenderGridModel = undefined;
 
   columnDefs = [
     {
@@ -204,6 +212,10 @@ export class DashboardComponent implements OnInit {
     };
   }
 
+  ngOnDestroy(): void {
+    this.selectedTender = undefined;
+  }
+
   ngOnInit(): void {
     this.owner = this.cookieService.get(APP_COOKIES.LOGGED_IN_USER);
     this.getTenders();
@@ -226,6 +238,18 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  toggleTenderDetails(data): void {
+    this.selectedTender = data[0];
+  }
+
+  closeTenderDetails(): void {
+    this.selectedTender = undefined;
+  }
+
+  setSelectedTender(tender): void {
+    this.selectedTender = tender;
+  }
+
   private getTenders() {
     this.isLoadingTenders = true;
     this.showDashboard = false;
@@ -240,12 +264,13 @@ export class DashboardComponent implements OnInit {
         setTimeout(() => {
           this.isLoadingTenders = false;
           this.toasterService.showToast('Showing all tenders.');
-        }, 5000);
+        }, 500);
       })
     );
   }
 
   private completeTender(tender: TenderGridModel): void {
+    this.setSelectedTender(undefined);
     this.tendersService.completeTender(tender, true).subscribe(() => {
       this.getTenders();
       this.toasterService.showToast('Tender is completed.');
@@ -253,6 +278,7 @@ export class DashboardComponent implements OnInit {
   }
 
   private cancelTenderFiling(tender: TenderGridModel): void {
+    this.setSelectedTender(undefined);
     this.tendersService.cancelTender(tender, true).subscribe(() => {
       this.getTenders();
       this.toasterService.showToast('Tender is cancelled.');
@@ -260,11 +286,13 @@ export class DashboardComponent implements OnInit {
   }
 
   private viewTenderDocument(tender: TenderGridModel): void {
+    this.setSelectedTender(undefined);
     this.tender = tender;
     this.pdfViewerModalMapper.open();
   }
 
   private activateTender(tender: TenderGridModel): void {
+    this.setSelectedTender(undefined);
     if (tender.isComplete || tender.isNotFilled || tender.isDeleted) {
       this.tendersService.activateTender(tender).subscribe(() => {
         this.getTenders();
@@ -276,6 +304,7 @@ export class DashboardComponent implements OnInit {
   }
 
   private copyTenderInformation(tender: TenderGridModel): void {
+    this.setSelectedTender(undefined);
     const tenderInformation = JSON.stringify(tender, null, 4);
     navigator.clipboard.writeText(tenderInformation).then(() => {
       this.toasterService.showToast('Copied to clipboard.');
@@ -283,18 +312,22 @@ export class DashboardComponent implements OnInit {
   }
 
   private downloadTenderDocument(tender: TenderGridModel): void {
+    this.setSelectedTender(undefined);
     console.log(tender);
   }
 
   private addTenderDocument(tender: TenderGridModel): void {
+    this.setSelectedTender(undefined);
     console.log(tender);
   }
 
   private downloadTenderCalendar(tender: TenderGridModel): void {
+    this.setSelectedTender(undefined);
     console.log(tender);
   }
 
   private deleteTender(tender: TenderGridModel): void {
+    this.setSelectedTender(undefined);
     this.tender = tender;
     this.deleteTenderModalWrapper.open();
   }
