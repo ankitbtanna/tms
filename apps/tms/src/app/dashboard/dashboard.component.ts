@@ -64,49 +64,67 @@ export class DashboardComponent implements OnInit, OnDestroy {
       resizable: true,
       minWidth: 500,
       wrapText: true,
-      autoHeight: true
+      autoHeight: true,
+      filter: 'agTextColumnFilter',
     },
     {
       field: 'amount',
       sortable: true,
       resizable: true,
-      minWidth: 200
+      minWidth: 200,
+      filter: 'agNumberColumnFilter'
     },
     {
       field: 'fee',
       sortable: true,
       resizable: true,
-      minWidth: 200
+      minWidth: 200,
+      filter: 'agNumberColumnFilter'
     },
     {
       field: 'emd',
       sortable: true,
       resizable: true,
-      minWidth: 200
+      minWidth: 200,
+      filter: 'agTextColumnFilter',
     },
     {
       field: 'referenceNumber',
       sortable: true,
       resizable: true,
-      minWidth: 200
+      minWidth: 200,
+      filter: 'agTextColumnFilter',
     },
     {
       field: 'tenderId',
       sortable: true,
       resizable: true,
-      minWidth: 200
+      minWidth: 200,
+      filter: 'agTextColumnFilter',
     },
     {
       field: 'publishedDate',
       sortable: true,
       resizable: true,
-      minWidth: 200
+      minWidth: 200,
+      valueFormatter: this.dateFormatterPublishedDate.bind(this),
+      filter: 'agDateColumnFilter',
     },
     {
       field: 'bidDueDate',
       sortable: true,
       resizable: true,
-      minWidth: 200
+      minWidth: 200,
+      filter: 'agDateColumnFilter',
+      valueFormatter: this.dateFormatterBidDueDate.bind(this),
+    },
+    {
+      field: 'createdDate',
+      sortable: true,
+      resizable: true,
+      minWidth: 200,
+      filter: 'agDateColumnFilter',
+      valueFormatter: this.dateFormatterCreatedDate.bind(this),
     },
     {
       field: 'bidCutOffTime',
@@ -136,19 +154,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
       field: 'userWebsite',
       sortable: true,
       resizable: true,
-      minWidth: 200
+      minWidth: 200,
+      filter: 'agTextColumnFilter',
     },
     {
       field: 'owner',
       sortable: true,
       resizable: true,
-      minWidth: 200
-    },
-    {
-      field: 'createdDate',
-      sortable: true,
-      resizable: true,
-      minWidth: 200
+      minWidth: 200,
+      filter: 'agTextColumnFilter',
     },
     {
       field: 'actions',
@@ -347,5 +361,26 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   closePdfViewer(): void {
     this.pdfViewerModalMapper.close();
+  }
+
+  private dateFormatterPublishedDate(params) {
+    const dateAsString = params.data.publishedDate;
+    const _zeroPad = num => (num < 10 ? '0' + num : num);
+    const date = new Date(dateAsString);
+    return `${_zeroPad(date.getDate())}/${_zeroPad(date.getMonth() + 1)}/${_zeroPad(date.getFullYear())}`;
+  }
+
+  private dateFormatterBidDueDate(params) {
+    const dateAsString = params.data.bidDueDate;
+    const _zeroPad = num => (num < 10 ? '0' + num : num);
+    const date = new Date(dateAsString);
+    return `${_zeroPad(date.getDate())}/${_zeroPad(date.getMonth() + 1)}/${_zeroPad(date.getFullYear())}`;
+  }
+
+  private dateFormatterCreatedDate(params) {
+    const dateAsString = params.data.createdDate;
+    const _zeroPad = num => (num < 10 ? '0' + num : num);
+    const date = new Date(dateAsString);
+    return `${_zeroPad(date.getDate())}/${_zeroPad(date.getMonth() + 1)}/${_zeroPad(date.getFullYear())}`;
   }
 }

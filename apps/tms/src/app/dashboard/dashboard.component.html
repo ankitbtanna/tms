@@ -63,20 +63,6 @@
 </div> -->
 <div fxFlex fxLayout="row">
   <div fxFlex fxLayout="column">
-    <div class="tms-filter" fxLayoutAlign="start start" fxLayout="column">
-      <label>Filter Tenders By:</label>
-      <mat-form-field appearance="outline" class="dropdown">
-        <mat-select [(value)]="selected">
-          <mat-option value="NONE">None</mat-option>
-          <mat-option value="TODAY">Today</mat-option>
-          <mat-option value="YESTERDAY">Yesterday</mat-option>
-          <mat-option value="LAST_WEEK">Last Week</mat-option>
-          <mat-option value="LAST_MONTH">Last Month</mat-option>
-          <mat-option value="LAST_YEAR">Last Year</mat-option>
-          <mat-option value="CUSTOM">Custom</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
     <div fxFlex fxLayout="row" *ngIf="(tenders$ | async)?.length">
       <tms-grid [validateData]="validateData" [columnDefs]="columnDefs" [rowData]="rowData"
         [frameworkComponents]="frameworkComponents" (onRowSelection)="toggleTenderDetails($event)"></tms-grid>

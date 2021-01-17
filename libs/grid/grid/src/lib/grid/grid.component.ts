@@ -24,6 +24,12 @@ export class GridComponent {
 
   @Output() onRowSelection: EventEmitter<any> = new EventEmitter();
 
+  sideBar;
+
+  constructor() {
+    this.sideBar = 'filters'
+  }
+
   rowSelection = 'single';
 
   onGridReady(params) {

@@ -7,15 +7,15 @@ export interface TenderGridModel {
     emd: string;
     referenceNumber: string;
     tenderId: string;
-    publishedDate: string;
-    bidDueDate: string;
+    publishedDate: Date;
+    bidDueDate: Date;
     bidCutOffTime: string;
     userKeyName?: string;
     userLoginId?: string;
     userPassword?: string;
     userWebsite?: string;
     owner: string;
-    createdDate: string;
+    createdDate: Date;
     document?: string;
     isDeleted?: boolean;
     isComplete?: boolean;

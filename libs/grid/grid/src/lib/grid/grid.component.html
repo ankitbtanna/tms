@@ -1,5 +1,5 @@
 <ag-grid-angular #agGrid class="ag-theme-alpine" [rowData]="rowData" [columnDefs]="columnDefs"
   [frameworkComponents]="frameworkComponents" [getRowClass]="validateData" [rowSelection]="rowSelection"
-  (selectionChanged)="onSelectionChanged($event)" (gridReady)="onGridReady($event)"
+  (selectionChanged)="onSelectionChanged($event)" (gridReady)="onGridReady($event)" [sideBar]="sideBar"
   (gridSizeChanged)="onGridSizeChanged($event)">
 </ag-grid-angular>
