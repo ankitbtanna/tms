@@ -9,7 +9,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { USERNAME_REGEX, PASSWORD_REGEX } from './forgot-password.constant';
 
 @Component({
-  selector: 'tms-workspace-forgot-password',
+  selector: 'tms-forgot-password',
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.scss'],
 })
