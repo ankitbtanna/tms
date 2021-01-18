@@ -165,6 +165,27 @@ export class DashboardComponent implements OnInit, OnDestroy {
       filter: 'agTextColumnFilter',
     },
     {
+      field: 'isNotFilled',
+      sortable: true,
+      resizable: true,
+      minWidth: 200,
+      filter: 'agTextColumnFilter',
+    },
+    {
+      field: 'isComplete',
+      sortable: true,
+      resizable: true,
+      minWidth: 200,
+      filter: 'agTextColumnFilter',
+    },
+    {
+      field: 'isActive',
+      sortable: true,
+      resizable: true,
+      minWidth: 200,
+      filter: 'agTextColumnFilter',
+    },
+    {
       field: 'actions',
       sortable: true,
       resizable: true,

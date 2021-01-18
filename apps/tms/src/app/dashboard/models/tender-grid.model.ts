@@ -19,5 +19,6 @@ export interface TenderGridModel {
     document?: string;
     isDeleted?: boolean;
     isComplete?: boolean;
+    isActive?: boolean;
     isNotFilled?: boolean;
 }

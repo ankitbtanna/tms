@@ -29,6 +29,7 @@ export class TendersModelMapper {
       document: tender.properties.document,
       isDeleted: tender.properties.isDeleted,
       isComplete: tender.properties.isComplete,
+      isActive: !tender.properties.isDeleted && !tender.properties.isComplete && !tender.properties.isNotFilled,
       isNotFilled: tender.properties.isNotFilled
     }));
   }
