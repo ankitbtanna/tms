@@ -13,6 +13,7 @@ import { NgModule } from '@angular/core';
 import { PaymentModule } from './payment/payment.module';
 import { RegisterModule } from './register/register.module';
 import { ShareTmsModule } from './share-tms/share-tms.module';
+import { AuthGuardService } from './auth/auth-guard.service';
 
 @NgModule({
   declarations: [AppComponent, NavbarComponent, FooterComponent],
@@ -28,7 +29,7 @@ import { ShareTmsModule } from './share-tms/share-tms.module';
     PaymentModule,
     ShareTmsModule
   ],
-  providers: [CookieService],
+  providers: [CookieService, AuthGuardService],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

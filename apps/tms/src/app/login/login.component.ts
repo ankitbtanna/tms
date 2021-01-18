@@ -1,7 +1,7 @@
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PASSWORD_REGEX, USERNAME_REGEX } from './login.constant';
 
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { LoginService } from './services/login.service';
 import { Router } from '@angular/router';
@@ -13,7 +13,7 @@ import { UserAuthentication } from './models/user-authentication.model';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   hide = true;
 
   isPasswordFocused = false;
@@ -30,14 +30,17 @@ export class LoginComponent {
   });
 
   // eslint-disable-next-line max-len
-  constructor(private loginService: LoginService, private router: Router, private cookieService: CookieService) {}
+  constructor(private loginService: LoginService, private router: Router, private cookieService: CookieService) { }
+
+  ngOnInit(): void {
+    this.cookieService.deleteAll();
+  }
 
   login(): void {
     if (this.loginForm.valid) {
       const user: UserAuthentication = this.loginForm.value;
       this.loginService.login(user).subscribe((response) => {
         if (response.status === 'success') {
-          window.localStorage.setItem('loggedInUser', response.username);
           this.cookieService.set('logged-in-user', response.username);
           this.cookieService.set('access-token', response.accessToken);
           this.router.navigate(['/dashboard']);

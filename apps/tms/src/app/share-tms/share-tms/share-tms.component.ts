@@ -11,6 +11,7 @@ import { MOBILE_NUMBER_REGEX } from '../../register/register.constant';
 import { ShareTmsService } from '../services/share-tms.service';
 import { Stakeholder } from '../models/stakeholder.model';
 import { StakeholderActionsComponent } from '@tms/grid';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -85,14 +86,15 @@ export class ShareTmsComponent implements OnInit {
 
   stakeholders$: Observable<Stakeholder[]>;
 
-  constructor(private shareTmsService: ShareTmsService) {
+  constructor(private shareTmsService: ShareTmsService, private cookieService: CookieService) {
     this.frameworkComponents = {
       btnCellRenderer: StakeholderActionsComponent
     };
   }
 
   ngOnInit(): void {
-    this.loggedInUser = window.localStorage.getItem('loggedInUser');
+    const LOGGED_IN_USER = 'logged-in-user';
+    this.loggedInUser = this.cookieService.get(LOGGED_IN_USER);
     this.stakeholders$ = this.getAllStakeholders(this.loggedInUser);
   }
 
