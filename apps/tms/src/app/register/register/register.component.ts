@@ -11,17 +11,18 @@ import {
   USERNAME_REGEX
 } from '../register.constant';
 
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RegisterService } from '../services/register.service';
 import { Router } from '@angular/router';
 import { User } from '../models/users.model';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'tms-workspace-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
   isLinear = false;
 
   hide = true;
@@ -77,8 +78,13 @@ export class RegisterComponent {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private registerService: RegisterService
-  ) {}
+    private registerService: RegisterService,
+    private cookieService: CookieService
+  ) { }
+
+  ngOnInit(): void {
+    this.cookieService.deleteAll();
+  }
 
   // eslint-disable-next-line class-methods-use-this
   checkPasswords(group: FormGroup): { [key: string]: boolean } | null {
