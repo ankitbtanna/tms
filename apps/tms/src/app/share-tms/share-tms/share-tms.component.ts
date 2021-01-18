@@ -44,43 +44,36 @@ export class ShareTmsComponent implements OnInit {
     {
       field: 'name',
       sortable: true,
+      resizable: true,
       minWidth: 500,
-      filter: 'agSetColumnFilter',
-      floatingFilter: true,
-      filterParams: {
-        applyMiniFilterWhileTyping: true,
-        suppressSorting: true
-      }
+      pinned: 'left',
+      filter: 'agSetColumnFilter'
     },
     {
       field: 'mobileNumber',
       sortable: true,
+      resizable: true,
       minWidth: 200,
-      filter: 'agSetColumnFilter',
-      floatingFilter: true,
-      filterParams: {
-        applyMiniFilterWhileTyping: true,
-        suppressSorting: true
-      }
+      filter: 'agSetColumnFilter'
     },
     {
       field: 'description',
+      sortable: true,
+      resizable: true,
       minWidth: 500,
-      filter: 'agSetColumnFilter',
-      floatingFilter: true,
-      filterParams: {
-        applyMiniFilterWhileTyping: true,
-        suppressSorting: true
-      }
+      filter: 'agSetColumnFilter'
     },
     {
       field: 'actions',
+      sortable: true,
+      resizable: true,
       cellRenderer: 'btnCellRenderer',
       cellRendererParams: {
         blockStakeholder: this.blockStakeholder.bind(this),
         deleteStakeholder: this.deleteStakeholder.bind(this)
       },
-      width: 200
+      pinned: 'right',
+      minWidth: 300
     }
   ];
 
