@@ -1,6 +1,6 @@
 import { Tender, TendersDocument } from '../models/tenders.schema';
 import { InjectModel } from '@nestjs/mongoose';
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { TenderModel } from '../models/tender.model';
 
@@ -15,37 +15,56 @@ export class TenderService {
       const tenders = await this.tenders.find().exec();
       return tenders;
     } catch (error) {
-      return error;
+      throw new HttpException({
+        status: HttpStatus.INTERNAL_SERVER_ERROR,
+        error: JSON.stringify(error),
+      }, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
   // eslint-disable-next-line max-len
   async getAllTendersByUserName(username: string): Promise<TenderModel[] | { [key: string]: string }> {
     try {
-      if (!username) return { message: 'Invalid username.', status: 'failure' };
+      if (!username) {
+        throw new HttpException({
+          status: HttpStatus.BAD_REQUEST,
+          error: 'Invalid username.',
+        }, HttpStatus.BAD_REQUEST);
+      }
       const allTendersByUsername = await this.tenders.find({
         'properties.owner': username
       }).exec();
       return allTendersByUsername;
     } catch (error) {
-      return error;
+      throw new HttpException({
+        status: HttpStatus.INTERNAL_SERVER_ERROR,
+        error: JSON.stringify(error),
+      }, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
   async getTendersByUserName(username: string): Promise<TenderModel[] | { [key: string]: string }> {
     try {
-      if (!username) return { message: 'Invalid username.', status: 'failure' };
+      if (!username) {
+        throw new HttpException({
+          status: HttpStatus.BAD_REQUEST,
+          error: 'Invalid username.',
+        }, HttpStatus.BAD_REQUEST);
+      }
       const tendersByUsername = await this.tenders.find({
         'properties.owner': username,
         'properties.isDeleted': false
       }).exec();
       return tendersByUsername;
     } catch (error) {
-      return error;
+      throw new HttpException({
+        status: HttpStatus.INTERNAL_SERVER_ERROR,
+        error: JSON.stringify(error),
+      }, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
-  async createTender(tender: TenderModel): Promise<TenderModel | {[key: string]: string}> {
+  async createTender(tender: TenderModel): Promise<TenderModel | { [key: string]: string }> {
     try {
       if (!tender) return { message: 'Invalid tender details.', status: 'failure' };
       if (!tender.name) return { message: 'Invalid tender name.', status: 'failure' };
@@ -64,12 +83,15 @@ export class TenderService {
       const createdTender = await newTender.save();
       return createdTender;
     } catch (error) {
-      return error;
+      throw new HttpException({
+        status: HttpStatus.INTERNAL_SERVER_ERROR,
+        error: JSON.stringify(error),
+      }, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
   // eslint-disable-next-line max-len
-  async updateTender(tender: TenderModel, tenderId: string): Promise<TenderModel | {[key: string]: string}> {
+  async updateTender(tender: TenderModel, tenderId: string): Promise<TenderModel | { [key: string]: string }> {
     try {
       if (!tenderId) return { message: 'Invalid tender id.', status: 'failure' };
       if (!tender) return { message: 'Invalid tender details.', status: 'failure' };
@@ -98,13 +120,21 @@ export class TenderService {
       const updatedTender: TenderModel = await this.tenders.findOne({ _id: tenderId });
       return updatedTender;
     } catch (error) {
-      return error;
+      throw new HttpException({
+        status: HttpStatus.INTERNAL_SERVER_ERROR,
+        error: JSON.stringify(error),
+      }, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
   async deleteTender(tenderId: string): Promise<TenderModel | { [key: string]: string }> {
     try {
-      if (!tenderId) return { message: 'Invalid tender id.', status: 'failure' };
+      if (!tenderId) {
+        throw new HttpException({
+          status: HttpStatus.BAD_REQUEST,
+          error: 'Invalid tender id.',
+        }, HttpStatus.BAD_REQUEST);
+      }
       const currentTender: TenderModel = await this.tenders.findOne({ _id: tenderId });
       currentTender.properties.isDeleted = true;
       await this.tenders
@@ -119,13 +149,21 @@ export class TenderService {
       const updatedTender: TenderModel = await this.tenders.findOne({ _id: tenderId });
       return updatedTender;
     } catch (error) {
-      return error;
+      throw new HttpException({
+        status: HttpStatus.INTERNAL_SERVER_ERROR,
+        error: JSON.stringify(error),
+      }, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
   async retrieveTender(tenderId: string): Promise<TenderModel | { [key: string]: string }> {
     try {
-      if (!tenderId) return { message: 'Invalid tender id.', status: 'failure' };
+      if (!tenderId) {
+        throw new HttpException({
+          status: HttpStatus.BAD_REQUEST,
+          error: 'Invalid tender id.',
+        }, HttpStatus.BAD_REQUEST);
+      }
       const currentTender: TenderModel = await this.tenders.findOne({ _id: tenderId });
       currentTender.properties.isDeleted = false;
       await this.tenders
@@ -140,17 +178,112 @@ export class TenderService {
       const updatedTender: TenderModel = await this.tenders.findOne({ _id: tenderId });
       return updatedTender;
     } catch (error) {
-      return error;
+      throw new HttpException({
+        status: HttpStatus.INTERNAL_SERVER_ERROR,
+        error: JSON.stringify(error),
+      }, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
   async deleteTenderPermanently(tenderId: string): Promise<unknown | { [key: string]: string }> {
     try {
-      if (!tenderId) return { message: 'Invalid tender id.', status: 'failure' };
+      if (!tenderId) {
+        throw new HttpException({
+          status: HttpStatus.BAD_REQUEST,
+          error: 'Invalid tender id.',
+        }, HttpStatus.BAD_REQUEST);
+      }
       await this.tenders.deleteOne({ _id: tenderId });
       return true;
     } catch (error) {
-      return error;
+      throw new HttpException({
+        status: HttpStatus.INTERNAL_SERVER_ERROR,
+        error: JSON.stringify(error),
+      }, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  checkAndThrowException(tenderId: string, tender: TenderModel) {
+    if (!tenderId) {
+      throw new HttpException({
+        status: HttpStatus.BAD_REQUEST,
+        error: 'Invalid tender id.',
+      }, HttpStatus.BAD_REQUEST);
+    }
+
+    if (!tender) {
+      throw new HttpException({
+        status: HttpStatus.BAD_REQUEST,
+        error: 'Invalid tender details.',
+      }, HttpStatus.BAD_REQUEST);
+    }
+
+    if (!tender.name) {
+      throw new HttpException({
+        status: HttpStatus.BAD_REQUEST,
+        error: 'Invalid tender name.',
+      }, HttpStatus.BAD_REQUEST);
+    }
+
+    if (!tender.amount) {
+      throw new HttpException({
+        status: HttpStatus.BAD_REQUEST,
+        error: 'Invalid tender amount.',
+      }, HttpStatus.BAD_REQUEST);
+    }
+    if (!tender.fee) {
+      throw new HttpException({
+        status: HttpStatus.BAD_REQUEST,
+        error: 'Invalid tender fees.',
+      }, HttpStatus.BAD_REQUEST);
+    }
+    if (!tender.emd) {
+      throw new HttpException({
+        status: HttpStatus.BAD_REQUEST,
+        error: 'Invalid tender emd.',
+      }, HttpStatus.BAD_REQUEST);
+    }
+    if (!tender.bidDueDate) {
+      throw new HttpException({
+        status: HttpStatus.BAD_REQUEST,
+        error: 'Invalid tender Bid Due Date.',
+      }, HttpStatus.BAD_REQUEST);
+    }
+    if (!tender.bidCutOffTime) {
+      throw new HttpException({
+        status: HttpStatus.BAD_REQUEST,
+        error: 'Invalid tender Bid Cut Off Time.',
+      }, HttpStatus.BAD_REQUEST);
+    }
+    if (!tender.referenceNumber) {
+      throw new HttpException({
+        status: HttpStatus.BAD_REQUEST,
+        error: 'Invalid tender Reference Number.',
+      }, HttpStatus.BAD_REQUEST);
+    }
+    if (!tender.tenderId) {
+      throw new HttpException({
+        status: HttpStatus.BAD_REQUEST,
+        error: 'Invalid tender ID.',
+      }, HttpStatus.BAD_REQUEST);
+    }
+    if (!tender.publishedDate) {
+      throw new HttpException({
+        status: HttpStatus.BAD_REQUEST,
+        error: 'Invalid tender Published Date.',
+      }, HttpStatus.BAD_REQUEST);
+    }
+    if (!tender.properties.owner) {
+      throw new HttpException({
+        status: HttpStatus.BAD_REQUEST,
+        error: 'Invalid tender owner.',
+      }, HttpStatus.BAD_REQUEST);
+    }
+    if (!tender.properties.createdDate) {
+      throw new HttpException({
+        status: HttpStatus.BAD_REQUEST,
+        error: 'Invalid tender Create Date.',
+      }, HttpStatus.BAD_REQUEST);
     }
   }
 }
