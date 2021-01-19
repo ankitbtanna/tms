@@ -16,6 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ToasterModule } from 'libs/ui/src/lib/toaster/toaster.module';
 import { UiModule } from '@tms/ui';
 import { TenderDetailsComponent } from './tender-details/tender-details.component';
+import { TokenInterceptor } from '../interceptors/token.interceptor';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,12 @@ import { TenderDetailsComponent } from './tender-details/tender-details.componen
       provide: HTTP_INTERCEPTORS,
       useClass: CloudStorageInterceptor,
       multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
     }
   ]
 })
-export class DashboardModule {}
+export class DashboardModule { }

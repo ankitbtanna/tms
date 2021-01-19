@@ -20,8 +20,13 @@ import { TokenInterceptor } from '../interceptors/token.interceptor';
     MaterialModule,
     ShareTmsRoutingModule
   ],
-  providers: [ShareTmsService, {
-    provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true
-  }]
+  providers: [
+    ShareTmsService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
+  ]
 })
-export class ShareTmsModule {}
+export class ShareTmsModule { }
