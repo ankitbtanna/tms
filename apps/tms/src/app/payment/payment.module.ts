@@ -5,6 +5,8 @@ import { RouterModule } from '@angular/router';
 import { PAYMENT_ROUTES } from './payment.routes';
 import { MaterialModule } from '../material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from '../interceptors/token.interceptor';
 
 @NgModule({
   declarations: [PaymentComponent],
@@ -14,6 +16,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     MaterialModule,
     RouterModule.forChild(PAYMENT_ROUTES)
+  ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
   ]
 })
 export class PaymentModule { }
