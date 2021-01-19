@@ -66,19 +66,7 @@ export class TenderService {
 
   async createTender(tender: TenderModel): Promise<TenderModel | { [key: string]: string }> {
     try {
-      if (!tender) return { message: 'Invalid tender details.', status: 'failure' };
-      if (!tender.name) return { message: 'Invalid tender name.', status: 'failure' };
-      if (!tender.amount) return { message: 'Invalid tender amount.', status: 'failure' };
-      if (!tender.fee) return { message: 'Invalid tender fee.', status: 'failure' };
-      if (!tender.emd) return { message: 'Invalid tender emd.', status: 'failure' };
-      if (!tender.bidDueDate) return { message: 'Invalid tender bid due date.', status: 'failure' };
-      if (!tender.bidCutOffTime) return { message: 'Invalid tender bid cut off time.', status: 'failure' };
-      if (!tender.referenceNumber) return { message: 'Invalid tender reference number.', status: 'failure' };
-      if (!tender.tenderId) return { message: 'Invalid tenderId.', status: 'failure' };
-      if (!tender.publishedDate) return { message: 'Invalid tender published date.', status: 'failure' };
-      if (!tender.properties.owner) return { message: 'Tender owner not provided', status: 'failure' };
-      if (!tender.properties.createdDate) return { message: 'Invalid tender create date.', status: 'failure' };
-
+      this.checkAndThrowException(tender);
       const newTender = await this.tenders(tender);
       const createdTender = await newTender.save();
       return createdTender;
@@ -93,20 +81,13 @@ export class TenderService {
   // eslint-disable-next-line max-len
   async updateTender(tender: TenderModel, tenderId: string): Promise<TenderModel | { [key: string]: string }> {
     try {
-      if (!tenderId) return { message: 'Invalid tender id.', status: 'failure' };
-      if (!tender) return { message: 'Invalid tender details.', status: 'failure' };
-      if (!tender.name) return { message: 'Invalid tender name.', status: 'failure' };
-      if (!tender.amount) return { message: 'Invalid tender amount.', status: 'failure' };
-      if (!tender.fee) return { message: 'Invalid tender fee.', status: 'failure' };
-      if (!tender.emd) return { message: 'Invalid tender emd.', status: 'failure' };
-      if (!tender.bidDueDate) return { message: 'Invalid tender bid due date.', status: 'failure' };
-      if (!tender.bidCutOffTime) return { message: 'Invalid tender bid cut off time.', status: 'failure' };
-      if (!tender.referenceNumber) return { message: 'Invalid tender reference number.', status: 'failure' };
-      if (!tender.tenderId) return { message: 'Invalid tenderId.', status: 'failure' };
-      if (!tender.publishedDate) return { message: 'Invalid tender published date.', status: 'failure' };
-      if (!tender.properties.owner) return { message: 'Tender owner not provided', status: 'failure' };
-      if (!tender.properties.createdDate) return { message: 'Invalid tender create date.', status: 'failure' };
-
+      if (!tenderId) {
+        throw new HttpException({
+          status: HttpStatus.BAD_REQUEST,
+          error: 'Invalid tender id.',
+        }, HttpStatus.BAD_REQUEST);
+      }
+      this.checkAndThrowException(tender);
       const currentTender: TenderModel = tender;
       await this.tenders
         .findOneAndUpdate(
@@ -203,14 +184,7 @@ export class TenderService {
     }
   }
 
-  checkAndThrowException(tenderId: string, tender: TenderModel) {
-    if (!tenderId) {
-      throw new HttpException({
-        status: HttpStatus.BAD_REQUEST,
-        error: 'Invalid tender id.',
-      }, HttpStatus.BAD_REQUEST);
-    }
-
+  checkAndThrowException(tender: TenderModel) {
     if (!tender) {
       throw new HttpException({
         status: HttpStatus.BAD_REQUEST,
