@@ -1,14 +1,17 @@
+/* eslint-disable import/no-unresolved */
 import { Component, OnInit } from '@angular/core';
 import { DESCRIPTION_REGEX, NAME_REGEX } from '../share-tms.constant';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 
+import { AddStakeholderPayload } from '../models/add-stakeholder-payload.model';
+import { BlockStakeholderPayload } from '../models/block-stakeholder-payload.model';
+import { DeleteStakeholderPayload } from '../models/delete-stakeholder-payload.model';
 import { MOBILE_NUMBER_REGEX } from '../../register/register.constant';
 import { ShareTmsService } from '../services/share-tms.service';
 import { Stakeholder } from '../models/stakeholder.model';
-import { AddStakeholderPayload } from '../models/add-stakeholder-payload.model';
-import { DeleteStakeholderPayload } from '../models/delete-stakeholder-payload.model';
-import { BlockStakeholderPayload } from '../models/block-stakeholder-payload.model';
+import { StakeholderActionsComponent } from '@tms/grid';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -18,7 +21,13 @@ import { BlockStakeholderPayload } from '../models/block-stakeholder-payload.mod
 })
 export class ShareTmsComponent implements OnInit {
   private loggedInUser: string;
+
   searchStakeholderKeyword = '';
+
+  frameworkComponents;
+
+  validateData = (params) => (params.data?.isBlocked ? 'is-blocked' : '');
+
   shareTMSForm = new FormGroup({
     name: new FormControl('', [
       Validators.required,
@@ -30,55 +39,55 @@ export class ShareTmsComponent implements OnInit {
     ]),
     description: new FormControl('', [Validators.pattern(DESCRIPTION_REGEX)])
   });
+
   columnDefs = [
     {
       field: 'name',
       sortable: true,
+      resizable: true,
       minWidth: 500,
-      filter: 'agSetColumnFilter',
-      floatingFilter: true,
-      filterParams: {
-        applyMiniFilterWhileTyping: true,
-        suppressSorting: true
-      }
+      pinned: 'left',
+      filter: 'agSetColumnFilter'
     },
     {
       field: 'mobileNumber',
       sortable: true,
+      resizable: true,
       minWidth: 200,
-      filter: 'agSetColumnFilter',
-      floatingFilter: true,
-      filterParams: {
-        applyMiniFilterWhileTyping: true,
-        suppressSorting: true
-      }
+      filter: 'agSetColumnFilter'
     },
     {
       field: 'description',
+      sortable: true,
+      resizable: true,
       minWidth: 500,
-      filter: 'agSetColumnFilter',
-      floatingFilter: true,
-      filterParams: {
-        applyMiniFilterWhileTyping: true,
-        suppressSorting: true
-      }
+      filter: 'agSetColumnFilter'
     },
     {
       field: 'actions',
+      sortable: true,
+      resizable: true,
       cellRenderer: 'btnCellRenderer',
       cellRendererParams: {
         blockStakeholder: this.blockStakeholder.bind(this),
         deleteStakeholder: this.deleteStakeholder.bind(this)
       },
-      width: 200
+      pinned: 'right',
+      minWidth: 300
     }
   ];
+
   stakeholders$: Observable<Stakeholder[]>;
 
-  constructor(private shareTmsService: ShareTmsService) {}
+  constructor(private shareTmsService: ShareTmsService, private cookieService: CookieService) {
+    this.frameworkComponents = {
+      btnCellRenderer: StakeholderActionsComponent
+    };
+  }
 
   ngOnInit(): void {
-    this.loggedInUser = window.localStorage.getItem('loggedInUser');
+    const LOGGED_IN_USER = 'logged-in-user';
+    this.loggedInUser = this.cookieService.get(LOGGED_IN_USER);
     this.stakeholders$ = this.getAllStakeholders(this.loggedInUser);
   }
 

@@ -4,13 +4,17 @@ import { Component, Input, OnInit } from '@angular/core';
   // tslint:disable-next-line: component-selector
   selector: 'tms-progress-graph',
   templateUrl: './progress-graph.component.html',
-  styleUrls: ['./progress-graph.component.scss'],
+  styleUrls: ['./progress-graph.component.scss']
 })
 export class ProgressGraphComponent implements OnInit {
   destroyed = false;
+
   @Input() percent: number;
+
   @Input() title: string[];
+
   @Input() outerStrokeColor: string;
+
   @Input() innerStrokeColor: string;
 
   options = {
@@ -29,9 +33,8 @@ export class ProgressGraphComponent implements OnInit {
     subtitleFormat: false,
     startFromZero: true,
     outerStrokeColor: '',
-    innerStrokeColor: '',
+    innerStrokeColor: ''
   };
-  constructor() {}
 
   ngOnInit(): void {
     this.options.percent = this.percent;

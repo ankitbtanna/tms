@@ -1,0 +1,76 @@
+<mat-card fxFlex fxLayout="column" class="tender--details">
+  <mat-card-title>
+    <div fxFlex class="tender--title">
+      {{tender.name}}
+    </div>
+    <div fxFlex class="close">
+      <mat-icon class="tender--close" (click)="close()">close</mat-icon>
+    </div>
+  </mat-card-title>
+  <mat-card-subtitle>
+    <tms-alert *ngIf="tender.isComplete" message="This tender is completed." type="success"></tms-alert>
+    <tms-alert *ngIf="tender.isNotFilled" message="This tender is cancelled/not-filled." type="error">
+    </tms-alert>
+  </mat-card-subtitle>
+  <div class="separator"></div>
+  <mat-card-content fxFlex fxLayout="column">
+    <div fxFlex fxLayout="row" class="tender--detail">
+      <div fxFlex fxLayoutAlign="end center" class="tender--detail--key">Amount</div>
+      <div fxFlex fxLayoutAlign="start center" class="tender--detail--value">{{tender.amount}}</div>
+    </div>
+    <div fxFlex fxLayout="row" class="tender--detail">
+      <div fxFlex fxLayoutAlign="end center" class="tender--detail--key">Fee</div>
+      <div fxFlex fxLayoutAlign="start center" class="tender--detail--value">{{tender.fee}}</div>
+    </div>
+    <div fxFlex fxLayout="row" class="tender--detail">
+      <div fxFlex fxLayoutAlign="end center" class="tender--detail--key">EMD</div>
+      <div fxFlex fxLayoutAlign="start center" class="tender--detail--value">{{tender.emd}}</div>
+    </div>
+    <div fxFlex fxLayout="row" class="tender--detail">
+      <div fxFlex fxLayoutAlign="end center" class="tender--detail--key">Reference Number</div>
+      <div fxFlex fxLayoutAlign="start center" class="tender--detail--value">{{tender.referenceNumber}}</div>
+    </div>
+    <div fxFlex fxLayout="row" class="tender--detail">
+      <div fxFlex fxLayoutAlign="end center" class="tender--detail--key">Tender ID</div>
+      <div fxFlex fxLayoutAlign="start center" class="tender--detail--value">{{tender.tenderId}}</div>
+    </div>
+    <div fxFlex fxLayout="row" class="tender--detail">
+      <div fxFlex fxLayoutAlign="end center" class="tender--detail--key">Published Date</div>
+      <div fxFlex fxLayoutAlign="start center" class="tender--detail--value">{{tender.publishedDate | date}}</div>
+    </div>
+    <div fxFlex fxLayout="row" class="tender--detail">
+      <div fxFlex fxLayoutAlign="end center" class="tender--detail--key">Bid Due Date/Time</div>
+      <div fxFlex fxLayoutAlign="start center" class="tender--detail--value">
+        {{tender.bidDueDate | date}}, {{tender.bidCutOffTime}}
+      </div>
+    </div>
+    <div fxFlex fxLayout="row" class="tender--detail">
+      <div fxFlex fxLayoutAlign="end center" class="tender--detail--key">User Key Name</div>
+      <div fxFlex fxLayoutAlign="start center" class="tender--detail--value">{{tender.userKeyName}}</div>
+    </div>
+    <div fxFlex fxLayout="row" class="tender--detail">
+      <div fxFlex fxLayoutAlign="end center" class="tender--detail--key">User Loin ID</div>
+      <div fxFlex fxLayoutAlign="start center" class="tender--detail--value">{{tender.userLoginId}}</div>
+    </div>
+    <div fxFlex fxLayout="row" class="tender--detail">
+      <div fxFlex fxLayoutAlign="end center" class="tender--detail--key">User Password</div>
+      <div fxFlex fxLayoutAlign="start center" class="tender--detail--value">{{tender.userPassword}}</div>
+    </div>
+    <div fxFlex fxLayout="row" class="tender--detail">
+      <div fxFlex fxLayoutAlign="end center" class="tender--detail--key">Tender Website</div>
+      <div fxFlex fxLayoutAlign="start center" class="tender--detail--value">{{tender.userWebsite}}</div>
+    </div>
+    <div fxFlex fxLayout="row" class="tender--detail">
+      <div fxFlex fxLayoutAlign="end center" class="tender--detail--key">Created By</div>
+      <div fxFlex fxLayoutAlign="start center" class="tender--detail--value">{{tender.owner}}</div>
+    </div>
+    <div fxFlex fxLayout="row" class="tender--detail">
+      <div fxFlex fxLayoutAlign="end center" class="tender--detail--key">Tender Creation Date</div>
+      <div fxFlex fxLayoutAlign="start center" class="tender--detail--value">{{tender.createdDate | date}}</div>
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions>
+
+  </mat-card-actions>
+</mat-card>

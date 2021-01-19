@@ -1,14 +1,16 @@
-import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { UserAuthentication } from '../models/interfaces/user-authentication.model';
-import { User } from '../models/interfaces/user.model';
+/* eslint-disable new-cap */
+/* eslint-disable no-underscore-dangle */
 import * as bcrypt from 'bcrypt';
-import { TokenService } from '../../auth/services/token.service';
 import {
   ShareTMS,
-  ShareTMSDocument,
+  ShareTMSDocument
 } from '../../share/models/share-tms.schema';
+import { InjectModel } from '@nestjs/mongoose';
+import { Injectable } from '@nestjs/common';
+import { Model } from 'mongoose';
+import { TokenService } from '../../auth/services/token.service';
+import { User } from '../models/interfaces/user.model';
+import { UserAuthentication } from '../models/interfaces/user-authentication.model';
 
 @Injectable()
 export class UserService {
@@ -24,43 +26,42 @@ export class UserService {
       const result = await newUser.save();
       const createShareTMSEntry = new this.shareTMS({
         owner: result.username,
-        stakeholders: [],
+        stakeholders: []
       });
       await createShareTMSEntry.save();
       return {
         _id: result._id,
         username: result.username,
-        status: result._id ? 'success' : 'failure',
+        status: result._id ? 'success' : 'failure'
       };
     } catch (error) {
       return {
         message: error,
-        status: 'failure',
+        status: 'failure'
       };
     }
   }
 
   async checkUserRegistration(username: string) {
     const result = await this.userModel.find({
-      username: username.toLowerCase(),
+      username: username.toLowerCase()
     });
     if (result.length) {
       return {
         message: 'User already exists. Chose a different username.',
-        status: 'failure',
-      };
-    } else {
-      return {
-        message: 'User does not exist. Go ahead with registeration.',
-        status: 'success',
+        status: 'failure'
       };
     }
+    return {
+      message: 'User does not exist. Go ahead with registeration.',
+      status: 'success'
+    };
   }
 
   async login(userAuthentication: UserAuthentication) {
     try {
       const user = await this.userModel.findOne({
-        username: userAuthentication.username.toLowerCase(),
+        username: userAuthentication.username.toLowerCase()
       });
       if (user) {
         const isPasswordMatching = await bcrypt.compare(
@@ -73,27 +74,25 @@ export class UserService {
           );
           return {
             username: user.username,
-            accessToken: accessToken,
+            accessToken,
             refreshToken: '',
-            status: 'success',
-          };
-        } else {
-          return {
-            message: 'Authentication failed!',
-            status: 'failure',
+            status: 'success'
           };
         }
-      } else {
-        // throw error - user does not exist
         return {
-          message: 'User does not exist.',
-          status: 'failure',
+          message: 'Authentication failed!',
+          status: 'failure'
         };
       }
+      // throw error - user does not exist
+      return {
+        message: 'User does not exist.',
+        status: 'failure'
+      };
     } catch (error) {
       return {
         message: 'User does not exist.',
-        status: 'failure',
+        status: 'failure'
       };
     }
   }

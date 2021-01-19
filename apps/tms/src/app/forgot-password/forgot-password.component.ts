@@ -5,10 +5,11 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { CookieService } from 'ngx-cookie-service';
 import { USERNAME_REGEX, PASSWORD_REGEX } from './forgot-password.constant';
 
 @Component({
-  selector: 'tms-workspace-forgot-password',
+  selector: 'tms-forgot-password',
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.scss'],
 })
@@ -34,9 +35,11 @@ export class ForgotPasswordComponent implements OnInit {
     { validator: this.checkPasswords }
   );
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, private cookieService: CookieService) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.cookieService.deleteAll();
+  }
 
   checkPasswords(group: FormGroup) {
     const pass = group.controls.password.value;

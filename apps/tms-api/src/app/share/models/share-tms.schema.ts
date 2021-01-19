@@ -1,7 +1,7 @@
+/* eslint-disable max-classes-per-file */
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
 
-export type ShareTMSDocument = ShareTMS & Document;
+import { Document } from 'mongoose';
 
 export class Stakeholder extends Document {
   @Prop({ required: true })
@@ -28,12 +28,12 @@ export class ShareTMS extends Document {
         name: String,
         mobileNumber: String,
         description: String,
-        isBlocked: Boolean,
-      },
+        isBlocked: Boolean
+      }
     ],
-    default: [],
+    default: []
   })
   stakeholders: Stakeholder[];
 }
-
+export type ShareTMSDocument = ShareTMS & Document;
 export const ShareTMSSchema = SchemaFactory.createForClass(ShareTMS);

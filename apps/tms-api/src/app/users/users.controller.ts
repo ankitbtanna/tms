@@ -6,7 +6,7 @@ import {
   HttpCode,
   Param,
   Post,
-  Req,
+  Req
 } from '@nestjs/common';
 import { Request } from 'express';
 import { UserService } from './services/users.service';

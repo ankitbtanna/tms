@@ -1,0 +1,12 @@
+pdf-viewer {
+    height: 80vh;
+    overflow-y: scroll;
+}
+
+.title {
+    display: flex;
+    flex: 1;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}

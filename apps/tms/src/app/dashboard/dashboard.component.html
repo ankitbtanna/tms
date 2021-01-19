@@ -1,20 +1,24 @@
 <mat-toolbar class="header">
   <span>All Tenders - Summary</span>
-  <button
-    mat-raised-button
-    color="primary"
-    class="action"
-    (click)="openAddTenderDialog()"
-  >
+  <button mat-raised-button color="primary" class="action" (click)="openAddTenderDialog()">
     <mat-icon>library_add</mat-icon>
     Add Tender
   </button>
 </mat-toolbar>
-<div class="dashboard" fxLayout="row">
-  <mat-card class="dashboard--graph" fxLayout="column">
+<!-- <div class="dashboard" fxLayout="row" *ngIf="showDashboard">
+  <mat-accordion>
+  <mat-expansion-panel (opened)="panelOpenState = true"
+                       (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{!panelOpenState ? 'Show Dashboard' : 'Hide Dashboard'}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div fxLayout="row">
+      <mat-card class="dashboard--graph" fxLayout="column">
     <tms-progress-graph
-      [percent]="90"
-      [title]="['90', 'COMPLETE']"
+      [percent]="tenderStats.completedPercentage"
+      [title]="[tenderStats.completed?.toString()+'('+tenderStats.completedPercentage+'%)', 'COMPLETE']"
       [outerStrokeColor]="graphColours.completeOuterStrokeColor"
       [innerStrokeColor]="graphColours.completeInnerStrokeColor"
     ></tms-progress-graph>
@@ -27,8 +31,8 @@
   </mat-card>
   <mat-card class="dashboard--graph" fxLayout="column">
     <tms-progress-graph
-      [percent]="60"
-      [title]="['60', 'ACTIVE']"
+      [percent]="tenderStats.activePercentage"
+      [title]="[tenderStats.active?.toString()+'('+tenderStats.activePercentage+'%)', 'ACTIVE']"
       [outerStrokeColor]="graphColours.activeOuterStrokeColor"
       [innerStrokeColor]="graphColours.activeInnerStrokeColor"
     ></tms-progress-graph>
@@ -41,19 +45,41 @@
   </mat-card>
   <mat-card class="dashboard--graph" fxLayout="column">
     <tms-progress-graph
-      [percent]="25"
-      [title]="['25', 'NOT FILLED']"
+      [percent]="tenderStats.cancelledPercentage"
+      [title]="[tenderStats.cancelled?.toString()+'('+tenderStats.cancelledPercentage+'%)', 'Cancelled']"
       [outerStrokeColor]="graphColours.incompleteOuterStrokeColor"
       [innerStrokeColor]="graphColours.incompleteInnerStrokeColor"
     ></tms-progress-graph>
     <mat-card-actions fxFlex fxFlexAlign="center">
       <button mat-raised-button color="primary" class="action">
         <mat-icon>remove_red_eye</mat-icon>
-        Show Not Filled Tenders
+        Show Cancelled Tenders
       </button>
     </mat-card-actions>
   </mat-card>
-</div>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
+</div> -->
 <div fxFlex fxLayout="row">
-  <tms-grid [columnDefs]="columnDefs" [rowData]="rowData"></tms-grid>
+  <div fxFlex fxLayout="column">
+    <div fxFlex fxLayout="row" *ngIf="(tenders$ | async)?.length">
+      <tms-grid [validateData]="validateData" [columnDefs]="columnDefs" [rowData]="rowData"
+        [frameworkComponents]="frameworkComponents" (onRowSelection)="toggleTenderDetails($event)"></tms-grid>
+    </div>
+  </div>
+  <div fxFlex class="details" *ngIf="selectedTender">
+    <tms-tender-details [tender]="selectedTender" (onCloseTender)="closeTenderDetails()"></tms-tender-details>
+  </div>
 </div>
+<tms-modal-popup #createTenderModalWrapper>
+  <tms-create-tender #createTenderForm (onCreateTender)="createTender($event)" fxFlex fxLayout="column">
+  </tms-create-tender>
+</tms-modal-popup>
+<tms-modal-popup #deleteTenderModalWrapper>
+  <tms-delete-popup #deleteTenderPopup [tender]="tender" (onDelete)="delete()" (onCancel)="cancel()"></tms-delete-popup>
+</tms-modal-popup>
+<tms-modal-popup #pdfViewerModalMapper>
+  <tms-pdf-viewer [title]="'['+tender?.tenderId+'] ' + tender?.name" (onClose)="closePdfViewer()"></tms-pdf-viewer>
+</tms-modal-popup>
+<tms-overlay-spinner loadingText="Loading Tenders..." size="64" *ngIf="isLoadingTenders"></tms-overlay-spinner>

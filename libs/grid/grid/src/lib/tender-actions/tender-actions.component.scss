@@ -1,0 +1,90 @@
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined");
+:host {
+  display: flex;
+  flex: 1;
+  flex-flow: row;
+  justify-content: space-around;
+}
+
+.actions {
+  font-size: 24px;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:hover[disabled] {
+    color: rgb(207, 207, 207);
+    cursor: not-allowed;
+  }
+
+  &[disabled] {
+    color: rgb(207, 207, 207);
+  }
+  
+  &--activate {
+    color: #6f00ff;
+    &:hover {
+      color: #44006b;
+    }
+  }
+  
+  &--complete {
+    color: #78c002;
+    &:hover {
+      color: #335300;
+    }
+  }
+
+  &--cancel-filing {
+    color: rgb(255, 0, 98);
+    &:hover {
+      color: rgb(158, 0, 61);
+    }
+  }
+
+  &--copy {
+    color: rgb(6, 102, 255);
+
+    &:hover {
+      color: rgb(0, 63, 146);
+    }
+  }
+
+  &--viewDocument {
+    color: rgb(104, 43, 43);
+
+    &:hover {
+      color: rgb(61, 28, 28);
+    }
+  }
+
+  &--download {
+    color: rgb(0, 26, 255);
+    &:hover {
+      color: rgb(0, 10, 100);
+    }
+  }
+
+  &--upload {
+    color: rgb(0, 225, 255);
+    &:hover {
+      color: rgb(0, 143, 161);
+    }
+  }
+
+  &--calendar {
+    color: rgb(83, 44, 0);
+    &:hover {
+      color: rgb(32, 17, 0);
+    }
+  }
+
+  &--delete {
+    color: rgb(226, 0, 0);
+    
+    &:hover {
+      color: rgb(117, 0, 0);
+    }
+  }
+}

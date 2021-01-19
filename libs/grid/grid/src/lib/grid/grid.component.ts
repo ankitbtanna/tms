@@ -1,18 +1,36 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output
+} from '@angular/core';
 
 import { GridSizeChangedEvent } from 'ag-grid-community';
-import { StakeholderActionsComponent } from '../stake-holder-actions/stake-holder-actions.component';
 
 @Component({
   // tslint:disable-next-line: component-selector
   selector: 'tms-grid',
   templateUrl: './grid.component.html',
-  styleUrls: ['./grid.component.scss'],
+  styleUrls: ['./grid.component.scss']
 })
 export class GridComponent {
   @Input() columnDefs;
+
   @Input() rowData;
-  frameworkComponents;
+
+  @Input() frameworkComponents;
+
+  @Input() validateData;
+
+  @Output() onRowSelection: EventEmitter<any> = new EventEmitter();
+
+  sideBar;
+
+  constructor() {
+    this.sideBar = 'filters'
+  }
+
+  rowSelection = 'single';
 
   onGridReady(params) {
     params.api.sizeColumnsToFit();
@@ -22,13 +40,12 @@ export class GridComponent {
     params.api.sizeColumnsToFit();
   }
 
-  constructor() {
-    this.frameworkComponents = {
-      btnCellRenderer: StakeholderActionsComponent,
-    };
+  onSelectionChanged(data): void {
+    const rowData = data.api.getSelectedRows();
+    this.onRowSelection.emit(rowData);
   }
 
-  validateData(params): string {
-    return params.data?.isBlocked ? 'is-blocked' : '';
-  }
+  // validateData(params): string {
+  //   return params.data?.isBlocked ? 'is-blocked' : '';
+  // }
 }

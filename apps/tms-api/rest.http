@@ -85,3 +85,98 @@ Content-Type: application/json
   "mobileNumber": "9228839283",
   "isBlocked": false
 }
+
+############################################################
+# GET ALL TENDERS - ADMIN ONLY
+GET http://localhost:8080/api/tenders/all
+Content-Type: application/json
+
+############################################################
+# GET ALL TENDERS BY USERNAME - Owner check with token
+GET http://localhost:8080/api/tenders/all/ankittanna5@hotmail.com
+Content-Type: application/json
+
+############################################################
+# GET TENDERS BY USERNAME - Owner check with token
+GET http://localhost:8080/api/tenders/all-tenders/ankittanna5@hotmail.com
+Content-Type: application/json
+
+############################################################
+
+# CREATE TENDER
+POST  http://localhost:8080/api/tenders
+Content-Type: application/json
+
+{
+    "name": "My Tender 6",
+    "amount": "100000",
+    "fee": "100",
+    "emd": "ARZ123",
+    "referenceNumber": "ABC123",
+    "tenderId": "11232221234",
+    "publishedDate": "Thu Dec 17 2020 21:28:06 GMT+0530 (India Standard Time)",
+    "bidDueDate": "Thu Dec 17 2020 21:28:06 GMT+0530 (India Standard Time)",
+    "bidCutOffTime": "1608220716288",
+    "userKeyName": "abtanna",
+    "userLoginId": "ankittanna",
+    "userPassword": "Ankit@123",
+    "userWebsite": "http://www.ankit.com",
+    "properties": {
+      "owner": "ankittanna6@hotmail.com",
+      "createdDate": "Thu Dec 17 2020 21:28:06 GMT+0530 (India Standard Time)",
+      "document": "http://www.documents/mydoc.pdf",
+      "isDeleted": false,
+      "isComplete": false,
+      "isNotFilled": false
+    }
+}
+
+############################################################
+
+# DELETE TENDER
+DELETE  http://localhost:8080/api/tenders/delete/5fdb8b4271595b296132f7fb
+Content-Type: application/json
+
+############################################################
+
+# RETRIEVE TENDER
+GET  http://localhost:8080/api/tenders/retrieve/5fdb8b4271595b296132f7fb
+Content-Type: application/json
+
+############################################################
+
+# DELETE TENDER PERMANENTLY
+DELETE  http://localhost:8080/api/tenders/delete-permanently/5fdf572be0f8ba362cfe3551
+Content-Type: application/json
+
+############################################################
+
+# UPDATE TENDER
+PUT  http://localhost:8080/api/tenders/update/5fdf6080bb69093da73dea4c
+Content-Type: application/json
+
+{
+  "properties": {
+    "owner": "ankittanna5@hotmail.com",
+    "createdDate": "Thu Dec 17 2020 21:28:06 GMT+0530 (India Standard Time)",
+    "document": "http://www.documents/mydoc.pdf",
+    "isDeleted": false,
+    "isComplete": false,
+    "isNotFilled": false
+  },
+  "_id": "5fdf6080bb69093da73dea4c",
+  "name": "My Tender 2 XYZ",
+  "amount": "100000",
+  "fee": "100",
+  "emd": "ARZ123",
+  "referenceNumber": "ABC123",
+  "tenderId": "11232221234",
+  "publishedDate": "Thu Dec 17 2020 21:28:06 GMT+0530 (India Standard Time)",
+  "bidDueDate": "Thu Dec 17 2020 21:28:06 GMT+0530 (India Standard Time)",
+  "bidCutOffTime": "1608220716288",
+  "userKeyName": "abtanna",
+  "userLoginId": "ankittanna",
+  "userPassword": "Ankit@123",
+  "userWebsite": "http://www.ankit.com",
+  "__v": 0
+}

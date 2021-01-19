@@ -4,6 +4,8 @@
   flex-flow: column;
   justify-content: center;
   width: 100%;
+  position: relative;
+  overflow-y: scroll;
 }
 
 .header {
@@ -26,4 +28,17 @@
     height: 285px;
     width: 285px;
   }
+}
+
+mat-accordion {
+  width: 100%;
+}
+
+.tms-filter {
+  width: 100%;
+  padding: 20px 20px 0 20px;
+}
+
+.details {
+  max-width: 450px;
 }

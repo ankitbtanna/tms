@@ -5,10 +5,10 @@ import {
   Header,
   Param,
   Put,
-  Req,
+  Req
 } from '@nestjs/common';
-import { ShareService } from '../services/share.service';
 import { Request } from 'express';
+import { ShareService } from '../services/share.service';
 
 @Controller('share')
 export class ShareController {

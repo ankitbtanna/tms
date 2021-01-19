@@ -4,12 +4,17 @@
   justify-content: center;
   align-items: center;
   width: 100%;
+  background-image: url('../../assets/background.webp');
+  background-size: cover;
 }
 
 .login {
   &-card {
     width: 50%;
     min-width: 400px;
+    z-index: 1;
+    background-color: rgba($color: #fff, $alpha: 0.6);
+    backdrop-filter: blur(15px);
 
     &__title {
       margin-bottom: 25px;

@@ -1,6 +1,8 @@
 :host {
   display: flex;
-  flex-flow: column;
+  flex-direction: column;
+  position: relative;
+  padding: 24px;
 }
 
 .tender {

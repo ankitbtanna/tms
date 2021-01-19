@@ -4,10 +4,16 @@
   justify-content: center;
   align-items: center;
   width: 100%;
+  background-image: url('../../../assets/background.webp');
+  background-size: cover;
 }
 
 mat-form-field {
   width: 100%;
+}
+
+mat-horizontal-stepper {
+  background: transparent;
 }
 
 .register {
@@ -17,6 +23,9 @@ mat-form-field {
     justify-content: center;
     width: 50%;
     min-width: 400px;
+    background-color: rgba($color: #fff, $alpha: 0.6);
+    backdrop-filter: blur(15px);
+    z-index: 1;
 
     &__title {
       display: flex;

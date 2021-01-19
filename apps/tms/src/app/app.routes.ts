@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { AuthGuardService } from './auth/auth-guard.service';
 
 export const TMS_ROUTES: Routes = [
   {
@@ -26,21 +27,25 @@ export const TMS_ROUTES: Routes = [
   {
     path: 'dashboard',
     loadChildren: () =>
-      import('./dashboard/dashboard.module').then((m) => m.DashboardModule)
+      import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
+    canActivate: [AuthGuardService]
   },
   {
     path: 'contact-us',
     loadChildren: () =>
-      import('./contact-us/contact-us.module').then((m) => m.ContactUsModule)
+      import('./contact-us/contact-us.module').then((m) => m.ContactUsModule),
+    canActivate: [AuthGuardService]
   },
   {
     path: 'payment',
     loadChildren: () =>
-      import('./payment/payment.module').then((m) => m.PaymentModule)
+      import('./payment/payment.module').then((m) => m.PaymentModule),
+    canActivate: [AuthGuardService]
   },
   {
     path: 'share-tms',
     loadChildren: () =>
-      import('./share-tms/share-tms.module').then((m) => m.ShareTmsModule)
+      import('./share-tms/share-tms.module').then((m) => m.ShareTmsModule),
+    canActivate: [AuthGuardService]
   }
 ];
