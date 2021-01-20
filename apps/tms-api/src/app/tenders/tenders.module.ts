@@ -1,9 +1,10 @@
-import { HttpModule, Module } from '@nestjs/common';
+import { HttpModule, MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { Tender, TendersSchema } from './models/tenders.schema';
 
 import { MongooseModule } from '@nestjs/mongoose';
 import { TenderService } from './services/tender.service';
 import { TendersController } from './tenders/tenders.controller';
+import { AuthTokenMiddleware } from '../auth/middlewares/auth-token-middleware.service';
 
 @Module({
   imports: [
@@ -20,4 +21,8 @@ import { TendersController } from './tenders/tenders.controller';
     ])
   ]
 })
-export class TendersModule {}
+export class TendersModule implements NestModule {
+  configure(consumer: MiddlewareConsumer): void {
+    consumer.apply(AuthTokenMiddleware).forRoutes({ path: 'tenders/*', method: RequestMethod.ALL });
+  }
+}

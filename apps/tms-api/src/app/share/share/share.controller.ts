@@ -5,12 +5,15 @@ import {
   Header,
   Param,
   Put,
-  Req
+  Req,
+  UseFilters
 } from '@nestjs/common';
 import { Request } from 'express';
+import { HttpExceptionFilter } from '../../exception/http-exception.filter';
 import { ShareService } from '../services/share.service';
 
 @Controller('share')
+@UseFilters(new HttpExceptionFilter())
 export class ShareController {
   constructor(private shareService: ShareService) { }
 
