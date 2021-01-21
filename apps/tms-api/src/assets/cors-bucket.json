@@ -1,7 +1,5 @@
-[
-    {
-      "origin": ["http://localhost:4200"],
-      "responseHeader": "*",
-      "method": ["*"]
-    }
-]
+[{
+  "origin": ["http://localhost:4200"],
+  "responseHeader": "*",
+  "method": ["*"]
+}]
