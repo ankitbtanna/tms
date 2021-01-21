@@ -5,6 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { TenderService } from './services/tender.service';
 import { TendersController } from './tenders/tenders.controller';
 import { AuthTokenMiddleware } from '../auth/middlewares/auth-token-middleware.service';
+import { TokenService } from '../auth/services/token.service';
 
 @Module({
   imports: [
@@ -14,7 +15,7 @@ import { AuthTokenMiddleware } from '../auth/middlewares/auth-token-middleware.s
     HttpModule
   ],
   controllers: [TendersController],
-  providers: [TenderService],
+  providers: [TenderService, TokenService],
   exports: [
     MongooseModule.forFeature([
       { name: Tender.name, schema: TendersSchema }

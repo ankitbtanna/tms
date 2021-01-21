@@ -16,6 +16,7 @@ import { RegisterService } from '../services/register.service';
 import { Router } from '@angular/router';
 import { User } from '../models/users.model';
 import { CookieService } from 'ngx-cookie-service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'tms-workspace-register',
@@ -79,11 +80,13 @@ export class RegisterComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private registerService: RegisterService,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
     this.cookieService.deleteAll();
+    this.authService.loggedIn.next(false);
   }
 
   // eslint-disable-next-line class-methods-use-this
