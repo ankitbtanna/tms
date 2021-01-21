@@ -1,7 +1,7 @@
 <h1>Share Tender Information</h1>
 <h3>
   You would be able to share the information of the tenders managed by you to
-  other colleagues or stake holders. The information that you would be sharin
+  other colleagues or stake holders. The information that you would be sharing
   would not be editable by the people you have shared with. You can block or
   delete the colleagues you have share the information with.
 </h3>
@@ -50,6 +50,7 @@
     Stakeholders({{(stakeholders$ | async)?.length || 0}})
   </mat-card-subtitle>
   <mat-card-content fxFlex class="grid">
-    <tms-grid [validateData]="validateData" [frameworkComponents]="frameworkComponents" [columnDefs]="columnDefs" [rowData]="stakeholders$ | async"></tms-grid>
+    <tms-grid [validateData]="validateData" [frameworkComponents]="frameworkComponents" [columnDefs]="columnDefs"
+      [rowData]="stakeholders$ | async"></tms-grid>
   </mat-card-content>
 </mat-card>
