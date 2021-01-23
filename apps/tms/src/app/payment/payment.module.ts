@@ -7,6 +7,8 @@ import { MaterialModule } from '../material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from '../interceptors/token.interceptor';
+import { CookieService } from 'ngx-cookie-service';
+import { PaymentService } from './services/payment.service';
 
 @NgModule({
   declarations: [PaymentComponent],
@@ -22,7 +24,9 @@ import { TokenInterceptor } from '../interceptors/token.interceptor';
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
-    }
+    },
+    CookieService,
+    PaymentService
   ]
 })
 export class PaymentModule { }
