@@ -45,10 +45,12 @@ export class PaymentComponent implements OnInit, OnDestroy {
         orderId: order.id,
         amount: order.amount,
         currency: order.currency,
+        razorpay_payment_id: 'XYZ',
+        razorpay_signature: 'XYZ',
         successful: false
       }
       this.paymentService.createTransaction(this.transaction).subscribe((transaction) => {
-        console.log(transaction);
+        this.transaction._id = transaction._id;
         this.payWithRazor(transaction);
       }, (error) => {
         console.log(error);
@@ -91,9 +93,15 @@ export class PaymentComponent implements OnInit, OnDestroy {
       console.log(options);
 
       this.paymentService.verifyOrder(response.razorpay_order_id).subscribe((order) => {
-        console.log('############');
         console.log(order);
-        console.log('############');
+        if ((order.amount === order.amount_paid) && order.amount_due === 0) {
+          this.transaction.successful = true;
+          this.transaction.razorpay_payment_id = response.razorpay_payment_id;
+          this.transaction.razorpay_signature = response.razorpay_signature;
+          this.paymentService.updateTransaction(this.transaction).subscribe((transaction) => {
+            console.log(transaction);
+          });
+        }
       });
       // call your backend api to verify payment signature & capture transaction
     });

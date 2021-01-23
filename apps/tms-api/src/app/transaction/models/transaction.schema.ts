@@ -18,6 +18,12 @@ export class Transaction extends Document {
   currency: string;
 
   @Prop({ required: true })
+  razorpay_payment_id: string;
+
+  @Prop({ required: true })
+  razorpay_signature: string;
+
+  @Prop({ required: true })
   orderDate: Date;
 
   @Prop({ required: true })

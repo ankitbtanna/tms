@@ -22,7 +22,28 @@ export class TransactionService {
         }
     }
 
-    updateTransaction(orderId: string, transactionId: string) { }
+    async updateTransaction(transaction: Transaction, transactionId: string) {
+        try {
+            await this.transaction
+                .findOneAndUpdate(
+                    {
+                        _id: transactionId
+                    },
+                    transaction,
+                    { upsert: true }
+                )
+                .exec();
+            const modifiedTransaction = await this.transaction
+                .findOne({ _id: transactionId })
+                .exec();
+            return modifiedTransaction;
+        } catch (error) {
+            throw new HttpException({
+                status: HttpStatus.INTERNAL_SERVER_ERROR,
+                error: JSON.stringify(error),
+            }, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
     async generateOrderId(orderInfo: Order) {
         const instance = new Razorpay({

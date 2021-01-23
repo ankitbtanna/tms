@@ -6,4 +6,6 @@ export interface Transaction {
     amount: number;
     currency: string;
     successful: boolean;
+    razorpay_payment_id: string;
+    razorpay_signature: string;
 }

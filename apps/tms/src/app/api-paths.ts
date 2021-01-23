@@ -20,6 +20,7 @@ export const API_PATHS = {
   },
   TRANSACTION: {
     CREATE_TRANSACTION: 'http://localhost:8080/api/transaction',
+    UPDATE_TRANSACTION: 'http://localhost:8080/api/transaction/update-transaction/${transactionId}',
     GENERATE_ORDER: 'http://localhost:8080/api/transaction/order-id',
     VERIFY_ORDER: 'http://localhost:8080/api/transaction/order-id/${orderId}'
   }

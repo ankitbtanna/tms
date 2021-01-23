@@ -19,8 +19,8 @@ export class PaymentService {
     }));
   }
 
-  verifyOrder(orderId: string): Observable<Order> {
-    return this.http.get(API_PATHS.TRANSACTION.VERIFY_ORDER.replace('${orderId}', orderId)).pipe(map((order: Order) => {
+  verifyOrder(orderId: string): Observable<any> {
+    return this.http.get(API_PATHS.TRANSACTION.VERIFY_ORDER.replace('${orderId}', orderId)).pipe(map((order: any) => {
       return order;
     }));
   }
@@ -28,6 +28,12 @@ export class PaymentService {
   createTransaction(transaction: Transaction): Observable<Transaction> {
     return this.http.post(API_PATHS.TRANSACTION.CREATE_TRANSACTION, transaction).pipe(map((response: Transaction) => {
       return response;
+    }));
+  }
+
+  updateTransaction(transaction: Transaction): Observable<Transaction> {
+    return this.http.put(API_PATHS.TRANSACTION.UPDATE_TRANSACTION.replace('${transactionId}', transaction._id), transaction).pipe(map((transaction: Transaction) => {
+      return transaction;
     }));
   }
 }
