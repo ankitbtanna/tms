@@ -20,6 +20,20 @@ export class UserService {
     private tokenService: TokenService
   ) { }
 
+  async getUser(username: string) {
+    const result = await this.userModel.find({
+      username: username.toLowerCase()
+    });
+    if (!result.length) {
+      throw new HttpException({
+        status: HttpStatus.BAD_REQUEST,
+        error: 'User does not exist. Please user a valid email id.',
+      }, HttpStatus.BAD_REQUEST);
+    }
+
+    return result;
+  }
+
   async registerUser(user: User) {
     const newUser = this.userModel(user);
     try {

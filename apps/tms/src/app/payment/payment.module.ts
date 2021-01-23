@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { PAYMENT_ROUTES } from './payment.routes';
 import { MaterialModule } from '../material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from '../interceptors/token.interceptor';
 import { CookieService } from 'ngx-cookie-service';
 import { PaymentService } from './services/payment.service';
@@ -15,6 +15,7 @@ import { PaymentService } from './services/payment.service';
   imports: [
     CommonModule,
     FormsModule,
+    HttpClientModule,
     ReactiveFormsModule,
     MaterialModule,
     RouterModule.forChild(PAYMENT_ROUTES)

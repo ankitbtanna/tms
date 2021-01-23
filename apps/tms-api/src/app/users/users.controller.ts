@@ -13,7 +13,13 @@ import { UserService } from './services/users.service';
 
 @Controller('user')
 export class UsersController {
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService) { }
+
+  @Get('details/:username')
+  @Header('Cache-Control', 'none')
+  getUser(@Param() params) {
+    return this.userService.getUser(params.username);
+  }
 
   @Post('register')
   @Header('Cache-Control', 'none')

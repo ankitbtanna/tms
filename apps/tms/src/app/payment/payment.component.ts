@@ -1,9 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { WindowRefService } from './WindowRefService';
 import { SECRET_KEY } from './payment.constant';
 import { CookieService } from 'ngx-cookie-service';
 import { APP_COOKIES } from '../app.constant';
 import { PaymentService } from './services/payment.service';
+import { Transaction } from './models/transaction.model';
+import { Order } from './models/order.model';
+import { UserService } from './services/user.service';
+import { User } from '../register/models/users.model';
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -12,36 +16,65 @@ import { PaymentService } from './services/payment.service';
   styleUrls: ['./payment.component.scss'],
   providers: [WindowRefService]
 })
-export class PaymentComponent implements OnInit {
+export class PaymentComponent implements OnInit, OnDestroy {
   private loggedInUser: string;
-  private orderId: string;
+  private order: Order;
+  private transaction: Transaction;
+  private loggedInUserMobileNumber: string;
 
   constructor(
     private winRef: WindowRefService,
     private cookieService: CookieService,
-    private paymentService: PaymentService
+    private paymentService: PaymentService,
+    private userService: UserService
   ) { }
 
-  ngOnInit() {
-    this.orderId = this.paymentService.generateOrderId();
+  async ngOnInit() {
     this.loggedInUser = this.cookieService.get(APP_COOKIES.LOGGED_IN_USER);
-    this.createRzpayOrder();
+    await this.userService.getUserContact(this.loggedInUser).subscribe((contact: string) => {
+      this.loggedInUserMobileNumber = contact;
+    });
+    this.order = {
+      amount: 100,
+      currency: 'INR'
+    }
+    this.paymentService.generateOrderId(this.order).subscribe((order: Order) => {
+      this.transaction = {
+        username: this.loggedInUser,
+        orderDate: new Date(),
+        orderId: order.id,
+        amount: order.amount,
+        currency: order.currency,
+        successful: false
+      }
+      this.paymentService.createTransaction(this.transaction).subscribe((transaction) => {
+        console.log(transaction);
+        this.payWithRazor(transaction);
+      }, (error) => {
+        console.log(error);
+      });
+    });
   }
 
-  createRzpayOrder() {
-    // call api to create order_id
-    this.payWithRazor();
+  ngOnDestroy() {
+    this.order = undefined;
+    this.loggedInUser = '';
+    this.transaction = undefined;
   }
 
-  payWithRazor() {
+  payWithRazor(transaction: Transaction) {
     const options: any = {
-      key: 'rzp_test_g46uhFt0MrurpH',
+      key: 'rzp_test_OhEHEss3A6g4fh',
       amount: 100,
       currency: 'INR',
       name: 'E-Bharat: Tender Management System',
       description: `for ${this.loggedInUser}`,
       image: 'assets/tms-payment-logo.webp',
-      order_id: this.orderId, // order_id created by you in backend
+      order_id: transaction.orderId,
+      prefill: {
+        contact: this.loggedInUserMobileNumber,
+        email: this.loggedInUser
+      },
       modal: {
         escape: false,
       },
@@ -56,6 +89,12 @@ export class PaymentComponent implements OnInit {
       options.response = response;
       console.log(response);
       console.log(options);
+
+      this.paymentService.verifyOrder(response.razorpay_order_id).subscribe((order) => {
+        console.log('############');
+        console.log(order);
+        console.log('############');
+      });
       // call your backend api to verify payment signature & capture transaction
     });
     options.modal.ondismiss = (() => {
