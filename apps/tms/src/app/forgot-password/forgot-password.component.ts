@@ -6,6 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
+import { AuthService } from '../services/auth.service';
 import { USERNAME_REGEX, PASSWORD_REGEX } from './forgot-password.constant';
 
 @Component({
@@ -35,10 +36,11 @@ export class ForgotPasswordComponent implements OnInit {
     { validator: this.checkPasswords }
   );
 
-  constructor(private formBuilder: FormBuilder, private cookieService: CookieService) { }
+  constructor(private formBuilder: FormBuilder, private cookieService: CookieService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.cookieService.deleteAll();
+    this.authService.loggedIn.next(false);
   }
 
   checkPasswords(group: FormGroup) {

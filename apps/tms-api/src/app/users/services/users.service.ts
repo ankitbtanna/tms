@@ -6,7 +6,7 @@ import {
   ShareTMSDocument
 } from '../../share/models/share-tms.schema';
 import { InjectModel } from '@nestjs/mongoose';
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { TokenService } from '../../auth/services/token.service';
 import { User } from '../models/interfaces/user.model';
@@ -18,7 +18,47 @@ export class UserService {
     @InjectModel('User') private readonly userModel: Model<User>,
     @InjectModel(ShareTMS.name) private shareTMS: Model<ShareTMSDocument>,
     private tokenService: TokenService
-  ) {}
+  ) { }
+
+  async getUser(username: string) {
+    const result = await this.userModel.find({
+      username: username.toLowerCase()
+    });
+    if (!result.length) {
+      throw new HttpException({
+        status: HttpStatus.BAD_REQUEST,
+        error: 'User does not exist. Please enter a valid email id.',
+      }, HttpStatus.BAD_REQUEST);
+    }
+
+    return result;
+  }
+
+  async updateUser(premiumMembershipReferenceId: string, username: string) {
+    try {
+      const users = await this.userModel
+        .find(
+          {
+            username: username
+          }
+        )
+        .exec();
+      users[0].premiumMembershipReferenceId = premiumMembershipReferenceId;
+      await this.userModel.findOneAndUpdate({
+        username: username
+      },
+        users[0],
+        { upsert: true }
+      );
+      const modifiedUsers = await this.userModel.find({ username: username }).exec();
+      return modifiedUsers[0];
+    } catch (error) {
+      throw new HttpException({
+        status: HttpStatus.INTERNAL_SERVER_ERROR,
+        error: JSON.stringify(error),
+      }, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
 
   async registerUser(user: User) {
     const newUser = this.userModel(user);
@@ -35,10 +75,10 @@ export class UserService {
         status: result._id ? 'success' : 'failure'
       };
     } catch (error) {
-      return {
-        message: error,
-        status: 'failure'
-      };
+      throw new HttpException({
+        status: HttpStatus.INTERNAL_SERVER_ERROR,
+        error: JSON.stringify(error),
+      }, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -47,10 +87,10 @@ export class UserService {
       username: username.toLowerCase()
     });
     if (result.length) {
-      return {
-        message: 'User already exists. Chose a different username.',
-        status: 'failure'
-      };
+      throw new HttpException({
+        status: HttpStatus.BAD_REQUEST,
+        error: 'User already exists. Chose a different username.',
+      }, HttpStatus.BAD_REQUEST);
     }
     return {
       message: 'User does not exist. Go ahead with registeration.',
@@ -79,25 +119,25 @@ export class UserService {
             status: 'success'
           };
         }
-        return {
-          message: 'Authentication failed!',
-          status: 'failure'
-        };
+        throw new HttpException({
+          status: HttpStatus.UNAUTHORIZED,
+          error: 'Authentication failed!',
+        }, HttpStatus.UNAUTHORIZED);
       }
       // throw error - user does not exist
-      return {
-        message: 'User does not exist.',
-        status: 'failure'
-      };
+      throw new HttpException({
+        status: HttpStatus.NOT_FOUND,
+        error: 'User does not exist.',
+      }, HttpStatus.NOT_FOUND);
     } catch (error) {
-      return {
-        message: 'User does not exist.',
-        status: 'failure'
-      };
+      throw new HttpException({
+        status: HttpStatus.INTERNAL_SERVER_ERROR,
+        error: JSON.stringify(error),
+      }, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
-  async refreshToken() {}
+  async refreshToken() { }
 
-  async logout() {}
+  async logout() { }
 }

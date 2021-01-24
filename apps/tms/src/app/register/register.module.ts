@@ -9,6 +9,7 @@ import { RegistrationSuccessComponent } from './registration-success/registratio
 import { UiModule } from '@tms/ui';
 import { HttpClientModule } from '@angular/common/http';
 import { RegisterService } from './services/register.service';
+import { AuthService } from '../services/auth.service';
 
 @NgModule({
   declarations: [RegisterComponent, RegistrationSuccessComponent],
@@ -21,6 +22,6 @@ import { RegisterService } from './services/register.service';
     UiModule,
     RouterModule.forChild(REGISTER_ROUTES),
   ],
-  providers: [RegisterService],
+  providers: [RegisterService, AuthService],
 })
-export class RegisterModule {}
+export class RegisterModule { }

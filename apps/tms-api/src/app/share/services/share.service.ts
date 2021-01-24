@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 import { ShareTMS, ShareTMSDocument } from '../models/share-tms.schema';
 import { InjectModel } from '@nestjs/mongoose';
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { ShareTMS as StakeholderInfo } from '../models/share-tms.model';
 
@@ -9,23 +9,33 @@ import { ShareTMS as StakeholderInfo } from '../models/share-tms.model';
 export class ShareService {
   constructor(
     @InjectModel(ShareTMS.name) private shareTMS: Model<ShareTMSDocument>
-  ) {}
+  ) { }
 
   async getAllStakeHolders(username: string) {
-    if (!username) return { message: 'Invalid username.', status: 'failure' };
+    if (!username) {
+      throw new HttpException({
+        status: HttpStatus.NOT_FOUND,
+        error: 'Invalid username.',
+      }, HttpStatus.NOT_FOUND);
+    }
     try {
       const owner = await this.shareTMS.findOne({ owner: username }).exec();
       return owner.stakeholders;
     } catch (error) {
-      return {
-        message: error,
-        status: 'failure'
-      };
+      throw new HttpException({
+        status: HttpStatus.NOT_FOUND,
+        error: JSON.stringify(error),
+      }, HttpStatus.NOT_FOUND);
     }
   }
 
   async addStakeHolder(stakeholderDTO: StakeholderInfo) {
-    if (!stakeholderDTO.owner) { return { message: 'Invalid username.', status: 'failure' }; }
+    if (!stakeholderDTO.owner) {
+      throw new HttpException({
+        status: HttpStatus.NOT_FOUND,
+        error: 'Invalid username.',
+      }, HttpStatus.NOT_FOUND);
+    }
 
     try {
       const owner = await this.shareTMS
@@ -37,17 +47,20 @@ export class ShareService {
           mobileNumber: stakeholderDTO.stakeholders[0].mobileNumber
         })
       ) {
-        return { message: 'Stakeholder already present.', status: 'failure' };
+        throw new HttpException({
+          status: HttpStatus.CONFLICT,
+          error: 'Stakeholder already present.',
+        }, HttpStatus.CONFLICT);
       }
       owner.stakeholders.push(stakeholderDTO.stakeholders[0]);
       const modifiedOwner = this.shareTMS(owner);
       const result = await modifiedOwner.save();
       return result;
     } catch (error) {
-      return {
-        message: error,
-        status: 'failure'
-      };
+      throw new HttpException({
+        status: HttpStatus.INTERNAL_SERVER_ERROR,
+        error: JSON.stringify(error),
+      }, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -56,18 +69,33 @@ export class ShareService {
     mobileNumber: string,
     isBlocked: boolean
   ) {
-    if (!username) return { message: 'Invalid Username', status: 'failure' };
-    if (!mobileNumber) return { message: 'Invalid Mobile Number', status: 'failure' };
+    if (!username) {
+      throw new HttpException({
+        status: HttpStatus.NOT_FOUND,
+        error: 'Invalid username.',
+      }, HttpStatus.NOT_FOUND);
+    }
+    if (!mobileNumber) {
+      throw new HttpException({
+        status: HttpStatus.NOT_FOUND,
+        error: 'Invalid Mobile Number!',
+      }, HttpStatus.NOT_FOUND);
+    }
 
     try {
       const owner = await this.shareTMS.findOne({ owner: username }).exec();
-      if (!owner) return { message: 'User does not exist', status: 'failure' };
+      if (!owner) {
+        throw new HttpException({
+          status: HttpStatus.NOT_FOUND,
+          error: 'User does not exist.',
+        }, HttpStatus.NOT_FOUND);
+      }
 
       if (!owner.stakeholders.length) {
-        return {
-          message: 'User does not have any stakeholder.',
-          status: 'failure'
-        };
+        throw new HttpException({
+          status: HttpStatus.NOT_FOUND,
+          error: 'User does not have any stakeholder.',
+        }, HttpStatus.NOT_FOUND);
       }
 
       if (
@@ -95,29 +123,40 @@ export class ShareService {
           .exec();
         return modifiedOwner;
       }
-      return {
-        message: 'Stakeholder does not exist.',
-        status: 'failure'
-      };
+      throw new HttpException({
+        status: HttpStatus.NOT_FOUND,
+        error: 'Stakeholder does not exist.',
+      }, HttpStatus.NOT_FOUND);
     } catch (error) {
-      return {
-        message: error,
-        status: 'failure'
-      };
+      throw new HttpException({
+        status: HttpStatus.INTERNAL_SERVER_ERROR,
+        error: JSON.stringify(error),
+      }, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
   async deleteStakeHolder(username: string, mobileNumber: string) {
-    if (!username) return { message: 'Invalid Username', status: 'failure' };
-    if (!mobileNumber) return { message: 'Invalid Mobile Number', status: 'failure' };
+    if (!username) {
+      throw new HttpException({
+        status: HttpStatus.NOT_FOUND,
+        error: 'User does not exist.',
+      }, HttpStatus.NOT_FOUND);
+    }
+
+    if (!mobileNumber) {
+      throw new HttpException({
+        status: HttpStatus.NOT_FOUND,
+        error: 'Mobile number does not exist.',
+      }, HttpStatus.NOT_FOUND);
+    }
 
     try {
       const owner = await this.shareTMS.findOne({ owner: username }).exec();
       if (!owner.stakeholders.length) {
-        return {
-          message: 'User does not have any stakeholder.',
-          status: 'failure'
-        };
+        throw new HttpException({
+          status: HttpStatus.NOT_FOUND,
+          error: 'User does not have any stakeholder.',
+        }, HttpStatus.NOT_FOUND);
       }
       if (
         _.find(owner.stakeholders, {
@@ -141,12 +180,15 @@ export class ShareService {
           .exec();
         return modifiedOwner;
       }
-      return { message: 'Stakeholder does not exist.', status: 'failure' };
+      throw new HttpException({
+        status: HttpStatus.NOT_FOUND,
+        error: 'Stakeholder does not exist.',
+      }, HttpStatus.NOT_FOUND);
     } catch (error) {
-      return {
-        message: error,
-        status: 'failure'
-      };
+      throw new HttpException({
+        status: HttpStatus.INTERNAL_SERVER_ERROR,
+        error: JSON.stringify(error),
+      }, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 
 @Component({
@@ -9,12 +9,18 @@ import { EventEmitter } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
   @Output() sidenavToggle = new EventEmitter();
+  @Output() onLogout: EventEmitter<void> = new EventEmitter();
+  @Input() isLoggedIn;
 
-  constructor() {}
+  constructor() { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   onToggleSideNav(): void {
     this.sidenavToggle.emit();
+  }
+
+  logout(): void {
+    this.onLogout.emit();
   }
 }

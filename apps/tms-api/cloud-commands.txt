@@ -18,6 +18,9 @@ Viewing the CORS configuration for a bucket
 gsutil cors get gs://BUCKET_NAME
 
 ###########################################################
+Upload PDF from local machine
+gsutil cp sample-pdf.pdf gs://tms-docs
+
 ###########################################################
 ###########################################################
 ###########################################################
