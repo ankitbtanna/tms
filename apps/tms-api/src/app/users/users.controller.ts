@@ -19,7 +19,7 @@ export class UsersController {
   @Put('/:username')
   @Header('Cache-Control', 'none')
   updateUser(@Req() request: Request, @Param() params) {
-    return this.userService.updateUser(request.body, params.username);
+    return this.userService.updateUser(request.body.premiumMembershipReferenceId, params.username);
   }
 
   @Get('details/:username')

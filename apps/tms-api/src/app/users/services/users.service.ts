@@ -34,18 +34,23 @@ export class UserService {
     return result;
   }
 
-  async updateUser(user: User, username: string) {
+  async updateUser(premiumMembershipReferenceId: string, username: string) {
     try {
-      await this.userModel
-        .findOneAndUpdate(
+      const users = await this.userModel
+        .find(
           {
-            _id: user._id
-          },
-          user,
-          { upsert: true }
+            username: username
+          }
         )
         .exec();
-      const modifiedUsers = await this.userModel.find({ _id: user._id }).exec();
+      users[0].premiumMembershipReferenceId = premiumMembershipReferenceId;
+      await this.userModel.findOneAndUpdate({
+        username: username
+      },
+        users[0],
+        { upsert: true }
+      );
+      const modifiedUsers = await this.userModel.find({ username: username }).exec();
       return modifiedUsers[0];
     } catch (error) {
       throw new HttpException({

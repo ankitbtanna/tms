@@ -27,9 +27,9 @@ export class RegisterService {
     );
   }
 
-  updateUser(user: User): Observable<User> {
-    return this.http.put(API_PATHS.USERS.UPDATE, user).pipe(map((users: User[]) => {
-      return users[0];
+  updateUser(username: string, premiumMembershipReferenceId: string): Observable<User> {
+    return this.http.put(API_PATHS.USERS.UPDATE.replace('${username}', username), { username, premiumMembershipReferenceId }).pipe(map((user: User) => {
+      return user;
     }));
   }
 }

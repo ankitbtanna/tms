@@ -19,11 +19,8 @@ export class RegistrationSuccessComponent implements OnInit, OnDestroy {
     this.registeredUser = this.cookieService.get(APP_COOKIES.LOGGED_IN_USER);
     this.paymentReferenceNumber = this.cookieService.get(APP_COOKIES.PAYMENT_REFERENCE_NUMBER);
     if (this.registeredUser && this.paymentReferenceNumber) {
-      this.registerService.getUserDetails(this.registeredUser).subscribe((user: User) => {
-        user.premiumMembershipReferenceId = this.paymentReferenceNumber;
-        this.registerService.updateUser(user).subscribe((user: User) => {
-          console.log('Updated premium membership reference ', user.premiumMembershipReferenceId);
-        });
+      this.registerService.updateUser(this.registeredUser, this.paymentReferenceNumber).subscribe((user: User) => {
+        console.log('Updated premium membership reference ', user.premiumMembershipReferenceId);
       });
     }
   }
