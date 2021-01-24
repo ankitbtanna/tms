@@ -17,6 +17,7 @@ import { Router } from '@angular/router';
 import { User } from '../models/users.model';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from '../../services/auth.service';
+import { APP_COOKIES } from '../../app.constant';
 
 @Component({
   selector: 'tms-workspace-register',
@@ -114,18 +115,20 @@ export class RegisterComponent implements OnInit {
     const registerForm = this.registerForm.value;
     const passwordForm = this.passwordForm.value;
     const isPremiumMember = registerForm.plan !== 'trial';
+    const currentDate = new Date();
+    const subscriptionEndDate = new Date(currentDate.setFullYear(currentDate.getFullYear() + 1)).toString();
     const user: User = {
       username: registerForm.username,
       password: passwordForm.password,
       registrationDate: new Date().toString(),
       subscriptionStartDate: isPremiumMember
-        ? new Date().setHours(0, 0, 0, 0).toString()
+        ? new Date(new Date().setHours(0, 0, 0, 0)).toString()
         : 'NA',
       subscriptionEndDate: isPremiumMember
-        ? new Date().setHours(0, 0, 0, 0).toString()
+        ? subscriptionEndDate
         : 'NA',
       isPremiumMember,
-      premiumMembershipReferenceId: isPremiumMember ? '1234' : 'NA',
+      premiumMembershipReferenceId: isPremiumMember ? 'UPDATE_ORDER_ID' : 'NA',
       companyName: registerForm.companyName,
       address: registerForm.address,
       panCardNumber: registerForm.panCardNumber,
@@ -133,7 +136,12 @@ export class RegisterComponent implements OnInit {
     };
     this.registerService.registerUser(user).subscribe((response: any) => {
       if (response.status === 'success') {
-        this.router.navigate(['/registration-success']);
+        if (!isPremiumMember) {
+          this.router.navigate(['/registration-success']);
+        } else {
+          this.cookieService.set(APP_COOKIES.LOGGED_IN_USER, user.username)
+          this.router.navigate(['/payment']);
+        }
       } else {
         this.showError = true;
       }

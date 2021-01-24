@@ -27,11 +27,32 @@ export class UserService {
     if (!result.length) {
       throw new HttpException({
         status: HttpStatus.BAD_REQUEST,
-        error: 'User does not exist. Please user a valid email id.',
+        error: 'User does not exist. Please enter a valid email id.',
       }, HttpStatus.BAD_REQUEST);
     }
 
     return result;
+  }
+
+  async updateUser(user: User, username: string) {
+    try {
+      await this.userModel
+        .findOneAndUpdate(
+          {
+            _id: user._id
+          },
+          user,
+          { upsert: true }
+        )
+        .exec();
+      const modifiedUsers = await this.userModel.find({ _id: user._id }).exec();
+      return modifiedUsers[0];
+    } catch (error) {
+      throw new HttpException({
+        status: HttpStatus.INTERNAL_SERVER_ERROR,
+        error: JSON.stringify(error),
+      }, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 
   async registerUser(user: User) {

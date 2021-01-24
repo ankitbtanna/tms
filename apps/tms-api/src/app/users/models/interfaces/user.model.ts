@@ -11,4 +11,5 @@ export interface User {
   address: string;
   panCardNumber?: string;
   mobileNumber: string;
+  _id?: string;
 }

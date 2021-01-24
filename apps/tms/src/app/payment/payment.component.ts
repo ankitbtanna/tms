@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { WindowRefService } from './WindowRefService';
 import { SECRET_KEY } from './payment.constant';
 import { CookieService } from 'ngx-cookie-service';
@@ -8,6 +8,7 @@ import { Transaction } from './models/transaction.model';
 import { Order } from './models/order.model';
 import { UserService } from './services/user.service';
 import { User } from '../register/models/users.model';
+import { Router } from '@angular/router';
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -26,7 +27,9 @@ export class PaymentComponent implements OnInit, OnDestroy {
     private winRef: WindowRefService,
     private cookieService: CookieService,
     private paymentService: PaymentService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router,
+    private zone: NgZone
   ) { }
 
   async ngOnInit() {
@@ -98,8 +101,12 @@ export class PaymentComponent implements OnInit, OnDestroy {
           this.transaction.successful = true;
           this.transaction.razorpay_payment_id = response.razorpay_payment_id;
           this.transaction.razorpay_signature = response.razorpay_signature;
+          this.cookieService.set(APP_COOKIES.PAYMENT_REFERENCE_NUMBER, response.razorpay_payment_id);
           this.paymentService.updateTransaction(this.transaction).subscribe((transaction) => {
             console.log(transaction);
+            this.zone.run(() => {
+              this.router.navigate(['/registration-success'], { replaceUrl: true });
+            });
           });
         }
       });

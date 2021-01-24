@@ -6,6 +6,7 @@ import {
   HttpCode,
   Param,
   Post,
+  Put,
   Req
 } from '@nestjs/common';
 import { Request } from 'express';
@@ -14,6 +15,12 @@ import { UserService } from './services/users.service';
 @Controller('user')
 export class UsersController {
   constructor(private userService: UserService) { }
+
+  @Put('/:username')
+  @Header('Cache-Control', 'none')
+  updateUser(@Req() request: Request, @Param() params) {
+    return this.userService.updateUser(request.body, params.username);
+  }
 
   @Get('details/:username')
   @Header('Cache-Control', 'none')

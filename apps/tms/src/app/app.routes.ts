@@ -40,7 +40,6 @@ export const TMS_ROUTES: Routes = [
     path: 'payment',
     loadChildren: () =>
       import('./payment/payment.module').then((m) => m.PaymentModule),
-    canActivate: [AuthGuardService]
   },
   {
     path: 'share-tms',

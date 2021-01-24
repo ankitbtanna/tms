@@ -1,4 +1,8 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
+import { APP_COOKIES } from '../../app.constant';
+import { User } from '../models/users.model';
+import { RegisterService } from '../services/register.service';
 
 @Component({
   selector: 'tms-workspace-registration-success',
@@ -6,11 +10,26 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   styleUrls: ['./registration-success.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RegistrationSuccessComponent implements OnInit {
-
-  constructor() { }
+export class RegistrationSuccessComponent implements OnInit, OnDestroy {
+  private registeredUser: string;
+  private paymentReferenceNumber: string;
+  constructor(private cookieService: CookieService, private registerService: RegisterService) { }
 
   ngOnInit(): void {
+    this.registeredUser = this.cookieService.get(APP_COOKIES.LOGGED_IN_USER);
+    this.paymentReferenceNumber = this.cookieService.get(APP_COOKIES.PAYMENT_REFERENCE_NUMBER);
+    if (this.registeredUser && this.paymentReferenceNumber) {
+      this.registerService.getUserDetails(this.registeredUser).subscribe((user: User) => {
+        user.premiumMembershipReferenceId = this.paymentReferenceNumber;
+        this.registerService.updateUser(user).subscribe((user: User) => {
+          console.log('Updated premium membership reference ', user.premiumMembershipReferenceId);
+        });
+      });
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.cookieService.deleteAll();
   }
 
 }
