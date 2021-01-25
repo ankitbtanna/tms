@@ -87,7 +87,7 @@
 </tms-modal-popup>
 <tms-overlay-spinner loadingText="Loading Tenders..." size="64" *ngIf="isLoadingTenders">
 </tms-overlay-spinner>
-<tms-overlay loadingText="Your subscription has expired. Please upgrade." *ngIf="true">
+<tms-overlay loadingText="Your subscription has expired. Please upgrade." *ngIf="isUserSubscriptionExpired">
   <button mat-raised-button color="warn">
     Upgrade
   </button>

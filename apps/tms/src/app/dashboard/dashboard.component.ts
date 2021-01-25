@@ -59,6 +59,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   selectedTender: TenderGridModel = undefined;
 
   userSubscriptionDetails: SubscriptionDetails;
+  isUserSubscriptionExpired = false;
 
   columnDefs = [
     {
@@ -258,7 +259,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.owner = this.cookieService.get(APP_COOKIES.LOGGED_IN_USER);
     this.tendersService.getUserSubscriptionDetails(this.owner).subscribe((userSubscriptionDetails) => {
+      const currentDate = new Date();
+      const subscriptionEndDate = new Date(userSubscriptionDetails.subscriptionEndDate);
       this.userSubscriptionDetails = userSubscriptionDetails;
+      this.isUserSubscriptionExpired = currentDate.getTime() > subscriptionEndDate.getTime();
     });
     this.getTenders();
   }
