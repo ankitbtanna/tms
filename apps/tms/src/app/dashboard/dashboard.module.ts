@@ -17,6 +17,7 @@ import { ToasterModule } from 'libs/ui/src/lib/toaster/toaster.module';
 import { UiModule } from '@tms/ui';
 import { TenderDetailsComponent } from './tender-details/tender-details.component';
 import { TokenInterceptor } from '../interceptors/token.interceptor';
+import { TrialWarningComponent } from './trial-warning/trial-warning.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { TokenInterceptor } from '../interceptors/token.interceptor';
     DashboardComponent,
     ProgressGraphComponent,
     DeletePopupComponent,
-    TenderDetailsComponent
+    TenderDetailsComponent,
+    TrialWarningComponent
   ],
   imports: [
     CommonModule,

@@ -28,6 +28,12 @@ export class UsersController {
     return this.userService.getUser(params.username);
   }
 
+  @Get('subscription-details/:username')
+  @Header('Cache-Control', 'none')
+  getUserSubscriptionDetails(@Param() params) {
+    return this.userService.getUserSubscriptionDetails(params.username);
+  }
+
   @Post('register')
   @Header('Cache-Control', 'none')
   registerUser(@Req() request: Request) {

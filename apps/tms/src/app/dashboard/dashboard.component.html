@@ -5,6 +5,9 @@
     Add Tender
   </button>
 </mat-toolbar>
+<tms-trial-warning *ngIf="userSubscriptionDetails && !userSubscriptionDetails.isPremiumMember"
+  [date]="userSubscriptionDetails && userSubscriptionDetails.subscriptionEndDate">
+</tms-trial-warning>
 <!-- <div class="dashboard" fxLayout="row" *ngIf="showDashboard">
   <mat-accordion>
   <mat-expansion-panel (opened)="panelOpenState = true"

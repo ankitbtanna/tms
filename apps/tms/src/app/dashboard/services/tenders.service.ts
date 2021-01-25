@@ -8,6 +8,8 @@ import { Observable } from 'rxjs';
 import { TenderGridModel } from '../models/tender-grid.model';
 import { TenderModel } from '../models/tender.model';
 import { map } from 'rxjs/operators';
+import { User } from '../../register/models/users.model';
+import { SubscriptionDetails } from '../models/subscription-interface.model';
 
 @Injectable({
   providedIn: 'root'
@@ -118,5 +120,11 @@ export class TendersService {
     };
 
     return transformedTender;
+  }
+
+  getUserSubscriptionDetails(username: string): Observable<SubscriptionDetails> {
+    return this.http.get(API_PATHS.USERS.GET_USER_SUBSCRIPTION_DETAILS.replace('${username}', username)).pipe(map((subscriptionDetails: SubscriptionDetails) => {
+      return subscriptionDetails;
+    }));
   }
 }

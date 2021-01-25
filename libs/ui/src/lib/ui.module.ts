@@ -25,4 +25,4 @@ import { ToasterModule } from './toaster/toaster.module';
   declarations: [AlertComponent, ModalPopupComponent, OverlaySpinnerComponent, PDFViewerComponent],
   exports: [AlertComponent, ModalPopupComponent, OverlaySpinnerComponent, PDFViewerComponent]
 })
-export class UiModule {}
+export class UiModule { }

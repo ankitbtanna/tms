@@ -5,6 +5,7 @@ export const API_PATHS = {
     UPDATE: 'http://localhost:8080/api/user/${username}',
     CHECK_USER_EXISTS: 'http://localhost:8080/api/user/check/${username}',
     GET_USER_DETAILS: 'http://localhost:8080/api/user/details/${username}',
+    GET_USER_SUBSCRIPTION_DETAILS: 'http://localhost:8080/api/user/subscription-details/${username}',
     LOGIN: 'http://localhost:8080/api/user/login'
   },
   SHARE_TMS: {

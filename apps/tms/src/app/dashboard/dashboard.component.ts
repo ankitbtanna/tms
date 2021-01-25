@@ -22,6 +22,8 @@ import { TenderModel } from './models/tender.model';
 import { TendersModelMapper } from './services/tenders.modelmapper';
 import { TendersService } from './services/tenders.service';
 import { ToasterService } from 'libs/ui/src/lib/toaster/services/toaster.service';
+import { User } from '../register/models/users.model';
+import { SubscriptionDetails } from './models/subscription-interface.model';
 
 @Component({
   selector: 'tms-workspace-dashboard',
@@ -55,6 +57,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   frameworkComponents;
 
   selectedTender: TenderGridModel = undefined;
+
+  userSubscriptionDetails: SubscriptionDetails;
 
   columnDefs = [
     {
@@ -253,11 +257,20 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.owner = this.cookieService.get(APP_COOKIES.LOGGED_IN_USER);
+    this.tendersService.getUserSubscriptionDetails(this.owner).subscribe((userSubscriptionDetails) => {
+      this.userSubscriptionDetails = userSubscriptionDetails;
+    });
     this.getTenders();
   }
 
   openAddTenderDialog(): void {
     this.createTenderModalWrapper.open();
+  }
+
+  isSubscriptionEndDatePast(subscriptionEndDate): boolean {
+    const endDate = new Date(subscriptionEndDate);
+    const currentDate = new Date();
+    return currentDate < endDate;
   }
 
   createTender(tender: TenderModel): void {
