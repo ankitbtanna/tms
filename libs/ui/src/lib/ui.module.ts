@@ -11,6 +11,7 @@ import { OverlaySpinnerComponent } from './overlay-spinner/overlay-spinner.compo
 import { PDFViewerComponent } from './pdf-viewer/pdf-viewer/pdf-viewer.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { ToasterModule } from './toaster/toaster.module';
+import { OverlayComponent } from './overlay/overlay.component';
 @NgModule({
   imports: [
     IconRegistryModule,
@@ -22,7 +23,7 @@ import { ToasterModule } from './toaster/toaster.module';
     MatCardModule,
     PdfViewerModule
   ],
-  declarations: [AlertComponent, ModalPopupComponent, OverlaySpinnerComponent, PDFViewerComponent],
-  exports: [AlertComponent, ModalPopupComponent, OverlaySpinnerComponent, PDFViewerComponent]
+  declarations: [AlertComponent, ModalPopupComponent, OverlaySpinnerComponent, OverlayComponent, PDFViewerComponent],
+  exports: [AlertComponent, ModalPopupComponent, OverlaySpinnerComponent, OverlayComponent, PDFViewerComponent]
 })
 export class UiModule { }

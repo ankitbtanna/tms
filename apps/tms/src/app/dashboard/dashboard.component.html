@@ -85,4 +85,10 @@
 <tms-modal-popup #pdfViewerModalMapper>
   <tms-pdf-viewer [title]="'['+tender?.tenderId+'] ' + tender?.name" (onClose)="closePdfViewer()"></tms-pdf-viewer>
 </tms-modal-popup>
-<tms-overlay-spinner loadingText="Loading Tenders..." size="64" *ngIf="isLoadingTenders"></tms-overlay-spinner>
+<tms-overlay-spinner loadingText="Loading Tenders..." size="64" *ngIf="isLoadingTenders">
+</tms-overlay-spinner>
+<tms-overlay loadingText="Your subscription has expired. Please upgrade." *ngIf="true">
+  <button mat-raised-button color="warn">
+    Upgrade
+  </button>
+</tms-overlay>

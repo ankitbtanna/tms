@@ -4,201 +4,100 @@
     <div class="form" fxFlex fxLayout="column">
       <mat-form-field fxFlex appearance="outline">
         <mat-label>Tender Name</mat-label>
-        <textarea
-          matInput
-          placeholder="State Govt Tender for Road Construction"
-          formControlName="tenderName"
-        ></textarea>
-        <mat-error *ngIf="!createTenderForm.controls.tenderName.valid"
-          >Tender Name is invalid.</mat-error
-        >
+        <textarea matInput placeholder="State Govt Tender for Road Construction"
+          formControlName="tenderName"></textarea>
+        <mat-error *ngIf="!createTenderForm.controls.tenderName.valid">Tender Name is invalid.</mat-error>
       </mat-form-field>
       <mat-form-field fxFlex appearance="outline">
         <mat-label>Tender Amount</mat-label>
-        <input
-          type="text"
-          matInput
-          placeholder="15,00,000"
-          formControlName="tenderAmount"
-          tmsCurrencyFormatter
-        />
-        <mat-error *ngIf="!createTenderForm.controls.tenderName.valid"
-          >Tender Amount is invalid.</mat-error
-        >
-        <mat-error
-          *ngIf="!createTenderForm.controls.tenderName.hasError('pattern')"
-          >Tender Amount can contain 0-9 a decimal and a comma(,).</mat-error
-        >
+        <input type="text" matInput placeholder="15,00,000" formControlName="tenderAmount" tmsCurrencyFormatter />
+        <mat-error *ngIf="!createTenderForm.controls.tenderName.valid">Tender Amount is invalid.</mat-error>
+        <mat-error *ngIf="!createTenderForm.controls.tenderName.hasError('pattern')">Tender Amount can contain 0-9 a
+          decimal and a comma(,).</mat-error>
       </mat-form-field>
       <mat-form-field fxFlex appearance="outline">
         <mat-label>Tender Fee</mat-label>
-        <input
-          matInput
-          placeholder="1,000"
-          type="text"
-          formControlName="tenderFee"
-          tmsCurrencyFormatter
-        />
-        <mat-error *ngIf="!createTenderForm.controls.tenderFee.valid"
-          >Tender Fee is invalid.</mat-error
-        >
-        <mat-error *ngIf="!createTenderForm.controls.tenderFee.hasError('pattern')"
-          >Tender Fee can contain 0-9 a decimal and a comma(,).</mat-error
-        >
+        <input matInput placeholder="1,000" type="text" formControlName="tenderFee" tmsCurrencyFormatter />
+        <mat-error *ngIf="!createTenderForm.controls.tenderFee.valid">Tender Fee is invalid.</mat-error>
+        <mat-error *ngIf="!createTenderForm.controls.tenderFee.hasError('pattern')">Tender Fee can contain 0-9 a decimal
+          and a comma(,).</mat-error>
       </mat-form-field>
       <mat-form-field fxFlex appearance="outline">
         <mat-label>EMD</mat-label>
-        <input
-          matInput
-          placeholder="EMD"
-          type="text"
-          formControlName="tenderEMD"
-        />
-        <mat-error *ngIf="!createTenderForm.controls.tenderEMD.valid"
-          >Tender EMD is invalid.</mat-error
-        >
+        <input matInput placeholder="EMD" type="text" formControlName="tenderEMD" />
+        <mat-error *ngIf="!createTenderForm.controls.tenderEMD.valid">Tender EMD is invalid.</mat-error>
       </mat-form-field>
       <mat-form-field fxFlex appearance="outline">
         <mat-label>Tender Reference Numner</mat-label>
-        <input
-          matInput
-          placeholder="1221"
-          type="text"
-          formControlName="tenderReferenceNumber"
-        />
-        <mat-error *ngIf="!createTenderForm.controls.tenderReferenceNumber.valid"
-          >Tender Reference Number is invalid.</mat-error
-        >
+        <input matInput placeholder="1221" type="text" formControlName="tenderReferenceNumber" />
+        <mat-error *ngIf="!createTenderForm.controls.tenderReferenceNumber.valid">Tender Reference Number is invalid.
+        </mat-error>
       </mat-form-field>
       <mat-form-field fxFlex appearance="outline">
         <mat-label>Tender ID</mat-label>
-        <input
-          matInput
-          placeholder="1221"
-          type="text"
-          formControlName="tenderId"
-        />
-        <mat-error *ngIf="!createTenderForm.controls.tenderId.valid"
-          >Tender ID is invalid.</mat-error
-        >
+        <input matInput placeholder="1221" type="text" formControlName="tenderId" />
+        <mat-error *ngIf="!createTenderForm.controls.tenderId.valid">Tender ID is invalid.</mat-error>
       </mat-form-field>
     </div>
     <div class="form" fxFlex fxLayout="column">
       <mat-form-field fxFlex appearance="outline">
         <mat-label>Tender Published Date</mat-label>
-        <input
-          matInput
-          [matDatepicker]="datePickerPublishedDate"
-          formControlName="tenderPublishedDate"
-        />
-        <mat-datepicker-toggle
-          matSuffix
-          [for]="datePickerPublishedDate"
-        ></mat-datepicker-toggle>
+        <input matInput [matDatepicker]="datePickerPublishedDate" formControlName="tenderPublishedDate" />
+        <mat-datepicker-toggle matSuffix [for]="datePickerPublishedDate"></mat-datepicker-toggle>
         <mat-datepicker #datePickerPublishedDate></mat-datepicker>
       </mat-form-field>
       <mat-form-field fxFlex appearance="outline">
         <mat-label>Bid Due Date</mat-label>
-        <input
-          matInput
-          [matDatepicker]="datePickerBidDueDate"
-          formControlName="tenderBidDueDate"
-        />
-        <mat-datepicker-toggle
-          matSuffix
-          [for]="datePickerBidDueDate"
-        ></mat-datepicker-toggle>
+        <input matInput [matDatepicker]="datePickerBidDueDate" formControlName="tenderBidDueDate" />
+        <mat-datepicker-toggle matSuffix [for]="datePickerBidDueDate"></mat-datepicker-toggle>
         <mat-datepicker #datePickerBidDueDate></mat-datepicker>
-        <mat-error
-          *ngIf="
+        <mat-error *ngIf="
             !createTenderForm.controls.tenderBidDueDate.valid &&
             !createTenderForm.controls.tenderBidDueDate.hasError(
               'forbiddenBidDueDate'
             )
-          "
-          >Tender Bid Due is invalid.</mat-error
-        >
-        <mat-error
-          *ngIf="
+          ">Tender Bid Due is invalid.</mat-error>
+        <mat-error *ngIf="
             createTenderForm.controls.tenderBidDueDate.hasError(
               'forbiddenBidDueDate'
             )
-          "
-          >Tender Bid Due cannot be before todays date.</mat-error
-        >
+          ">Tender Bid Due cannot be before todays date.</mat-error>
       </mat-form-field>
       <mat-form-field fxFlex appearance="outline">
         <mat-label>Cut-off Time</mat-label>
-        <input
-          matInput
-          type="time"
-          placeholder="Cut-off Time time"
-          formControlName="tenderBidCutOffTime"
-        />
+        <input matInput type="time" placeholder="Cut-off Time time" formControlName="tenderBidCutOffTime" />
       </mat-form-field>
       <mat-form-field fxFlex appearance="outline">
         <mat-label>Keyname</mat-label>
-        <input
-          matInput
-          placeholder="Keyname"
-          type="text"
-          formControlName="tenderUserKeyName"
-        />
+        <input matInput placeholder="Keyname" type="text" formControlName="tenderUserKeyName" />
       </mat-form-field>
       <mat-form-field fxFlex appearance="outline">
         <mat-label>Login Id</mat-label>
-        <input
-          matInput
-          placeholder="Login Id"
-          autocomplete="off"
-          type="text"
-          formControlName="tenderUserLoginId"
-        />
+        <input matInput placeholder="Login Id" autocomplete="off" type="text" formControlName="tenderUserLoginId" />
       </mat-form-field>
       <mat-form-field fxFlex appearance="outline">
         <mat-label>Password</mat-label>
-        <input
-          matInput
-          autocomplete="off"
-          [type]="hide ? 'password' : 'text'"
-          formControlName="tenderUserPassword"
-        />
-        <button
-          mat-icon-button
-          matSuffix
-          (click)="hide = !hide"
-          [attr.aria-label]="'Hide password'"
-          [attr.aria-pressed]="hide"
-        >
+        <input matInput autocomplete="off" [type]="hide ? 'password' : 'text'" formControlName="tenderUserPassword" />
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide">
           <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
         </button>
       </mat-form-field>
       <mat-form-field fxFlex appearance="outline">
         <mat-label>Website</mat-label>
-        <input
-          matInput
-          placeholder="Website"
-          type="text"
-          formControlName="tenderUserWebsite"
-        />
-        <mat-error *ngIf="!createTenderForm.controls.tenderUserWebsite.valid"
-          >Tender Website is invalid.</mat-error
-        >
+        <input matInput placeholder="Website" type="text" formControlName="tenderUserWebsite" />
+        <mat-error *ngIf="!createTenderForm.controls.tenderUserWebsite.valid">Tender Website is invalid.</mat-error>
       </mat-form-field>
     </div>
   </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button
-    mat-raised-button
-    cdkFocusInitial
-    color="primary"
-    [disabled]="!createTenderForm.valid"
-    (click)="createTender()"
-  >
+  <button mat-raised-button cdkFocusInitial color="primary" [disabled]="!createTenderForm.valid"
+    (click)="createTender()">
     Add Tender
   </button>
   <button mat-raised-button color="warn">Cancel</button>
 </mat-dialog-actions>
 
-<tms-overlay-spinner loadingText="Creating Tender..." size="32" *ngIf="isCreatingTender"></tms-overlay-spinner>
+<tms-overlay-spinner loadingText="Creating Tender..." size="32" *ngIf="isCreatingTender">
+</tms-overlay-spinner>
