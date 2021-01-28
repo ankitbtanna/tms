@@ -14,7 +14,7 @@ import { APP_COOKIES } from '../app.constant';
 import { CookieService } from 'ngx-cookie-service';
 import { CreateTenderComponent } from './create-tender/create-tender.component';
 import { DeletePopupComponent } from './delete-popup/delete-popup.component';
-import { GRAPH_COLOURS } from './dashboard.constant';
+import { GRAPH_COLOURS, TABS } from './dashboard.constant';
 import { ModalPopupComponent } from '@tms/ui';
 import { TenderActionsComponent } from 'libs/grid/grid/src/lib/tender-actions/tender-actions.component';
 import { TenderGridModel } from './models/tender-grid.model';
@@ -300,6 +300,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   setSelectedTender(tender): void {
     this.selectedTender = tender;
+  }
+
+  tabClick(type) {
+    console.log(TABS[type.index]);
+    this.getTenders();
   }
 
   private getTenders() {

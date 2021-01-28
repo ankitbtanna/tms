@@ -11,23 +11,19 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MaterialModule } from '../material.module';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { NgModule } from '@angular/core';
-import { ProgressGraphComponent } from './progress-graph/progress-graph.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToasterModule } from 'libs/ui/src/lib/toaster/toaster.module';
 import { UiModule } from '@tms/ui';
 import { TenderDetailsComponent } from './tender-details/tender-details.component';
 import { TokenInterceptor } from '../interceptors/token.interceptor';
-import { TrialWarningComponent } from './trial-warning/trial-warning.component';
 
 @NgModule({
   declarations: [
     CreateTenderComponent,
     CurrencyFormatterDirective,
     DashboardComponent,
-    ProgressGraphComponent,
     DeletePopupComponent,
-    TenderDetailsComponent,
-    TrialWarningComponent
+    TenderDetailsComponent
   ],
   imports: [
     CommonModule,
