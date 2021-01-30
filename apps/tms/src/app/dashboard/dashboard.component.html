@@ -7,39 +7,40 @@
 </mat-toolbar>
 <div fxFlex fxLayout="row">
   <mat-tab-group color="accent" backgroundColor="primary" fxFlex dynamicHeight (selectedTabChange)="tabClick($event)">
-    <mat-tab [label]="'Active('+(tenders$ | async)?.length+')'">
-      <div fxFlex fxLayout="row" *ngIf="(tenders$ | async)?.length">
+    <mat-tab label="Upcoming">
+      <div fxFlex fxLayout="row" *ngIf="(tenders$ | async)?.length && activeTab === 'active'">
         <tms-grid [validateData]="validateData" [columnDefs]="columnDefs" [rowData]="rowData"
           [frameworkComponents]="frameworkComponents" (onRowSelection)="toggleTenderDetails($event)"></tms-grid>
       </div>
-      <div fxFlex class="details" *ngIf="selectedTender">
+      <div fxFlex class="details" *ngIf="selectedTender && activeTab === 'active'">
         <tms-tender-details [tender]="selectedTender" (onCloseTender)="closeTenderDetails()"></tms-tender-details>
       </div>
     </mat-tab>
-    <mat-tab [label]="'Complete('+(tenders$ | async)?.length+')'">
-      <div fxFlex fxLayout="row" *ngIf="(tenders$ | async)?.length" class="grid-container">
+    <mat-tab label="Filled">
+      <div fxFlex fxLayout="row" *ngIf="(tenders$ | async)?.length && activeTab === 'complete'" class="grid-container">
         <tms-grid [validateData]="validateData" [columnDefs]="columnDefs" [rowData]="rowData"
           [frameworkComponents]="frameworkComponents" (onRowSelection)="toggleTenderDetails($event)"></tms-grid>
       </div>
-      <div fxFlex class="details" *ngIf="selectedTender">
+      <div fxFlex class="details" *ngIf="selectedTender && activeTab === 'complete'">
         <tms-tender-details [tender]="selectedTender" (onCloseTender)="closeTenderDetails()"></tms-tender-details>
       </div>
     </mat-tab>
-    <mat-tab [label]="'Not Filled('+(tenders$ | async)?.length+')'">
-      <div fxFlex fxLayout="row" *ngIf="(tenders$ | async)?.length" class="grid-container">
+    <mat-tab label="Not Filled">
+      <div fxFlex fxLayout="row" *ngIf="(tenders$ | async)?.length && activeTab === 'not_filled'"
+        class="grid-container">
         <tms-grid [validateData]="validateData" [columnDefs]="columnDefs" [rowData]="rowData"
           [frameworkComponents]="frameworkComponents" (onRowSelection)="toggleTenderDetails($event)"></tms-grid>
       </div>
-      <div fxFlex class="details" *ngIf="selectedTender">
+      <div fxFlex class="details" *ngIf="selectedTender && activeTab === 'not_filled'">
         <tms-tender-details [tender]="selectedTender" (onCloseTender)="closeTenderDetails()"></tms-tender-details>
       </div>
     </mat-tab>
-    <mat-tab [label]="'All('+(tenders$ | async)?.length+')'">
-      <div fxFlex fxLayout="row" *ngIf="(tenders$ | async)?.length" class="grid-container">
+    <mat-tab label="All">
+      <div fxFlex fxLayout="row" *ngIf="(tenders$ | async)?.length && activeTab === 'all'" class="grid-container">
         <tms-grid [validateData]="validateData" [columnDefs]="columnDefs" [rowData]="rowData"
           [frameworkComponents]="frameworkComponents" (onRowSelection)="toggleTenderDetails($event)"></tms-grid>
       </div>
-      <div fxFlex class="details" *ngIf="selectedTender">
+      <div fxFlex class="details" *ngIf="selectedTender && activeTab === 'all'">
         <tms-tender-details [tender]="selectedTender" (onCloseTender)="closeTenderDetails()"></tms-tender-details>
       </div>
     </mat-tab>

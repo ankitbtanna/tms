@@ -28,6 +28,21 @@ export class TendersController {
     return this.tendersService.getTendersByUserName(params.username);
   }
 
+  @Get('active/:username')
+  getActiveTendersByUser(@Param() params): any {
+    return this.tendersService.getActiveTendersByUser(params.username);
+  }
+
+  @Get('complete/:username')
+  getCompleteTendersByUser(@Param() params): any {
+    return this.tendersService.getCompleteTendersByUser(params.username);
+  }
+
+  @Get('not-filled/:username')
+  getNotFilledTendersByUser(@Param() params): any {
+    return this.tendersService.getNotFilledTendersByUser(params.username);
+  }
+
   @Post()
   createTender(@Req() req): any {
     return this.tendersService.createTender(req.body);

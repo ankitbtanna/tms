@@ -240,6 +240,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     cancelledPercentage: 0
   };
 
+  activeTab = TABS[0].toLowerCase();
+
   // eslint-disable-next-line max-len
   constructor(
     private tendersService: TendersService,
@@ -264,7 +266,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.userSubscriptionDetails = userSubscriptionDetails;
       this.isUserSubscriptionExpired = currentDate.getTime() > subscriptionEndDate.getTime();
     });
-    this.getTenders();
+    this.getTenders(this.activeTab);
   }
 
   openAddTenderDialog(): void {
@@ -283,7 +285,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.tendersService.createTender(tender).subscribe(() => {
       this.createTenderForm.setLoader(false);
       this.createTenderModalWrapper.close();
-      this.getTenders();
+      this.getTenders(TABS[0].toLowerCase());
       this.toasterService.showToast('Tender created successfully.');
     }, () => {
       this.toasterService.showToast('Error creating tender. Please contact admin.', 'error');
@@ -303,14 +305,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   tabClick(type) {
-    console.log(TABS[type.index]);
-    this.getTenders();
+    this.setSelectedTender(undefined);
+    this.activeTab = TABS[type.index].toLowerCase();
+    this.getTenders(this.activeTab);
   }
 
-  private getTenders() {
+  private getTenders(kind: string) {
     this.isLoadingTenders = true;
     this.showDashboard = false;
-    this.tenders$ = this.tendersService.getTendersByUsername().pipe(
+    this.tenders$ = this.tendersService.getTendersByUsername(kind).pipe(
       map((tenders) => {
         this.rowData = this.tendersModelMapper.getTenderDataForGrid(tenders);
         this.tenderStats = this.tendersService.getTenderStats(tenders);
@@ -329,7 +332,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private completeTender(tender: TenderGridModel): void {
     this.setSelectedTender(undefined);
     this.tendersService.completeTender(tender, true).subscribe(() => {
-      this.getTenders();
+      this.getTenders(this.activeTab);
       this.toasterService.showToast('Tender is completed.');
     });
   }
@@ -337,7 +340,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private cancelTenderFiling(tender: TenderGridModel): void {
     this.setSelectedTender(undefined);
     this.tendersService.cancelTender(tender, true).subscribe(() => {
-      this.getTenders();
+      this.getTenders(this.activeTab);
       this.toasterService.showToast('Tender is cancelled.');
     });
   }
@@ -352,7 +355,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.setSelectedTender(undefined);
     if (tender.isComplete || tender.isNotFilled || tender.isDeleted) {
       this.tendersService.activateTender(tender).subscribe(() => {
-        this.getTenders();
+        this.getTenders(this.activeTab);
         this.toasterService.showToast('Tender is activated.');
       });
     } else {
@@ -391,7 +394,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   delete(): void {
     this.tendersService.deleteTender(this.tender._id).subscribe(() => {
-      this.getTenders();
+      this.getTenders(this.activeTab);
       this.deleteTenderPopup.setDeletingTender(false);
       this.deleteTenderModalWrapper.close();
       this.toasterService.showToast('Tender is deleted.');

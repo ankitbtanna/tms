@@ -64,6 +64,73 @@ export class TenderService {
     }
   }
 
+  async getActiveTendersByUser(username: string): Promise<TenderModel[] | { [key: string]: string }> {
+    try {
+      if (!username) {
+        throw new HttpException({
+          status: HttpStatus.BAD_REQUEST,
+          error: 'Invalid username.',
+        }, HttpStatus.BAD_REQUEST);
+      }
+      const tendersByUsername = await this.tenders.find({
+        'properties.owner': username,
+        'properties.isDeleted': false,
+        'properties.isComplete': false,
+        'properties.isNotFilled': false
+      }).exec();
+      return tendersByUsername;
+    } catch (error) {
+      throw new HttpException({
+        status: HttpStatus.INTERNAL_SERVER_ERROR,
+        error: JSON.stringify(error),
+      }, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  async getCompleteTendersByUser(username: string): Promise<TenderModel[] | { [key: string]: string }> {
+    try {
+      if (!username) {
+        throw new HttpException({
+          status: HttpStatus.BAD_REQUEST,
+          error: 'Invalid username.',
+        }, HttpStatus.BAD_REQUEST);
+      }
+      const tendersByUsername = await this.tenders.find({
+        'properties.owner': username,
+        'properties.isDeleted': false,
+        'properties.isComplete': true
+      }).exec();
+      return tendersByUsername;
+    } catch (error) {
+      throw new HttpException({
+        status: HttpStatus.INTERNAL_SERVER_ERROR,
+        error: JSON.stringify(error),
+      }, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  async getNotFilledTendersByUser(username: string): Promise<TenderModel[] | { [key: string]: string }> {
+    try {
+      if (!username) {
+        throw new HttpException({
+          status: HttpStatus.BAD_REQUEST,
+          error: 'Invalid username.',
+        }, HttpStatus.BAD_REQUEST);
+      }
+      const tendersByUsername = await this.tenders.find({
+        'properties.owner': username,
+        'properties.isDeleted': false,
+        'properties.isNotFilled': true
+      }).exec();
+      return tendersByUsername;
+    } catch (error) {
+      throw new HttpException({
+        status: HttpStatus.INTERNAL_SERVER_ERROR,
+        error: JSON.stringify(error),
+      }, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
   async createTender(tender: TenderModel): Promise<TenderModel | { [key: string]: string }> {
     try {
       this.checkAndThrowException(tender);

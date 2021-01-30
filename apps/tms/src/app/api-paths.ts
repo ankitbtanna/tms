@@ -15,7 +15,10 @@ export const API_PATHS = {
     BLOCK_SHAKEHOLDER: 'http://localhost:8080/api/share/block-stakeholder'
   },
   TENDERS: {
-    GET_TENDER_BY_USERNAME: 'http://localhost:8080/api/tenders/all-tenders/${username}',
+    GET_TENDERS_BY_USERNAME: 'http://localhost:8080/api/tenders/all-tenders/${username}',
+    GET_ACTIVE_TENDERS_BY_USERNAME: 'http://localhost:8080/api/tenders/active/${username}',
+    GET_COMPLETE_TENDERS_BY_USERNAME: 'http://localhost:8080/api/tenders/complete/${username}',
+    GET_NOT_FILLED_TENDERS_BY_USERNAME: 'http://localhost:8080/api/tenders/not-filled/${username}',
     CREATE_TENDER: 'http://localhost:8080/api/tenders',
     DELETE_TENDER: 'http://localhost:8080/api/tenders/delete/${tenderId}',
     UPDATE_TENDER: 'http://localhost:8080/api/tenders/update/${tenderId}'
