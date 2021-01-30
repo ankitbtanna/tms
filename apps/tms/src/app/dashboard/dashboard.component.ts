@@ -323,7 +323,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
       finalize(() => {
         setTimeout(() => {
           this.isLoadingTenders = false;
-          this.toasterService.showToast('Showing all tenders.');
+          let tenderKind = '';
+          if (kind === 'all') {
+            tenderKind = 'all'
+          } else if (kind === 'active') {
+            tenderKind = 'upcoming'
+          } else if (kind === 'complete') {
+            tenderKind = 'completed'
+          } else {
+            tenderKind = 'not filled'
+          }
+          this.toasterService.showToast(`Showing ${tenderKind} tenders.`);
         }, 500);
       })
     );
