@@ -81,26 +81,28 @@ export class TendersService {
       );
   }
 
-  getTenderStats(tenders: TenderModel[]): { [key: string]: number } {
-    let [completed, active, cancelled] = [0, 0, 0];
-    tenders.forEach((tender) => {
-      if (tender.properties.isComplete) {
-        completed += 1;
-      }
+  getTenderStats(): Observable<{ [key: string]: number }> {
+    return this.getTendersByUsername('all').pipe(map((tenders) => {
+      let [completed, active, cancelled] = [0, 0, 0];
+      tenders.forEach((tender) => {
+        if (tender.properties.isComplete) {
+          completed += 1;
+        }
 
-      if (tender.properties.isNotFilled) {
-        cancelled += 1;
-      }
-    });
-    active = tenders.length - completed - cancelled;
-    return {
-      completed,
-      active,
-      cancelled,
-      completedPercentage: (completed / tenders.length) * 100,
-      activePercentage: (active / tenders.length) * 100,
-      cancelledPercentage: (cancelled / tenders.length) * 100
-    };
+        if (tender.properties.isNotFilled) {
+          cancelled += 1;
+        }
+      });
+      active = tenders.length - completed - cancelled;
+      return {
+        completed,
+        active,
+        cancelled,
+        completedPercentage: (completed / tenders.length) * 100,
+        activePercentage: (active / tenders.length) * 100,
+        cancelledPercentage: (cancelled / tenders.length) * 100
+      };
+    }));
   }
 
   private transformTenderGridModelToTenderModel(tender: TenderGridModel): TenderModel {

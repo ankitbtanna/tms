@@ -316,27 +316,31 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.tenders$ = this.tendersService.getTendersByUsername(kind).pipe(
       map((tenders) => {
         this.rowData = this.tendersModelMapper.getTenderDataForGrid(tenders);
-        this.tenderStats = this.tendersService.getTenderStats(tenders);
+        this.tendersService.getTenderStats().subscribe((tenderStats) => {
+          this.tenderStats = tenderStats;
+        });
         this.showDashboard = true;
         return tenders;
       }),
       finalize(() => {
         setTimeout(() => {
           this.isLoadingTenders = false;
-          let tenderKind = '';
-          if (kind === 'all') {
-            tenderKind = 'all'
-          } else if (kind === 'active') {
-            tenderKind = 'upcoming'
-          } else if (kind === 'complete') {
-            tenderKind = 'completed'
-          } else {
-            tenderKind = 'not filled'
-          }
-          this.toasterService.showToast(`Showing ${tenderKind} tenders.`);
+          this.toasterService.showToast(`Showing ${this.getTenderKind(kind)} tenders.`);
         }, 500);
       })
     );
+  }
+
+  private getTenderKind(kind: string): string {
+    if (kind === 'all') {
+      return 'all';
+    } else if (kind === 'active') {
+      return 'upcoming';
+    } else if (kind === 'complete') {
+      return 'completed';
+    } else {
+      return 'not filled';
+    }
   }
 
   private completeTender(tender: TenderGridModel): void {

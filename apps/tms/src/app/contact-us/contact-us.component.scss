@@ -1,0 +1,75 @@
+:host {
+  display: flex;
+  flex: 1;
+  flex-flow: column;
+  width: 100%;
+  position: relative;
+  overflow-y: scroll;
+}
+
+.header {
+  display: flex;
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+}
+
+.contact-us-card {
+  width: 50%;
+}
+
+.container {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.tele-actions {
+  max-height: 100px;
+  margin-top: 20px;
+}
+
+.actions {
+  padding: 0 10px;
+}
+
+.action {
+  height: 100px;
+  width: 100px;
+  border: 1px solid #3f51b5;
+  background-color: #3f51b5;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  margin: 10px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-flow: column;
+  color: #fff;
+
+  a {
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-flow: column;
+    color: #fff;
+  }
+
+  &:hover {
+    cursor: pointer;
+    border: 1px solid rgb(74, 255, 74);
+    background-color: rgb(74, 255, 74);
+    color: rgb(29, 29, 29);
+    transition: all 200ms ease-in-out;
+  }
+
+  mat-icon {
+    font-size: 50px;
+    height: auto !important;
+    width: auto !important;
+  }
+}

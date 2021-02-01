@@ -7,7 +7,7 @@
 </mat-toolbar>
 <div fxFlex fxLayout="row">
   <mat-tab-group color="accent" backgroundColor="primary" fxFlex dynamicHeight (selectedTabChange)="tabClick($event)">
-    <mat-tab label="Upcoming">
+    <mat-tab [label]="'Upcoming('+tenderStats.active+')'">
       <div fxFlex fxLayout="row" *ngIf="(tenders$ | async)?.length && activeTab === 'active'">
         <tms-grid [validateData]="validateData" [columnDefs]="columnDefs" [rowData]="rowData"
           [frameworkComponents]="frameworkComponents" (onRowSelection)="toggleTenderDetails($event)"></tms-grid>
@@ -16,7 +16,7 @@
         <tms-tender-details [tender]="selectedTender" (onCloseTender)="closeTenderDetails()"></tms-tender-details>
       </div>
     </mat-tab>
-    <mat-tab label="Filled">
+    <mat-tab [label]="'Filled('+tenderStats.completed+')'">
       <div fxFlex fxLayout="row" *ngIf="(tenders$ | async)?.length && activeTab === 'complete'" class="grid-container">
         <tms-grid [validateData]="validateData" [columnDefs]="columnDefs" [rowData]="rowData"
           [frameworkComponents]="frameworkComponents" (onRowSelection)="toggleTenderDetails($event)"></tms-grid>
@@ -25,7 +25,7 @@
         <tms-tender-details [tender]="selectedTender" (onCloseTender)="closeTenderDetails()"></tms-tender-details>
       </div>
     </mat-tab>
-    <mat-tab label="Not Filled">
+    <mat-tab [label]="'Not Filled('+tenderStats.cancelled+')'">
       <div fxFlex fxLayout="row" *ngIf="(tenders$ | async)?.length && activeTab === 'not_filled'"
         class="grid-container">
         <tms-grid [validateData]="validateData" [columnDefs]="columnDefs" [rowData]="rowData"
@@ -35,7 +35,7 @@
         <tms-tender-details [tender]="selectedTender" (onCloseTender)="closeTenderDetails()"></tms-tender-details>
       </div>
     </mat-tab>
-    <mat-tab label="All">
+    <mat-tab [label]="'All('+(tenderStats.cancelled+tenderStats.active+tenderStats.completed)+')'">
       <div fxFlex fxLayout="row" *ngIf="(tenders$ | async)?.length && activeTab === 'all'" class="grid-container">
         <tms-grid [validateData]="validateData" [columnDefs]="columnDefs" [rowData]="rowData"
           [frameworkComponents]="frameworkComponents" (onRowSelection)="toggleTenderDetails($event)"></tms-grid>
