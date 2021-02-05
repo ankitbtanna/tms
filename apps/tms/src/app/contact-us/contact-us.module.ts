@@ -8,10 +8,11 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ToasterModule } from 'libs/ui/src/lib/toaster/toaster.module';
 import { ContactUsService } from './services/contact-us.service';
 import { TokenInterceptor } from '../interceptors/token.interceptor';
+import { UiModule } from '@tms/ui';
 
 @NgModule({
   declarations: [ContactUsComponent],
-  imports: [CommonModule, ToasterModule, HttpClientModule, ContactUsRoutingModule, MaterialModule, ReactiveFormsModule],
+  imports: [CommonModule, UiModule, ToasterModule, HttpClientModule, ContactUsRoutingModule, MaterialModule, ReactiveFormsModule],
   providers: [ContactUsService, {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptor,

@@ -18,9 +18,12 @@ export class ContactUsComponent {
     description: new FormControl('', { validators: [Validators.required] })
   });
 
+  isCreatingQuery = false;
+
   constructor(private contactUsService: ContactUsService, private cookieService: CookieService, private toasterService: ToasterService) { }
 
   createQuery() {
+    this.isCreatingQuery = true;
     if (this.contactUsForm.valid) {
       const query: ContactUsQuery = {
         subject: this.contactUsForm.controls.subject.value,
@@ -30,6 +33,7 @@ export class ContactUsComponent {
         username: this.cookieService.get(APP_COOKIES.LOGGED_IN_USER)
       }
       this.contactUsService.createQuery(query).subscribe((query: ContactUsQuery) => {
+        this.isCreatingQuery = false;
         this.contactUsForm.reset();
         this.toasterService.showToast(`Case #${query.caseId} created. Please use this for further reference.`);
       });
@@ -37,6 +41,7 @@ export class ContactUsComponent {
   }
 
   createCallRequest() {
+    this.isCreatingQuery = true;
     const query: ContactUsQuery = {
       subject: 'CALL_REQUEST',
       description: 'CALL_REQUEST',
@@ -45,6 +50,7 @@ export class ContactUsComponent {
       username: this.cookieService.get(APP_COOKIES.LOGGED_IN_USER)
     }
     this.contactUsService.createQuery(query).subscribe((query: ContactUsQuery) => {
+      this.isCreatingQuery = false;
       this.contactUsForm.reset();
       this.toasterService.showToast(`Case #${query.caseId} created. You will request callback soon.`);
     });
