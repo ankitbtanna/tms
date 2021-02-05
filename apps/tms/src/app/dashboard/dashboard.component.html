@@ -47,7 +47,8 @@
   </mat-tab-group>
 </div>
 <tms-modal-popup #createTenderModalWrapper>
-  <tms-create-tender #createTenderForm (onCreateTender)="createTender($event)" fxFlex fxLayout="column">
+  <tms-create-tender #createTenderForm (onCreateTender)="createTender($event)"
+    (onCloseCreateTender)="closeCreateTender()" fxFlex fxLayout="column">
   </tms-create-tender>
 </tms-modal-popup>
 <tms-modal-popup #deleteTenderModalWrapper>

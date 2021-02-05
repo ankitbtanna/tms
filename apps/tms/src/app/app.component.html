@@ -5,10 +5,6 @@
         <mat-icon>home</mat-icon>
         <span class="nav-caption">Home</span>
       </a>
-      <a mat-list-item routerLink="/dashboard" (click)="sidenav.toggle()" *ngIf="isLoggedIn">
-        <mat-icon>request_page</mat-icon>
-        <span class="nav-caption">Tenders</span>
-      </a>
       <a mat-list-item routerLink="/share-tms" (click)="sidenav.toggle()" *ngIf="isLoggedIn">
         <mat-icon>share</mat-icon>
         <span class="nav-caption">Share</span>

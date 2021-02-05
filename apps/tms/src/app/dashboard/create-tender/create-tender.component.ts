@@ -66,6 +66,7 @@ export class CreateTenderComponent {
   isCreatingTender = false;
 
   @Output() onCreateTender: EventEmitter<TenderModel> = new EventEmitter();
+  @Output() onCloseCreateTender: EventEmitter<void> = new EventEmitter();
 
   createTenderForm: FormGroup = new FormGroup({
     tenderName: new FormControl('', [
@@ -149,5 +150,9 @@ export class CreateTenderComponent {
     currentDate.setHours(0, 0, 0, 0);
     const forbidden = new Date(control.value) < currentDate;
     return forbidden ? { forbiddenBidDueDate: { value: control.value } } : null;
+  }
+
+  closeModal(): void {
+    this.onCloseCreateTender.emit();
   }
 }

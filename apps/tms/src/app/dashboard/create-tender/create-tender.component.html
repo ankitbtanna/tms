@@ -96,7 +96,7 @@
     (click)="createTender()">
     Add Tender
   </button>
-  <button mat-raised-button color="warn">Cancel</button>
+  <button mat-raised-button color="warn" (click)="closeModal()">Cancel</button>
 </mat-dialog-actions>
 
 <tms-overlay-spinner loadingText="Creating Tender..." size="32" *ngIf="isCreatingTender">

@@ -287,9 +287,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.createTenderModalWrapper.close();
       this.getTenders(TABS[0].toLowerCase());
       this.toasterService.showToast('Tender created successfully.');
+      this.createTenderForm.resetForm();
     }, () => {
       this.toasterService.showToast('Error creating tender. Please contact admin.', 'error');
     });
+  }
+
+  closeCreateTender(): void {
+    this.createTenderForm.createTenderForm.reset();
+    this.createTenderModalWrapper.close();
   }
 
   toggleTenderDetails(data): void {
