@@ -24,7 +24,8 @@
     </mat-card-content>
     <mat-card-actions fxLayout="column">
       <div fxLayout="row" fxFlex class="actions">
-        <button mat-raised-button cdkFocusInitial color="primary" [disabled]="!contactUsForm.valid">
+        <button mat-raised-button cdkFocusInitial color="primary" [disabled]="!contactUsForm.valid"
+          (click)="createQuery()">
           Send
         </button>
         <button mat-raised-button color="warn">Cancel</button>
@@ -32,7 +33,7 @@
     </mat-card-actions>
   </mat-card>
   <div fxLayout="row" fxFlex class="tele-actions">
-    <div class="action">
+    <div class="action" (click)="createCallRequest()">
       <mat-icon>phone</mat-icon>
       Call Us
     </div>

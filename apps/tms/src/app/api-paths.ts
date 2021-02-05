@@ -28,5 +28,8 @@ export const API_PATHS = {
     UPDATE_TRANSACTION: 'http://localhost:8080/api/transaction/update-transaction/${transactionId}',
     GENERATE_ORDER: 'http://localhost:8080/api/transaction/order-id',
     VERIFY_ORDER: 'http://localhost:8080/api/transaction/order-id/${orderId}'
+  },
+  CONTACT_US: {
+    CREATE_QUERY: 'http://localhost:8080/api/contact-us'
   }
 };
