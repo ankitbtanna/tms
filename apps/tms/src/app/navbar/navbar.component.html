@@ -5,13 +5,13 @@
     </button>
   </div>
   <div class="logo">E-Bharat: TMS</div>
-  <div class="menu" fxHide.xs *ngIf="isLoggedIn">
+  <div class="menu" fxHide.xs *ngIf="isLoggedIn" [ngClass]="{'active': activeRoute === 'home'}">
     <a routerLink="/dashboard">Home</a>
   </div>
-  <div class="menu" fxHide.xs *ngIf="isLoggedIn">
+  <div class="menu" fxHide.xs *ngIf="isLoggedIn" [ngClass]="{'active': activeRoute === 'share'}">
     <a routerLink="/share-tms">Share</a>
   </div>
-  <div class="menu" fxHide.xs *ngIf="isLoggedIn">
+  <div class="menu" fxHide.xs *ngIf="isLoggedIn" [ngClass]="{'active': activeRoute === 'contact-us'}">
     <a routerLink="/contact-us">Contact Us</a>
   </div>
   <div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs *ngIf="isLoggedIn">

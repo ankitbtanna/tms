@@ -24,14 +24,24 @@ a {
 
 .logo {
   cursor: pointer;
+  margin-right: 20px;
 }
 
 .menu {
-  margin-left: 20px;
-  padding: 10px;
+  padding: 20px;
   height: 100%;
   display: flex;
   align-items: center;
+
+  &.active {
+    background: #fff;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+
+    a {
+      color: #3f51b5;
+    }
+  }
 
   &:hover {
     background: #fff;
