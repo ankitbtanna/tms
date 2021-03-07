@@ -1,8 +1,25 @@
-const express = require('express');
-const path = require('path');
+"use strict";
+const express = require("express");
+const compression = require("compression");
+
+const _port = 9000;
+const _app_folder = 'dist/application';
+
 const app = express();
-app.use(express.static(path.join(__dirname, 'dist')));
-app.get('/*', function (req, res) {
-  res.sendFile(path.join(__dirname, 'dist/apps/tms', 'index.html'));
-})
-app.listen(9000);
+app.use(compression());
+
+
+// ---- SERVE STATIC FILES ---- //
+app.get('*.*', express.static(_app_folder));
+
+// ---- SERVE APLICATION PATHS ---- //
+app.all('*', function (req, res) {
+  res.status(200).sendFile(`/`, {
+    root: _app_folder
+  });
+});
+
+// ---- START UP THE NODE SERVER  ----
+app.listen(_port, function () {
+  console.log("Node Express server for " + app.name + " listening on http://localhost:" + _port);
+});
