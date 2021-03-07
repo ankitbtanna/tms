@@ -10,9 +10,7 @@ app.use(compression());
 
 
 // ---- SERVE STATIC FILES ---- //
-app.server.get('*.*', express.static(_app_folder, {
-  maxAge: '1y'
-}));
+app.server.get('*.*', express.static(_app_folder));
 
 // ---- SERVE APLICATION PATHS ---- //
 app.all('*', function (req, res) {
