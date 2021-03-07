@@ -14,7 +14,7 @@ app.get('*.*', express.static(_app_folder));
 
 // ---- SERVE APLICATION PATHS ---- //
 app.all('*', function (req, res) {
-  res.status(200).sendFile(`/dist/apps/tms`, {
+  res.status(200).sendFile(`/`, {
     root: _app_folder
   });
 });
