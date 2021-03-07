@@ -30,8 +30,28 @@ export class UserService {
         error: 'User does not exist. Please enter a valid email id.',
       }, HttpStatus.BAD_REQUEST);
     }
-
+    delete result[0].password;
     return result;
+  }
+
+  async getUserSubscriptionDetails(username: string) {
+    const result = await this.userModel.find({
+      username: username.toLowerCase()
+    });
+    if (!result.length) {
+      throw new HttpException({
+        status: HttpStatus.BAD_REQUEST,
+        error: 'User does not exist. Please enter a valid email id.',
+      }, HttpStatus.BAD_REQUEST);
+    }
+
+    return {
+      isPremiumMember: result[0].isPremiumMember,
+      subscriptionEndDate: result[0].subscriptionEndDate,
+      subscriptionStartDate: result[0].subscriptionStartDate,
+      registrationDate: result[0].subscriptionStartDate,
+      premiumMembershipReferenceId: result[0].premiumMembershipReferenceId
+    };
   }
 
   async updateUser(premiumMembershipReferenceId: string, username: string) {

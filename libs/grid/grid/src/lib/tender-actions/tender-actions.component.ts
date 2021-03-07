@@ -21,8 +21,6 @@ export class TenderActionsComponent implements ICellRendererAngularComp {
 
   isUploadHovered = false;
 
-  isInvitationHovered = false;
-
   isDeleteHovered = false;
 
   isActiveHovered = false;
@@ -63,10 +61,6 @@ export class TenderActionsComponent implements ICellRendererAngularComp {
 
   addTenderDocument(): void {
     this.params.addTenderDocument(this.params.data);
-  }
-
-  downloadTenderCalendar(): void {
-    this.params.downloadTenderCalendar(this.params.data);
   }
 
   deleteTender(): void {

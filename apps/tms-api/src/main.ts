@@ -18,7 +18,7 @@ async function bootstrap() {
   app.use(morgan('dev'));
   app.setGlobalPrefix(globalPrefix);
   app.enableCors();
-  const port = process.env.PORT || 3333;
+  const port = process.env.PORT || 3000;
 
   const options = new DocumentBuilder()
     .setTitle('E-Bharat: Tender Management System')

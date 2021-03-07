@@ -14,7 +14,7 @@ import { APP_COOKIES } from '../app.constant';
 import { CookieService } from 'ngx-cookie-service';
 import { CreateTenderComponent } from './create-tender/create-tender.component';
 import { DeletePopupComponent } from './delete-popup/delete-popup.component';
-import { GRAPH_COLOURS } from './dashboard.constant';
+import { GRAPH_COLOURS, TABS } from './dashboard.constant';
 import { ModalPopupComponent } from '@tms/ui';
 import { TenderActionsComponent } from 'libs/grid/grid/src/lib/tender-actions/tender-actions.component';
 import { TenderGridModel } from './models/tender-grid.model';
@@ -22,6 +22,8 @@ import { TenderModel } from './models/tender.model';
 import { TendersModelMapper } from './services/tenders.modelmapper';
 import { TendersService } from './services/tenders.service';
 import { ToasterService } from 'libs/ui/src/lib/toaster/services/toaster.service';
+import { User } from '../register/models/users.model';
+import { SubscriptionDetails } from './models/subscription-interface.model';
 
 @Component({
   selector: 'tms-workspace-dashboard',
@@ -55,6 +57,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   frameworkComponents;
 
   selectedTender: TenderGridModel = undefined;
+
+  userSubscriptionDetails: SubscriptionDetails;
+  isUserSubscriptionExpired = false;
 
   columnDefs = [
     {
@@ -235,6 +240,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     cancelledPercentage: 0
   };
 
+  activeTab = TABS[0].toLowerCase();
+
   // eslint-disable-next-line max-len
   constructor(
     private tendersService: TendersService,
@@ -253,11 +260,23 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.owner = this.cookieService.get(APP_COOKIES.LOGGED_IN_USER);
-    this.getTenders();
+    this.tendersService.getUserSubscriptionDetails(this.owner).subscribe((userSubscriptionDetails) => {
+      const currentDate = new Date();
+      const subscriptionEndDate = new Date(userSubscriptionDetails.subscriptionEndDate);
+      this.userSubscriptionDetails = userSubscriptionDetails;
+      this.isUserSubscriptionExpired = currentDate.getTime() > subscriptionEndDate.getTime();
+    });
+    this.getTenders(this.activeTab);
   }
 
   openAddTenderDialog(): void {
     this.createTenderModalWrapper.open();
+  }
+
+  isSubscriptionEndDatePast(subscriptionEndDate): boolean {
+    const endDate = new Date(subscriptionEndDate);
+    const currentDate = new Date();
+    return currentDate < endDate;
   }
 
   createTender(tender: TenderModel): void {
@@ -266,11 +285,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.tendersService.createTender(tender).subscribe(() => {
       this.createTenderForm.setLoader(false);
       this.createTenderModalWrapper.close();
-      this.getTenders();
+      this.getTenders(TABS[0].toLowerCase());
       this.toasterService.showToast('Tender created successfully.');
+      this.createTenderForm.resetForm();
     }, () => {
       this.toasterService.showToast('Error creating tender. Please contact admin.', 'error');
     });
+  }
+
+  closeCreateTender(): void {
+    this.createTenderForm.createTenderForm.reset();
+    this.createTenderModalWrapper.close();
   }
 
   toggleTenderDetails(data): void {
@@ -285,29 +310,49 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.selectedTender = tender;
   }
 
-  private getTenders() {
+  tabClick(type) {
+    this.setSelectedTender(undefined);
+    this.activeTab = TABS[type.index].toLowerCase();
+    this.getTenders(this.activeTab);
+  }
+
+  private getTenders(kind: string) {
     this.isLoadingTenders = true;
     this.showDashboard = false;
-    this.tenders$ = this.tendersService.getTendersByUsername().pipe(
+    this.tenders$ = this.tendersService.getTendersByUsername(kind).pipe(
       map((tenders) => {
         this.rowData = this.tendersModelMapper.getTenderDataForGrid(tenders);
-        this.tenderStats = this.tendersService.getTenderStats(tenders);
+        this.tendersService.getTenderStats().subscribe((tenderStats) => {
+          this.tenderStats = tenderStats;
+        });
         this.showDashboard = true;
         return tenders;
       }),
       finalize(() => {
         setTimeout(() => {
           this.isLoadingTenders = false;
-          this.toasterService.showToast('Showing all tenders.');
+          this.toasterService.showToast(`Showing ${this.getTenderKind(kind)} tenders.`);
         }, 500);
       })
     );
   }
 
+  private getTenderKind(kind: string): string {
+    if (kind === 'all') {
+      return 'all';
+    } else if (kind === 'active') {
+      return 'upcoming';
+    } else if (kind === 'complete') {
+      return 'completed';
+    } else {
+      return 'not filled';
+    }
+  }
+
   private completeTender(tender: TenderGridModel): void {
     this.setSelectedTender(undefined);
     this.tendersService.completeTender(tender, true).subscribe(() => {
-      this.getTenders();
+      this.getTenders(this.activeTab);
       this.toasterService.showToast('Tender is completed.');
     });
   }
@@ -315,7 +360,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private cancelTenderFiling(tender: TenderGridModel): void {
     this.setSelectedTender(undefined);
     this.tendersService.cancelTender(tender, true).subscribe(() => {
-      this.getTenders();
+      this.getTenders(this.activeTab);
       this.toasterService.showToast('Tender is cancelled.');
     });
   }
@@ -330,7 +375,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.setSelectedTender(undefined);
     if (tender.isComplete || tender.isNotFilled || tender.isDeleted) {
       this.tendersService.activateTender(tender).subscribe(() => {
-        this.getTenders();
+        this.getTenders(this.activeTab);
         this.toasterService.showToast('Tender is activated.');
       });
     } else {
@@ -369,7 +414,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   delete(): void {
     this.tendersService.deleteTender(this.tender._id).subscribe(() => {
-      this.getTenders();
+      this.getTenders(this.activeTab);
       this.deleteTenderPopup.setDeletingTender(false);
       this.deleteTenderModalWrapper.close();
       this.toasterService.showToast('Tender is deleted.');

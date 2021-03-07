@@ -7,7 +7,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { TenderGridModel } from '../models/tender-grid.model';
 import { TenderModel } from '../models/tender.model';
-import { map } from 'rxjs/operators';
+import { map, shareReplay } from 'rxjs/operators';
+import { User } from '../../register/models/users.model';
+import { SubscriptionDetails } from '../models/subscription-interface.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,11 +17,22 @@ import { map } from 'rxjs/operators';
 export class TendersService {
   constructor(private http: HttpClient, private cookieService: CookieService) { }
 
-  getTendersByUsername(): Observable<TenderModel[]> {
+  getTendersByUsername(kind: string): Observable<TenderModel[]> {
     const username = this.cookieService.get('logged-in-user');
-    return this.http.get(API_PATHS.TENDERS.GET_TENDER_BY_USERNAME.replace('${username}', username))
+    let api_url = '';
+    if (kind === 'active') {
+      api_url = API_PATHS.TENDERS.GET_ACTIVE_TENDERS_BY_USERNAME.replace('${username}', username);
+    } else if (kind === 'complete') {
+      api_url = API_PATHS.TENDERS.GET_COMPLETE_TENDERS_BY_USERNAME.replace('${username}', username);
+    } else if (kind === 'not_filled') {
+      api_url = API_PATHS.TENDERS.GET_NOT_FILLED_TENDERS_BY_USERNAME.replace('${username}', username);
+    } else {
+      api_url = API_PATHS.TENDERS.GET_TENDERS_BY_USERNAME.replace('${username}', username);
+    }
+    return this.http.get(api_url)
       .pipe(
-        map((response: TenderModel[]) => response)
+        map((response: TenderModel[]) => response),
+        shareReplay(1)
       );
   }
 
@@ -68,26 +81,28 @@ export class TendersService {
       );
   }
 
-  getTenderStats(tenders: TenderModel[]): { [key: string]: number } {
-    let [completed, active, cancelled] = [0, 0, 0];
-    tenders.forEach((tender) => {
-      if (tender.properties.isComplete) {
-        completed += 1;
-      }
+  getTenderStats(): Observable<{ [key: string]: number }> {
+    return this.getTendersByUsername('all').pipe(map((tenders) => {
+      let [completed, active, cancelled] = [0, 0, 0];
+      tenders.forEach((tender) => {
+        if (tender.properties.isComplete) {
+          completed += 1;
+        }
 
-      if (tender.properties.isNotFilled) {
-        cancelled += 1;
-      }
-    });
-    active = tenders.length - completed - cancelled;
-    return {
-      completed,
-      active,
-      cancelled,
-      completedPercentage: (completed / tenders.length) * 100,
-      activePercentage: (active / tenders.length) * 100,
-      cancelledPercentage: (cancelled / tenders.length) * 100
-    };
+        if (tender.properties.isNotFilled) {
+          cancelled += 1;
+        }
+      });
+      active = tenders.length - completed - cancelled;
+      return {
+        completed,
+        active,
+        cancelled,
+        completedPercentage: (completed / tenders.length) * 100,
+        activePercentage: (active / tenders.length) * 100,
+        cancelledPercentage: (cancelled / tenders.length) * 100
+      };
+    }));
   }
 
   private transformTenderGridModelToTenderModel(tender: TenderGridModel): TenderModel {
@@ -118,5 +133,11 @@ export class TendersService {
     };
 
     return transformedTender;
+  }
+
+  getUserSubscriptionDetails(username: string): Observable<SubscriptionDetails> {
+    return this.http.get(API_PATHS.USERS.GET_USER_SUBSCRIPTION_DETAILS.replace('${username}', username)).pipe(map((subscriptionDetails: SubscriptionDetails) => {
+      return subscriptionDetails;
+    }));
   }
 }

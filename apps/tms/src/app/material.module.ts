@@ -13,6 +13,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonToggleModule } from '@angular/material/button-toggle'
+import { MatTabsModule } from '@angular/material/tabs'
 import { NgModule } from '@angular/core';
 
 const MAT_MODULES = [
@@ -30,6 +32,8 @@ const MAT_MODULES = [
   MatExpansionModule,
   MatDialogModule,
   MatDatepickerModule,
+  MatButtonToggleModule,
+  MatTabsModule,
   FlexLayoutModule
 ];
 

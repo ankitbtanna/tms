@@ -5,75 +5,50 @@
     Add Tender
   </button>
 </mat-toolbar>
-<!-- <div class="dashboard" fxLayout="row" *ngIf="showDashboard">
-  <mat-accordion>
-  <mat-expansion-panel (opened)="panelOpenState = true"
-                       (closed)="panelOpenState = false">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        {{!panelOpenState ? 'Show Dashboard' : 'Hide Dashboard'}}
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <div fxLayout="row">
-      <mat-card class="dashboard--graph" fxLayout="column">
-    <tms-progress-graph
-      [percent]="tenderStats.completedPercentage"
-      [title]="[tenderStats.completed?.toString()+'('+tenderStats.completedPercentage+'%)', 'COMPLETE']"
-      [outerStrokeColor]="graphColours.completeOuterStrokeColor"
-      [innerStrokeColor]="graphColours.completeInnerStrokeColor"
-    ></tms-progress-graph>
-    <mat-card-actions fxFlex fxFlexAlign="center">
-      <button mat-raised-button color="primary" class="action">
-        <mat-icon>remove_red_eye</mat-icon>
-        Show Completed Tenders
-      </button>
-    </mat-card-actions>
-  </mat-card>
-  <mat-card class="dashboard--graph" fxLayout="column">
-    <tms-progress-graph
-      [percent]="tenderStats.activePercentage"
-      [title]="[tenderStats.active?.toString()+'('+tenderStats.activePercentage+'%)', 'ACTIVE']"
-      [outerStrokeColor]="graphColours.activeOuterStrokeColor"
-      [innerStrokeColor]="graphColours.activeInnerStrokeColor"
-    ></tms-progress-graph>
-    <mat-card-actions fxFlex fxFlexAlign="center">
-      <button mat-raised-button color="primary" class="action">
-        <mat-icon>remove_red_eye</mat-icon>
-        Show Active Tenders
-      </button>
-    </mat-card-actions>
-  </mat-card>
-  <mat-card class="dashboard--graph" fxLayout="column">
-    <tms-progress-graph
-      [percent]="tenderStats.cancelledPercentage"
-      [title]="[tenderStats.cancelled?.toString()+'('+tenderStats.cancelledPercentage+'%)', 'Cancelled']"
-      [outerStrokeColor]="graphColours.incompleteOuterStrokeColor"
-      [innerStrokeColor]="graphColours.incompleteInnerStrokeColor"
-    ></tms-progress-graph>
-    <mat-card-actions fxFlex fxFlexAlign="center">
-      <button mat-raised-button color="primary" class="action">
-        <mat-icon>remove_red_eye</mat-icon>
-        Show Cancelled Tenders
-      </button>
-    </mat-card-actions>
-  </mat-card>
-    </div>
-  </mat-expansion-panel>
-</mat-accordion>
-</div> -->
 <div fxFlex fxLayout="row">
-  <div fxFlex fxLayout="column">
-    <div fxFlex fxLayout="row" *ngIf="(tenders$ | async)?.length">
-      <tms-grid [validateData]="validateData" [columnDefs]="columnDefs" [rowData]="rowData"
-        [frameworkComponents]="frameworkComponents" (onRowSelection)="toggleTenderDetails($event)"></tms-grid>
-    </div>
-  </div>
-  <div fxFlex class="details" *ngIf="selectedTender">
-    <tms-tender-details [tender]="selectedTender" (onCloseTender)="closeTenderDetails()"></tms-tender-details>
-  </div>
+  <mat-tab-group color="accent" backgroundColor="primary" fxFlex dynamicHeight (selectedTabChange)="tabClick($event)">
+    <mat-tab [label]="'Upcoming('+tenderStats.active+')'">
+      <div fxFlex fxLayout="row" *ngIf="(tenders$ | async)?.length && activeTab === 'active'">
+        <tms-grid [validateData]="validateData" [columnDefs]="columnDefs" [rowData]="rowData"
+          [frameworkComponents]="frameworkComponents" (onRowSelection)="toggleTenderDetails($event)"></tms-grid>
+      </div>
+      <div fxFlex class="details" *ngIf="selectedTender && activeTab === 'active'">
+        <tms-tender-details [tender]="selectedTender" (onCloseTender)="closeTenderDetails()"></tms-tender-details>
+      </div>
+    </mat-tab>
+    <mat-tab [label]="'Filled('+tenderStats.completed+')'">
+      <div fxFlex fxLayout="row" *ngIf="(tenders$ | async)?.length && activeTab === 'complete'" class="grid-container">
+        <tms-grid [validateData]="validateData" [columnDefs]="columnDefs" [rowData]="rowData"
+          [frameworkComponents]="frameworkComponents" (onRowSelection)="toggleTenderDetails($event)"></tms-grid>
+      </div>
+      <div fxFlex class="details" *ngIf="selectedTender && activeTab === 'complete'">
+        <tms-tender-details [tender]="selectedTender" (onCloseTender)="closeTenderDetails()"></tms-tender-details>
+      </div>
+    </mat-tab>
+    <mat-tab [label]="'Not Filled('+tenderStats.cancelled+')'">
+      <div fxFlex fxLayout="row" *ngIf="(tenders$ | async)?.length && activeTab === 'not_filled'"
+        class="grid-container">
+        <tms-grid [validateData]="validateData" [columnDefs]="columnDefs" [rowData]="rowData"
+          [frameworkComponents]="frameworkComponents" (onRowSelection)="toggleTenderDetails($event)"></tms-grid>
+      </div>
+      <div fxFlex class="details" *ngIf="selectedTender && activeTab === 'not_filled'">
+        <tms-tender-details [tender]="selectedTender" (onCloseTender)="closeTenderDetails()"></tms-tender-details>
+      </div>
+    </mat-tab>
+    <mat-tab [label]="'All('+(tenderStats.cancelled+tenderStats.active+tenderStats.completed)+')'">
+      <div fxFlex fxLayout="row" *ngIf="(tenders$ | async)?.length && activeTab === 'all'" class="grid-container">
+        <tms-grid [validateData]="validateData" [columnDefs]="columnDefs" [rowData]="rowData"
+          [frameworkComponents]="frameworkComponents" (onRowSelection)="toggleTenderDetails($event)"></tms-grid>
+      </div>
+      <div fxFlex class="details" *ngIf="selectedTender && activeTab === 'all'">
+        <tms-tender-details [tender]="selectedTender" (onCloseTender)="closeTenderDetails()"></tms-tender-details>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
 </div>
 <tms-modal-popup #createTenderModalWrapper>
-  <tms-create-tender #createTenderForm (onCreateTender)="createTender($event)" fxFlex fxLayout="column">
+  <tms-create-tender #createTenderForm (onCreateTender)="createTender($event)"
+    (onCloseCreateTender)="closeCreateTender()" fxFlex fxLayout="column">
   </tms-create-tender>
 </tms-modal-popup>
 <tms-modal-popup #deleteTenderModalWrapper>
@@ -82,4 +57,10 @@
 <tms-modal-popup #pdfViewerModalMapper>
   <tms-pdf-viewer [title]="'['+tender?.tenderId+'] ' + tender?.name" (onClose)="closePdfViewer()"></tms-pdf-viewer>
 </tms-modal-popup>
-<tms-overlay-spinner loadingText="Loading Tenders..." size="64" *ngIf="isLoadingTenders"></tms-overlay-spinner>
+<tms-overlay-spinner loadingText="Loading Tenders..." size="64" *ngIf="isLoadingTenders">
+</tms-overlay-spinner>
+<tms-overlay loadingText="Your subscription has expired. Please upgrade." *ngIf="isUserSubscriptionExpired">
+  <button mat-raised-button color="warn">
+    Upgrade
+  </button>
+</tms-overlay>

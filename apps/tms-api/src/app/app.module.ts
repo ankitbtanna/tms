@@ -7,6 +7,7 @@ import { TendersModule } from './tenders/tenders.module';
 import { UsersModule } from './users/users.module';
 import { HttpExceptionFilter } from './exception/http-exception.filter';
 import { TransactionModule } from './transaction/transaction.module';
+import { ContactUsModule } from './contact-us/contact-us.module';
 
 @Module({
   imports: [
@@ -14,7 +15,8 @@ import { TransactionModule } from './transaction/transaction.module';
     UsersModule,
     ShareModule,
     TendersModule,
-    TransactionModule
+    TransactionModule,
+    ContactUsModule
   ],
   controllers: [AppController],
   providers: [AppService, HttpExceptionFilter]

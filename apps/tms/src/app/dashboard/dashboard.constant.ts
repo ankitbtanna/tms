@@ -13,3 +13,9 @@ export const TENDER_FEE_REGEX = '^[0-9,.]*$';
 export const TENDER_EMD_REGEX = '^[a-zA-Z0-9,.!? ]*$';
 export const TENDER_REFERENCE_NUMBER_REGEX = '^[a-zA-Z0-9,.!? ]*$';
 export const TENDER_ID_REGEX = '^[a-zA-Z0-9,.!? ]*$';
+export const TABS = [
+  'ACTIVE',
+  'COMPLETE',
+  'NOT_FILLED',
+  'ALL'
+]
