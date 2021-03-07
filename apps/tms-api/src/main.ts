@@ -18,6 +18,14 @@ async function bootstrap() {
   app.use(morgan('dev'));
   app.setGlobalPrefix(globalPrefix);
   app.enableCors();
+
+  app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Accept');
+    next();
+  });
+
   const port = process.env.PORT || 3000;
 
   const options = new DocumentBuilder()
