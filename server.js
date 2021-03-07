@@ -3,7 +3,7 @@ const express = require("express");
 const compression = require("compression");
 
 const _port = 9000;
-const _app_folder = 'dist/application';
+const _app_folder = 'dist/apps/tms';
 
 const app = express();
 app.use(compression());
@@ -14,7 +14,7 @@ app.get('*.*', express.static(_app_folder));
 
 // ---- SERVE APLICATION PATHS ---- //
 app.all('*', function (req, res) {
-  res.status(200).sendFile(`/`, {
+  res.status(200).sendFile(`/dist/apps/tms`, {
     root: _app_folder
   });
 });
