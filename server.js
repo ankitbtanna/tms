@@ -13,8 +13,8 @@ app.use(compression());
 app.get('*.*', express.static(_app_folder));
 
 // ---- SERVE APLICATION PATHS ---- //
-app.all('*', function (req, res) {
-  res.status(200).sendFile(`/`, {
+app.all('/*', function (req, res) {
+  res.status(200).sendFile(`/index.html`, {
     root: _app_folder
   });
 });

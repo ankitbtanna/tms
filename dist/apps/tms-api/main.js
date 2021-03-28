@@ -147,11 +147,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _nestjs_mongoose__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @nestjs/mongoose */ "@nestjs/mongoose");
 /* harmony import */ var _nestjs_mongoose__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_nestjs_mongoose__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _share_share_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./share/share.module */ "./apps/tms-api/src/app/share/share.module.ts");
-/* harmony import */ var _tenders_tenders_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./tenders/tenders.module */ "./apps/tms-api/src/app/tenders/tenders.module.ts");
-/* harmony import */ var _users_users_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./users/users.module */ "./apps/tms-api/src/app/users/users.module.ts");
-/* harmony import */ var _exception_http_exception_filter__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./exception/http-exception.filter */ "./apps/tms-api/src/app/exception/http-exception.filter.ts");
-/* harmony import */ var _transaction_transaction_module__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./transaction/transaction.module */ "./apps/tms-api/src/app/transaction/transaction.module.ts");
-/* harmony import */ var _contact_us_contact_us_module__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./contact-us/contact-us.module */ "./apps/tms-api/src/app/contact-us/contact-us.module.ts");
+/* harmony import */ var _share_app_share_app_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./share-app/share-app.module */ "./apps/tms-api/src/app/share-app/share-app.module.ts");
+/* harmony import */ var _tenders_tenders_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./tenders/tenders.module */ "./apps/tms-api/src/app/tenders/tenders.module.ts");
+/* harmony import */ var _users_users_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./users/users.module */ "./apps/tms-api/src/app/users/users.module.ts");
+/* harmony import */ var _exception_http_exception_filter__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./exception/http-exception.filter */ "./apps/tms-api/src/app/exception/http-exception.filter.ts");
+/* harmony import */ var _transaction_transaction_module__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./transaction/transaction.module */ "./apps/tms-api/src/app/transaction/transaction.module.ts");
+/* harmony import */ var _contact_us_contact_us_module__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./contact-us/contact-us.module */ "./apps/tms-api/src/app/contact-us/contact-us.module.ts");
+
 
 
 
@@ -169,14 +171,15 @@ AppModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_nestjs_common__WEBPACK_IMPORTED_MODULE_3__["Module"])({
         imports: [
             _nestjs_mongoose__WEBPACK_IMPORTED_MODULE_4__["MongooseModule"].forRoot(process.env.MONGO_DB_CONNECTION_URL),
-            _users_users_module__WEBPACK_IMPORTED_MODULE_7__["UsersModule"],
+            _users_users_module__WEBPACK_IMPORTED_MODULE_8__["UsersModule"],
             _share_share_module__WEBPACK_IMPORTED_MODULE_5__["ShareModule"],
-            _tenders_tenders_module__WEBPACK_IMPORTED_MODULE_6__["TendersModule"],
-            _transaction_transaction_module__WEBPACK_IMPORTED_MODULE_9__["TransactionModule"],
-            _contact_us_contact_us_module__WEBPACK_IMPORTED_MODULE_10__["ContactUsModule"]
+            _share_app_share_app_module__WEBPACK_IMPORTED_MODULE_6__["ShareAppModule"],
+            _tenders_tenders_module__WEBPACK_IMPORTED_MODULE_7__["TendersModule"],
+            _transaction_transaction_module__WEBPACK_IMPORTED_MODULE_10__["TransactionModule"],
+            _contact_us_contact_us_module__WEBPACK_IMPORTED_MODULE_11__["ContactUsModule"]
         ],
         controllers: [_app_controller__WEBPACK_IMPORTED_MODULE_1__["AppController"]],
-        providers: [_app_service__WEBPACK_IMPORTED_MODULE_2__["AppService"], _exception_http_exception_filter__WEBPACK_IMPORTED_MODULE_8__["HttpExceptionFilter"]]
+        providers: [_app_service__WEBPACK_IMPORTED_MODULE_2__["AppService"], _exception_http_exception_filter__WEBPACK_IMPORTED_MODULE_9__["HttpExceptionFilter"]]
     })
 ], AppModule);
 
@@ -681,6 +684,445 @@ let HttpExceptionFilter = class HttpExceptionFilter {
 HttpExceptionFilter = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_nestjs_common__WEBPACK_IMPORTED_MODULE_1__["Catch"])(_nestjs_common__WEBPACK_IMPORTED_MODULE_1__["HttpException"])
 ], HttpExceptionFilter);
+
+
+
+/***/ }),
+
+/***/ "./apps/tms-api/src/app/share-app/models/share-tms.schema.ts":
+/*!*******************************************************************!*\
+  !*** ./apps/tms-api/src/app/share-app/models/share-tms.schema.ts ***!
+  \*******************************************************************/
+/*! exports provided: Stakeholder, ShareTMS, ShareTMSSchema */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Stakeholder", function() { return Stakeholder; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ShareTMS", function() { return ShareTMS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ShareTMSSchema", function() { return ShareTMSSchema; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "tslib");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(tslib__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _nestjs_mongoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @nestjs/mongoose */ "@nestjs/mongoose");
+/* harmony import */ var _nestjs_mongoose__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_nestjs_mongoose__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! mongoose */ "mongoose");
+/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(mongoose__WEBPACK_IMPORTED_MODULE_2__);
+
+/* eslint-disable max-classes-per-file */
+
+
+class Stakeholder extends mongoose__WEBPACK_IMPORTED_MODULE_2__["Document"] {
+}
+Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_nestjs_mongoose__WEBPACK_IMPORTED_MODULE_1__["Prop"])({ required: true }),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", String)
+], Stakeholder.prototype, "name", void 0);
+Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_nestjs_mongoose__WEBPACK_IMPORTED_MODULE_1__["Prop"])({ required: true, unique: true }),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", String)
+], Stakeholder.prototype, "mobileNumber", void 0);
+Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_nestjs_mongoose__WEBPACK_IMPORTED_MODULE_1__["Prop"])({ required: false }),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", String)
+], Stakeholder.prototype, "description", void 0);
+Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_nestjs_mongoose__WEBPACK_IMPORTED_MODULE_1__["Prop"])(),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", Boolean)
+], Stakeholder.prototype, "isBlocked", void 0);
+let ShareTMS = class ShareTMS extends mongoose__WEBPACK_IMPORTED_MODULE_2__["Document"] {
+};
+Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_nestjs_mongoose__WEBPACK_IMPORTED_MODULE_1__["Prop"])({ required: true, unique: true, lowercase: true }),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", String)
+], ShareTMS.prototype, "owner", void 0);
+Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_nestjs_mongoose__WEBPACK_IMPORTED_MODULE_1__["Prop"])({
+        type: [
+            {
+                name: String,
+                mobileNumber: String,
+                description: String,
+                isBlocked: Boolean
+            }
+        ],
+        default: []
+    }),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", Array)
+], ShareTMS.prototype, "stakeholders", void 0);
+ShareTMS = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_nestjs_mongoose__WEBPACK_IMPORTED_MODULE_1__["Schema"])()
+], ShareTMS);
+
+const ShareTMSSchema = _nestjs_mongoose__WEBPACK_IMPORTED_MODULE_1__["SchemaFactory"].createForClass(ShareTMS);
+
+
+/***/ }),
+
+/***/ "./apps/tms-api/src/app/share-app/services/share-app.services.ts":
+/*!***********************************************************************!*\
+  !*** ./apps/tms-api/src/app/share-app/services/share-app.services.ts ***!
+  \***********************************************************************/
+/*! exports provided: ShareAppService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ShareAppService", function() { return ShareAppService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "tslib");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(tslib__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "lodash");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _models_share_tms_schema__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../models/share-tms.schema */ "./apps/tms-api/src/app/share-app/models/share-tms.schema.ts");
+/* harmony import */ var _nestjs_mongoose__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @nestjs/mongoose */ "@nestjs/mongoose");
+/* harmony import */ var _nestjs_mongoose__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_nestjs_mongoose__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _nestjs_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+/* harmony import */ var _nestjs_common__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_nestjs_common__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! mongoose */ "mongoose");
+/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(mongoose__WEBPACK_IMPORTED_MODULE_5__);
+var _a;
+
+
+
+
+
+
+let ShareAppService = class ShareAppService {
+    constructor(shareTMS) {
+        this.shareTMS = shareTMS;
+    }
+    verifyMobileNumber(number) {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            if (!number) {
+                throw new _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpException"]({
+                    status: _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND,
+                    error: 'Invalid number.',
+                }, _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND);
+            }
+            try {
+                const sharingOwners = [];
+                const owners = yield this.shareTMS.find().exec();
+                owners.forEach(owner => {
+                    if (owner.stakeholders.length > 0) {
+                        owner.stakeholders.forEach(stakeholder => {
+                            if (stakeholder.mobileNumber === number) {
+                                sharingOwners.push(owner.owner);
+                            }
+                        });
+                    }
+                });
+                return sharingOwners;
+            }
+            catch (error) {
+                throw new _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpException"]({
+                    status: _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND,
+                    error: JSON.stringify(error),
+                }, _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND);
+            }
+        });
+    }
+    getAllStakeHolders(username) {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            if (!username) {
+                throw new _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpException"]({
+                    status: _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND,
+                    error: 'Invalid username.',
+                }, _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND);
+            }
+            try {
+                const owner = yield this.shareTMS.findOne({ owner: username }).exec();
+                return owner.stakeholders;
+            }
+            catch (error) {
+                throw new _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpException"]({
+                    status: _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND,
+                    error: JSON.stringify(error),
+                }, _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND);
+            }
+        });
+    }
+    addStakeHolder(stakeholderDTO) {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            if (!stakeholderDTO.owner) {
+                throw new _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpException"]({
+                    status: _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND,
+                    error: 'Invalid username.',
+                }, _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND);
+            }
+            try {
+                const owner = yield this.shareTMS
+                    .findOne({ owner: stakeholderDTO.owner })
+                    .exec();
+                if (lodash__WEBPACK_IMPORTED_MODULE_1__["find"](owner.stakeholders, {
+                    mobileNumber: stakeholderDTO.stakeholders[0].mobileNumber
+                })) {
+                    throw new _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpException"]({
+                        status: _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].CONFLICT,
+                        error: 'Stakeholder already present.',
+                    }, _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].CONFLICT);
+                }
+                owner.stakeholders.push(stakeholderDTO.stakeholders[0]);
+                const modifiedOwner = this.shareTMS(owner);
+                const result = yield modifiedOwner.save();
+                return result;
+            }
+            catch (error) {
+                throw new _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpException"]({
+                    status: _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].INTERNAL_SERVER_ERROR,
+                    error: JSON.stringify(error),
+                }, _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].INTERNAL_SERVER_ERROR);
+            }
+        });
+    }
+    blockStakeHolder(username, mobileNumber, isBlocked) {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            if (!username) {
+                throw new _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpException"]({
+                    status: _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND,
+                    error: 'Invalid username.',
+                }, _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND);
+            }
+            if (!mobileNumber) {
+                throw new _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpException"]({
+                    status: _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND,
+                    error: 'Invalid Mobile Number!',
+                }, _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND);
+            }
+            try {
+                const owner = yield this.shareTMS.findOne({ owner: username }).exec();
+                if (!owner) {
+                    throw new _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpException"]({
+                        status: _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND,
+                        error: 'User does not exist.',
+                    }, _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND);
+                }
+                if (!owner.stakeholders.length) {
+                    throw new _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpException"]({
+                        status: _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND,
+                        error: 'User does not have any stakeholder.',
+                    }, _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND);
+                }
+                if (lodash__WEBPACK_IMPORTED_MODULE_1__["find"](owner.stakeholders, {
+                    mobileNumber
+                })) {
+                    owner.stakeholders = lodash__WEBPACK_IMPORTED_MODULE_1__["map"](owner.stakeholders, (stakeholder) => {
+                        if (stakeholder.mobileNumber === mobileNumber)
+                            stakeholder.isBlocked = !!isBlocked;
+                        return stakeholder;
+                    });
+                    yield this.shareTMS
+                        .findOneAndUpdate({
+                        owner: username
+                    }, owner, { upsert: true })
+                        .exec();
+                    const modifiedOwner = yield this.shareTMS
+                        .findOne({ owner: username })
+                        .exec();
+                    return modifiedOwner;
+                }
+                throw new _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpException"]({
+                    status: _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND,
+                    error: 'Stakeholder does not exist.',
+                }, _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND);
+            }
+            catch (error) {
+                throw new _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpException"]({
+                    status: _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].INTERNAL_SERVER_ERROR,
+                    error: JSON.stringify(error),
+                }, _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].INTERNAL_SERVER_ERROR);
+            }
+        });
+    }
+    deleteStakeHolder(username, mobileNumber) {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            if (!username) {
+                throw new _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpException"]({
+                    status: _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND,
+                    error: 'User does not exist.',
+                }, _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND);
+            }
+            if (!mobileNumber) {
+                throw new _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpException"]({
+                    status: _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND,
+                    error: 'Mobile number does not exist.',
+                }, _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND);
+            }
+            try {
+                const owner = yield this.shareTMS.findOne({ owner: username }).exec();
+                if (!owner.stakeholders.length) {
+                    throw new _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpException"]({
+                        status: _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND,
+                        error: 'User does not have any stakeholder.',
+                    }, _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND);
+                }
+                if (lodash__WEBPACK_IMPORTED_MODULE_1__["find"](owner.stakeholders, {
+                    mobileNumber
+                })) {
+                    lodash__WEBPACK_IMPORTED_MODULE_1__["remove"](owner.stakeholders, {
+                        mobileNumber
+                    });
+                    yield this.shareTMS
+                        .findOneAndUpdate({
+                        owner: username
+                    }, owner, { upsert: true })
+                        .exec();
+                    const modifiedOwner = yield this.shareTMS
+                        .findOne({ owner: username })
+                        .exec();
+                    return modifiedOwner;
+                }
+                throw new _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpException"]({
+                    status: _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND,
+                    error: 'Stakeholder does not exist.',
+                }, _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND);
+            }
+            catch (error) {
+                throw new _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpException"]({
+                    status: _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].INTERNAL_SERVER_ERROR,
+                    error: JSON.stringify(error),
+                }, _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].INTERNAL_SERVER_ERROR);
+            }
+        });
+    }
+};
+ShareAppService = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_nestjs_common__WEBPACK_IMPORTED_MODULE_4__["Injectable"])(),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__param"])(0, Object(_nestjs_mongoose__WEBPACK_IMPORTED_MODULE_3__["InjectModel"])(_models_share_tms_schema__WEBPACK_IMPORTED_MODULE_2__["ShareTMS"].name)),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [typeof (_a = typeof mongoose__WEBPACK_IMPORTED_MODULE_5__["Model"] !== "undefined" && mongoose__WEBPACK_IMPORTED_MODULE_5__["Model"]) === "function" ? _a : Object])
+], ShareAppService);
+
+
+
+/***/ }),
+
+/***/ "./apps/tms-api/src/app/share-app/share-app.module.ts":
+/*!************************************************************!*\
+  !*** ./apps/tms-api/src/app/share-app/share-app.module.ts ***!
+  \************************************************************/
+/*! exports provided: ShareAppModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ShareAppModule", function() { return ShareAppModule; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "tslib");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(tslib__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _nestjs_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+/* harmony import */ var _nestjs_common__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_nestjs_common__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _models_share_tms_schema__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./models/share-tms.schema */ "./apps/tms-api/src/app/share-app/models/share-tms.schema.ts");
+/* harmony import */ var _nestjs_mongoose__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @nestjs/mongoose */ "@nestjs/mongoose");
+/* harmony import */ var _nestjs_mongoose__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_nestjs_mongoose__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _share_app_share_app_controller__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./share-app/share-app.controller */ "./apps/tms-api/src/app/share-app/share-app/share-app.controller.ts");
+/* harmony import */ var _services_share_app_services__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./services/share-app.services */ "./apps/tms-api/src/app/share-app/services/share-app.services.ts");
+
+
+
+
+
+
+let ShareAppModule = class ShareAppModule {
+};
+ShareAppModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_nestjs_common__WEBPACK_IMPORTED_MODULE_1__["Module"])({
+        imports: [
+            _nestjs_mongoose__WEBPACK_IMPORTED_MODULE_3__["MongooseModule"].forFeature([
+                { name: _models_share_tms_schema__WEBPACK_IMPORTED_MODULE_2__["ShareTMS"].name, schema: _models_share_tms_schema__WEBPACK_IMPORTED_MODULE_2__["ShareTMSSchema"] }
+            ]),
+            _nestjs_common__WEBPACK_IMPORTED_MODULE_1__["HttpModule"]
+        ],
+        controllers: [_share_app_share_app_controller__WEBPACK_IMPORTED_MODULE_4__["ShareAppController"]],
+        providers: [_services_share_app_services__WEBPACK_IMPORTED_MODULE_5__["ShareAppService"]],
+        exports: [
+            _nestjs_mongoose__WEBPACK_IMPORTED_MODULE_3__["MongooseModule"].forFeature([
+                { name: _models_share_tms_schema__WEBPACK_IMPORTED_MODULE_2__["ShareTMS"].name, schema: _models_share_tms_schema__WEBPACK_IMPORTED_MODULE_2__["ShareTMSSchema"] }
+            ])
+        ]
+    })
+], ShareAppModule);
+
+
+
+/***/ }),
+
+/***/ "./apps/tms-api/src/app/share-app/share-app/share-app.controller.ts":
+/*!**************************************************************************!*\
+  !*** ./apps/tms-api/src/app/share-app/share-app/share-app.controller.ts ***!
+  \**************************************************************************/
+/*! exports provided: ShareAppController */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ShareAppController", function() { return ShareAppController; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "tslib");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(tslib__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _nestjs_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+/* harmony import */ var _nestjs_common__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_nestjs_common__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var express__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! express */ "express");
+/* harmony import */ var express__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(express__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _exception_http_exception_filter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../exception/http-exception.filter */ "./apps/tms-api/src/app/exception/http-exception.filter.ts");
+/* harmony import */ var _services_share_app_services__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../services/share-app.services */ "./apps/tms-api/src/app/share-app/services/share-app.services.ts");
+var _a, _b, _c, _d;
+
+
+
+
+
+let ShareAppController = class ShareAppController {
+    constructor(shareAppService) {
+        this.shareAppService = shareAppService;
+    }
+    verifyMobileNumber(params) {
+        console.log(params.number);
+        return this.shareAppService.verifyMobileNumber(params.number);
+    }
+    addStakeHolder(req) {
+        console.log(req.body);
+        return this.shareAppService.addStakeHolder(req.body);
+    }
+    blockStakeHolder(req) {
+        return this.shareAppService.blockStakeHolder(req.body.owner, req.body.mobileNumber, req.body.isBlocked);
+    }
+    deleteStakeHolder(req) {
+        return this.shareAppService.deleteStakeHolder(req.body.owner, req.body.mobileNumber);
+    }
+};
+Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_nestjs_common__WEBPACK_IMPORTED_MODULE_1__["Get"])('verify/:number'),
+    Object(_nestjs_common__WEBPACK_IMPORTED_MODULE_1__["Header"])('Cache-Control', 'none'),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__param"])(0, Object(_nestjs_common__WEBPACK_IMPORTED_MODULE_1__["Param"])()),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", Function),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [Object]),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:returntype", void 0)
+], ShareAppController.prototype, "verifyMobileNumber", null);
+Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_nestjs_common__WEBPACK_IMPORTED_MODULE_1__["Put"])('add-stakeholder'),
+    Object(_nestjs_common__WEBPACK_IMPORTED_MODULE_1__["Header"])('Cache-Control', 'none'),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__param"])(0, Object(_nestjs_common__WEBPACK_IMPORTED_MODULE_1__["Req"])()),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", Function),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [typeof (_a = typeof express__WEBPACK_IMPORTED_MODULE_2__["Request"] !== "undefined" && express__WEBPACK_IMPORTED_MODULE_2__["Request"]) === "function" ? _a : Object]),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:returntype", void 0)
+], ShareAppController.prototype, "addStakeHolder", null);
+Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_nestjs_common__WEBPACK_IMPORTED_MODULE_1__["Put"])('block-stakeholder'),
+    Object(_nestjs_common__WEBPACK_IMPORTED_MODULE_1__["Header"])('Cache-Control', 'none'),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__param"])(0, Object(_nestjs_common__WEBPACK_IMPORTED_MODULE_1__["Req"])()),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", Function),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [typeof (_b = typeof express__WEBPACK_IMPORTED_MODULE_2__["Request"] !== "undefined" && express__WEBPACK_IMPORTED_MODULE_2__["Request"]) === "function" ? _b : Object]),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:returntype", void 0)
+], ShareAppController.prototype, "blockStakeHolder", null);
+Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_nestjs_common__WEBPACK_IMPORTED_MODULE_1__["Delete"])('delete-stakeholder'),
+    Object(_nestjs_common__WEBPACK_IMPORTED_MODULE_1__["Header"])('Cache-Control', 'none'),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__param"])(0, Object(_nestjs_common__WEBPACK_IMPORTED_MODULE_1__["Req"])()),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", Function),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [typeof (_c = typeof express__WEBPACK_IMPORTED_MODULE_2__["Request"] !== "undefined" && express__WEBPACK_IMPORTED_MODULE_2__["Request"]) === "function" ? _c : Object]),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:returntype", void 0)
+], ShareAppController.prototype, "deleteStakeHolder", null);
+ShareAppController = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_nestjs_common__WEBPACK_IMPORTED_MODULE_1__["Controller"])('share-app'),
+    Object(_nestjs_common__WEBPACK_IMPORTED_MODULE_1__["UseFilters"])(new _exception_http_exception_filter__WEBPACK_IMPORTED_MODULE_3__["HttpExceptionFilter"]()),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [typeof (_d = typeof _services_share_app_services__WEBPACK_IMPORTED_MODULE_4__["ShareAppService"] !== "undefined" && _services_share_app_services__WEBPACK_IMPORTED_MODULE_4__["ShareAppService"]) === "function" ? _d : Object])
+], ShareAppController);
 
 
 
