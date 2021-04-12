@@ -24,6 +24,10 @@ export class GridComponent {
 
   @Output() onRowSelection: EventEmitter<any> = new EventEmitter();
 
+  agGridOptions = {
+    getRowStyle: this.eachRowBorder
+  }
+
   sideBar;
 
   constructor() {
@@ -32,6 +36,9 @@ export class GridComponent {
 
   rowSelection = 'single';
 
+  eachRowBorder() {
+    return { "border-bottom": "2px solid black" }
+  }
   onGridReady(params) {
     params.api.sizeColumnsToFit();
   }

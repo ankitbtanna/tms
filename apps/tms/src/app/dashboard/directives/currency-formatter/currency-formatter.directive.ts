@@ -6,7 +6,7 @@ import { Directive, ElementRef, HostListener } from '@angular/core';
 })
 export class CurrencyFormatterDirective {
   private formattedValue = '';
-  constructor(private el: ElementRef) {}
+  constructor(private el: ElementRef) { }
 
   @HostListener('focus') onMouseEnter() {
     const input = this.el.nativeElement.value;
@@ -20,7 +20,8 @@ export class CurrencyFormatterDirective {
   }
 
   @HostListener('keydown') onKeyDown() {
-    const input = Number(this.el.nativeElement.value);
+    const value = this.el.nativeElement.value.replace(/,/g, '');
+    const input = Number(value);
     this.formattedValue = input.toLocaleString('en-IN');
   }
 }
