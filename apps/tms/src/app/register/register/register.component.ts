@@ -18,6 +18,8 @@ import { User } from '../models/users.model';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from '../../services/auth.service';
 import { APP_COOKIES } from '../../app.constant';
+import { catchError, map } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'tms-workspace-register',
@@ -101,8 +103,15 @@ export class RegisterComponent implements OnInit {
     if (this.registerForm.controls.username.value) {
       this.registerService
         .checkUserRegistration(this.registerForm.controls.username.value)
+        .pipe(map((res) => {
+          console.log(res);
+        }),
+          catchError((err) => {
+            this.usernameExists = err.error.status === 400;
+            return err;
+          }))
         .subscribe((response: any) => {
-          this.usernameExists = response.status === 'failure';
+          this.usernameExists = false;
         });
     }
   }

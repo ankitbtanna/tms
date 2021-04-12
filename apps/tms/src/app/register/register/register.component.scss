@@ -16,6 +16,10 @@ mat-horizontal-stepper {
   background: transparent;
 }
 
+.user-exists {
+  margin-bottom: 10px;
+}
+
 .register {
   &-card {
     display: flex;

@@ -4,7 +4,7 @@
     <mat-horizontal-stepper [linear]="isLinear" #stepper>
       <mat-step>
         <div [formGroup]="registerForm" class="register-form">
-          <tms-alert *ngIf="usernameExists" [message]="
+          <tms-alert *ngIf="usernameExists" class="user-exists" [message]="
               'Username already exists. Please choose a different username.'
             " [type]="'error'"></tms-alert>
           <mat-form-field>
@@ -59,7 +59,7 @@
               !registerForm.controls.username.valid ||
               !passwordForm.controls.password.valid ||
               !passwordForm.controls.confirmPassword.valid ||
-              passwordForm.hasError('notSame')
+              passwordForm.hasError('notSame') || usernameExists
             ">
             Next
           </button>
