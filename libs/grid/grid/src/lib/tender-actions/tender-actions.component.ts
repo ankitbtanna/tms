@@ -21,8 +21,6 @@ export class TenderActionsComponent implements ICellRendererAngularComp {
 
   isDeleteHovered = false;
 
-  isActiveHovered = false;
-
   isViewDocumentHovered = false
 
   refresh(params: any): boolean {
@@ -31,10 +29,6 @@ export class TenderActionsComponent implements ICellRendererAngularComp {
 
   agInit(params: ICellRendererParams): void {
     this.params = params;
-  }
-
-  activateTender(): void {
-    this.params.activateTender(this.params.data);
   }
 
   completeTender(): void {
