@@ -17,8 +17,6 @@ export class TenderActionsComponent implements ICellRendererAngularComp {
 
   isCopyHovered = false;
 
-  isDownloadHovered = false;
-
   isUploadHovered = false;
 
   isDeleteHovered = false;
@@ -53,10 +51,6 @@ export class TenderActionsComponent implements ICellRendererAngularComp {
 
   viewTenderDocument(): void {
     this.params.viewTenderDocument(this.params.data);
-  }
-
-  downloadTenderDocument(): void {
-    this.params.downloadTenderDocument(this.params.data);
   }
 
   addTenderDocument(): void {
