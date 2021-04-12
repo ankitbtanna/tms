@@ -22,10 +22,7 @@ import {
 import {
   TENDER_AMOUNT_REGEX,
   TENDER_EMD_REGEX,
-  TENDER_FEE_REGEX,
-  TENDER_ID_REGEX,
-  TENDER_NAME_REGEX,
-  TENDER_REFERENCE_NUMBER_REGEX
+  TENDER_FEE_REGEX
 } from '../dashboard.constant';
 
 import { TenderModel } from '../models/tender.model';
@@ -70,8 +67,7 @@ export class CreateTenderComponent {
 
   createTenderForm: FormGroup = new FormGroup({
     tenderName: new FormControl('', [
-      Validators.required,
-      Validators.pattern(TENDER_NAME_REGEX)
+      Validators.required
     ]),
     tenderAmount: new FormControl('', [
       Validators.required,
@@ -86,12 +82,10 @@ export class CreateTenderComponent {
       Validators.pattern(TENDER_EMD_REGEX)
     ]),
     tenderReferenceNumber: new FormControl('', [
-      Validators.required,
-      Validators.pattern(TENDER_REFERENCE_NUMBER_REGEX)
+      Validators.required
     ]),
     tenderId: new FormControl('', [
-      Validators.required,
-      Validators.pattern(TENDER_ID_REGEX)
+      Validators.required
     ]),
     tenderPublishedDate: new FormControl('', [Validators.required]),
     tenderBidDueDate: new FormControl('', [

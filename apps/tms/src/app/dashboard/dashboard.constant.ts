@@ -7,7 +7,6 @@ export const GRAPH_COLOURS = {
   incompleteInnerStrokeColor: '#ff7474'
 };
 
-export const TENDER_NAME_REGEX = '^[a-zA-Z0-9,.!? ]*$';
 export const TENDER_AMOUNT_REGEX = '^[0-9,.]*$';
 export const TENDER_FEE_REGEX = '^[0-9,.]*$';
 export const TENDER_EMD_REGEX = '^[a-zA-Z0-9,.!? ]*$';
