@@ -74,25 +74,20 @@ export class CreateTenderComponent {
       Validators.pattern(TENDER_AMOUNT_REGEX)
     ]),
     tenderFee: new FormControl('', [
-      Validators.required,
       Validators.pattern(TENDER_FEE_REGEX)
     ]),
     tenderEMD: new FormControl('', [
-      Validators.required,
       Validators.pattern(TENDER_EMD_REGEX)
     ]),
     tenderReferenceNumber: new FormControl('', [
-      Validators.required
     ]),
     tenderId: new FormControl('', [
-      Validators.required
     ]),
-    tenderPublishedDate: new FormControl('', [Validators.required]),
+    tenderPublishedDate: new FormControl(''),
     tenderBidDueDate: new FormControl('', [
-      Validators.required,
       this.forbiddenBidDueDate
     ]),
-    tenderBidCutOffTime: new FormControl('', [Validators.required]),
+    tenderBidCutOffTime: new FormControl(''),
     tenderUserKeyName: new FormControl(''),
     tenderUserLoginId: new FormControl(''),
     tenderUserPassword: new FormControl(''),
