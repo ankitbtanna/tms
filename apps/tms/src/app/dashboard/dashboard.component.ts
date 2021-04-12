@@ -144,18 +144,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
       minWidth: 200
     },
     {
-      field: 'userLoginId',
-      sortable: true,
-      resizable: true,
-      minWidth: 200
-    },
-    {
-      field: 'userPassword',
-      sortable: true,
-      resizable: true,
-      minWidth: 200
-    },
-    {
       field: 'userWebsite',
       sortable: true,
       resizable: true,
@@ -164,27 +152,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     },
     {
       field: 'owner',
-      sortable: true,
-      resizable: true,
-      minWidth: 200,
-      filter: 'agTextColumnFilter',
-    },
-    {
-      field: 'isNotFilled',
-      sortable: true,
-      resizable: true,
-      minWidth: 200,
-      filter: 'agTextColumnFilter',
-    },
-    {
-      field: 'isComplete',
-      sortable: true,
-      resizable: true,
-      minWidth: 200,
-      filter: 'agTextColumnFilter',
-    },
-    {
-      field: 'isActive',
       sortable: true,
       resizable: true,
       minWidth: 200,
