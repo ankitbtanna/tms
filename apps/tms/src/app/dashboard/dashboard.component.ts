@@ -348,7 +348,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   private activateTender(tender: TenderGridModel): void {
-    this.setSelectedTender(undefined);
+    setTimeout(() => {
+      this.setSelectedTender(undefined);
+      this.selectedTender = undefined;
+    }, 10);
     if (tender.isComplete || tender.isNotFilled || tender.isDeleted) {
       this.tendersService.activateTender(tender).subscribe(() => {
         this.getTenders(this.activeTab);
@@ -360,7 +363,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   private copyTenderInformation(tender: TenderGridModel): void {
-    this.setSelectedTender(undefined);
+    setTimeout(() => {
+      this.setSelectedTender(undefined);
+      this.selectedTender = undefined;
+    }, 10);
     const tenderInformation = JSON.stringify(tender, null, 4);
     navigator.clipboard.writeText(tenderInformation).then(() => {
       this.toasterService.showToast('Copied to clipboard.');
@@ -368,22 +374,34 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   private downloadTenderDocument(tender: TenderGridModel): void {
-    this.setSelectedTender(undefined);
+    setTimeout(() => {
+      this.setSelectedTender(undefined);
+      this.selectedTender = undefined;
+    }, 10);
     console.log(tender);
   }
 
   private addTenderDocument(tender: TenderGridModel): void {
-    this.setSelectedTender(undefined);
+    setTimeout(() => {
+      this.setSelectedTender(undefined);
+      this.selectedTender = undefined;
+    }, 10);
     console.log(tender);
   }
 
   private downloadTenderCalendar(tender: TenderGridModel): void {
-    this.setSelectedTender(undefined);
+    setTimeout(() => {
+      this.setSelectedTender(undefined);
+      this.selectedTender = undefined;
+    }, 10);
     console.log(tender);
   }
 
   private deleteTender(tender: TenderGridModel): void {
-    this.setSelectedTender(undefined);
+    setTimeout(() => {
+      this.setSelectedTender(undefined);
+      this.selectedTender = undefined;
+    }, 10);
     this.tender = tender;
     this.deleteTenderModalWrapper.open();
   }
