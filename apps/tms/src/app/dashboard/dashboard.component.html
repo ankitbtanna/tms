@@ -5,6 +5,10 @@
     Add Tender
   </button>
 </mat-toolbar>
+<div class="user-details">
+  <span class="company-name"><b>{{companyName}}</b></span>,<br />
+  <span>{{address}}</span>
+</div>
 <div fxFlex fxLayout="row">
   <mat-tab-group color="accent" backgroundColor="primary" fxFlex dynamicHeight (selectedTabChange)="tabClick($event)">
     <mat-tab [label]="'Upcoming('+tenderStats.active+')'">

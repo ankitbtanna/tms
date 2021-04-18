@@ -36,6 +36,12 @@ export class TendersService {
       );
   }
 
+  getUserDetails(username: string): Observable<User> {
+    return this.http.get(API_PATHS.USERS.GET_USER_DETAILS.replace('${username}', username)).pipe(map((users: User[]) => {
+      return users[0];
+    }));
+  }
+
   createTender(tender: TenderModel): Observable<TenderModel> {
     return this.http.post(API_PATHS.TENDERS.CREATE_TENDER, tender)
       .pipe(

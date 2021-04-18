@@ -61,6 +61,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
   userSubscriptionDetails: SubscriptionDetails;
   isUserSubscriptionExpired = false;
 
+  userDetails$: Observable<User>;
+  companyName: string;
+  address: string;
+
   columnDefs = [
     {
       field: 'name',
@@ -227,6 +231,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.owner = this.cookieService.get(APP_COOKIES.LOGGED_IN_USER);
+    this.userDetails$ = this.tendersService.getUserDetails(this.owner);
+    this.userDetails$.subscribe((details) => {
+      this.companyName = details.companyName;
+      this.address = details.address;
+    });
     this.tendersService.getUserSubscriptionDetails(this.owner).subscribe((userSubscriptionDetails) => {
       const currentDate = new Date();
       const subscriptionEndDate = new Date(userSubscriptionDetails.subscriptionEndDate);
