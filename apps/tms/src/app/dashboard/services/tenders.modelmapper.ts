@@ -8,7 +8,7 @@ import { TenderModel } from '../models/tender.model';
 })
 export class TendersModelMapper {
   getTenderDataForGrid(tenders: TenderModel[]): TenderGridModel[] {
-    return tenders.map((tender: TenderModel) => ({
+    let allTenders = tenders.map((tender: TenderModel) => ({
       _id: tender._id,
       __v: tender.__v,
       name: tender.name,
@@ -31,7 +31,8 @@ export class TendersModelMapper {
       isComplete: tender.properties.isComplete,
       isActive: !tender.properties.isDeleted && !tender.properties.isComplete && !tender.properties.isNotFilled,
       isNotFilled: tender.properties.isNotFilled
-    }));
+    }))
+    return allTenders;
   }
 
   getTenderDataForEdit(tenders: TenderGridModel[]): TenderModel[] {

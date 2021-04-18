@@ -132,7 +132,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       resizable: true,
       minWidth: 200,
       filter: 'agDateColumnFilter',
-      valueFormatter: this.dateFormatterBidDueDate.bind(this),
+      valueFormatter: this.dateFormatterBidDueDate.bind(this)
     },
     {
       field: 'createdDate',
@@ -258,7 +258,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   openEditTenderDialog(): void {
-    //this.editedTender = this.tendersModelMapper.getTenderDataForEdit([this.selectedTender])[0];
     this.editTenderModalWrapper.open();
   }
 
@@ -285,7 +284,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   editTender(tenderDetails: any): void {
     const tender = this.tendersModelMapper.getTenderDataForEdit([this.selectedTender])[0];
     tender.bidDueDate = tenderDetails.bidDueDate;
-    tender.bidCutOffTime = tenderDetails.bidCutOffTime;
+    tender.bidCutOffTime = tenderDetails?.bidCutOffTime || '--';
     this.tendersService.editTender(tender).subscribe(() => {
       this.editTenderForm.setLoader(false);
       this.editTenderModalWrapper.close();
@@ -428,7 +427,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.setSelectedTender(undefined);
       this.selectedTender = undefined;
     }, 10);
-    console.log(tender);
   }
 
   private addTenderDocument(tender: TenderGridModel): void {
@@ -436,7 +434,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.setSelectedTender(undefined);
       this.selectedTender = undefined;
     }, 10);
-    console.log(tender);
   }
 
   private downloadTenderCalendar(tender: TenderGridModel): void {
@@ -444,7 +441,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.setSelectedTender(undefined);
       this.selectedTender = undefined;
     }, 10);
-    console.log(tender);
   }
 
   private deleteTender(tender: TenderGridModel): void {
