@@ -33,4 +33,33 @@ export class TendersModelMapper {
       isNotFilled: tender.properties.isNotFilled
     }));
   }
+
+  getTenderDataForEdit(tenders: TenderGridModel[]): TenderModel[] {
+    return tenders.map((tender: TenderGridModel) => {
+      return {
+        _id: tender._id,
+        name: tender.name,
+        amount: tender.amount,
+        fee: tender.fee,
+        emd: tender.emd,
+        referenceNumber: tender.referenceNumber,
+        tenderId: tender.tenderId,
+        publishedDate: (new Date()).toDateString(),
+        bidDueDate: (new Date()).toDateString(),
+        bidCutOffTime: tender.bidCutOffTime,
+        userKeyName: tender.userKeyName,
+        userLoginId: tender.userLoginId,
+        userPassword: tender.userPassword,
+        userWebsite: tender.userWebsite,
+        properties: {
+          owner: tender.owner,
+          createdDate: (new Date()).toDateString(),
+          document: tender.document,
+          isDeleted: tender.isDeleted,
+          isComplete: tender.isComplete,
+          isNotFilled: tender.isNotFilled
+        }
+      };
+    });
+  }
 }

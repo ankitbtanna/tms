@@ -24,6 +24,7 @@ import { TendersService } from './services/tenders.service';
 import { ToasterService } from 'libs/ui/src/lib/toaster/services/toaster.service';
 import { User } from '../register/models/users.model';
 import { SubscriptionDetails } from './models/subscription-interface.model';
+import { EditTenderComponent } from './edit-tender/edit-tender.component';
 
 @Component({
   selector: 'tms-workspace-dashboard',
@@ -34,6 +35,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   @ViewChild('createTenderModalWrapper')
   createTenderModalWrapper: ModalPopupComponent;
 
+  @ViewChild('editTenderModalWrapper')
+  editTenderModalWrapper: ModalPopupComponent;
+
   @ViewChild('deleteTenderModalWrapper')
   deleteTenderModalWrapper: ModalPopupComponent;
 
@@ -42,6 +46,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   @ViewChild('createTenderForm', { static: true, read: CreateTenderComponent })
   createTenderForm: CreateTenderComponent;
+
+  @ViewChild('editTenderForm', { static: true, read: EditTenderComponent })
+  editTenderForm: EditTenderComponent;
 
   @ViewChild('deleteTenderPopup', { static: true, read: DeletePopupComponent })
   deleteTenderPopup: DeletePopupComponent;
@@ -172,6 +179,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         activateTender: this.activateTender.bind(this),
         completeTender: this.completeTender.bind(this),
         cancelTenderFiling: this.cancelTenderFiling.bind(this),
+        editTenderDetails: this.editTenderDetails.bind(this),
         copyTenderInformation: this.copyTenderInformation.bind(this),
         viewTenderDocument: this.viewTenderDocument.bind(this),
         downloadTenderDocument: this.downloadTenderDocument.bind(this),
@@ -249,6 +257,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.createTenderModalWrapper.open();
   }
 
+  openEditTenderDialog(): void {
+    //this.editedTender = this.tendersModelMapper.getTenderDataForEdit([this.selectedTender])[0];
+    this.editTenderModalWrapper.open();
+  }
+
   isSubscriptionEndDatePast(subscriptionEndDate): boolean {
     const endDate = new Date(subscriptionEndDate);
     const currentDate = new Date();
@@ -269,9 +282,29 @@ export class DashboardComponent implements OnInit, OnDestroy {
     });
   }
 
+  editTender(tenderDetails: any): void {
+    const tender = this.tendersModelMapper.getTenderDataForEdit([this.selectedTender])[0];
+    tender.bidDueDate = tenderDetails.bidDueDate;
+    tender.bidCutOffTime = tenderDetails.bidCutOffTime;
+    this.tendersService.editTender(tender).subscribe(() => {
+      this.editTenderForm.setLoader(false);
+      this.editTenderModalWrapper.close();
+      this.getTenders(TABS[0].toLowerCase());
+      this.toasterService.showToast('Tender updated successfully.');
+      this.editTenderForm.resetForm();
+    }, () => {
+      this.toasterService.showToast('Error editing tender. Please contact admin.', 'error');
+    });
+  }
+
   closeCreateTender(): void {
     this.createTenderForm.createTenderForm.reset();
     this.createTenderModalWrapper.close();
+  }
+
+  closeEditTender(): void {
+    this.editTenderForm.editTenderForm.reset();
+    this.editTenderModalWrapper.close();
   }
 
   toggleTenderDetails(data): void {
@@ -326,7 +359,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   private completeTender(tender: TenderGridModel): void {
-    this.setSelectedTender(undefined);
+    setTimeout(() => {
+      this.setSelectedTender(undefined);
+      this.selectedTender = undefined;
+    }, 10);
     this.tendersService.completeTender(tender, true).subscribe(() => {
       this.getTenders(this.activeTab);
       this.toasterService.showToast('Tender is completed.');
@@ -334,15 +370,29 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   private cancelTenderFiling(tender: TenderGridModel): void {
-    this.setSelectedTender(undefined);
+    setTimeout(() => {
+      this.setSelectedTender(undefined);
+      this.selectedTender = undefined;
+    }, 10);
     this.tendersService.cancelTender(tender, true).subscribe(() => {
       this.getTenders(this.activeTab);
       this.toasterService.showToast('Tender is cancelled.');
     });
   }
 
+  private editTenderDetails(tender: TenderGridModel): void {
+    setTimeout(() => {
+      this.setSelectedTender(undefined);
+      this.selectedTender = undefined;
+    }, 10);
+    this.openEditTenderDialog();
+  }
+
   private viewTenderDocument(tender: TenderGridModel): void {
-    this.setSelectedTender(undefined);
+    setTimeout(() => {
+      this.setSelectedTender(undefined);
+      this.selectedTender = undefined;
+    }, 10);
     this.tender = tender;
     this.pdfViewerModalMapper.open();
   }

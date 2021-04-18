@@ -1,5 +1,5 @@
 import {
-  Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put, Req, UseFilters
+  Controller, Delete, Get, Param, Post, Put, Req, UseFilters
 } from '@nestjs/common';
 import { HttpExceptionFilter } from '../../exception/http-exception.filter';
 import { TenderService } from '../services/tender.service';

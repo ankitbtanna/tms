@@ -49,6 +49,13 @@ export class TendersService {
       );
   }
 
+  editTender(tender: TenderModel): Observable<TenderModel> {
+    return this.http.put(API_PATHS.TENDERS.EDIT_TENDER.replace('${tenderId}', tender._id), tender)
+      .pipe(
+        map((response: TenderModel) => response)
+      );
+  }
+
   deleteTender(tenderId: string): Observable<TenderModel> {
     return this.http.delete(API_PATHS.TENDERS.DELETE_TENDER.replace('${tenderId}', tenderId))
       .pipe(

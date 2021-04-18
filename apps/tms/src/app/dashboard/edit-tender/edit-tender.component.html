@@ -1,0 +1,37 @@
+<h2 mat-dialog-title fxFlex fxFlexAlign="center">Edit Tender</h2>
+<mat-dialog-content class="mat-typography" fxLayout="row" class="tender">
+  <div [formGroup]="editTenderForm" fxLayout="row" fxFlex autocomplete="off">
+    <div class="form" fxFlex fxLayout="column">
+      <mat-form-field fxFlex appearance="outline">
+        <mat-label>Bid Due Date</mat-label>
+        <input matInput [matDatepicker]="datePickerBidDueDate" formControlName="tenderBidDueDate" />
+        <mat-datepicker-toggle matSuffix [for]="datePickerBidDueDate"></mat-datepicker-toggle>
+        <mat-datepicker #datePickerBidDueDate></mat-datepicker>
+        <mat-error *ngIf="
+            !editTenderForm.controls.tenderBidDueDate.valid &&
+            !editTenderForm.controls.tenderBidDueDate.hasError(
+              'forbiddenBidDueDate'
+            )
+          ">Tender Bid Due is invalid.</mat-error>
+        <mat-error *ngIf="
+            editTenderForm.controls.tenderBidDueDate.hasError(
+              'forbiddenBidDueDate'
+            )
+          ">Tender Bid Due cannot be before todays date.</mat-error>
+      </mat-form-field>
+      <mat-form-field fxFlex appearance="outline">
+        <mat-label>Cut-off Time</mat-label>
+        <input matInput type="time" placeholder="Cut-off Time time" formControlName="tenderBidCutOffTime" />
+      </mat-form-field>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button cdkFocusInitial color="primary" [disabled]="!editTenderForm.valid" (click)="editTender()">
+    Update Tender
+  </button>
+  <button mat-raised-button color="warn" (click)="closeModal()">Cancel</button>
+</mat-dialog-actions>
+
+<tms-overlay-spinner loadingText="Creating Tender..." size="32" *ngIf="isEditingTender">
+</tms-overlay-spinner>

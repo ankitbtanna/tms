@@ -61,7 +61,6 @@ export class CreateTenderComponent {
   hide = true;
 
   isCreatingTender = false;
-
   @Output() onCreateTender: EventEmitter<TenderModel> = new EventEmitter();
   @Output() onCloseCreateTender: EventEmitter<void> = new EventEmitter();
 

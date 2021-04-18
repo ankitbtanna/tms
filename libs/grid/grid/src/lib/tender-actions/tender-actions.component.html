@@ -13,6 +13,11 @@
   class="actions actions--cancel-filing" [ngClass]="{'material-icons-outlined': !isCancelledHovered}">
   cancel
 </mat-icon>
+<mat-icon inline="true" matTooltip="Edit Tender Details" (click)="editTenderDetails()"
+  (mouseenter)="isEditHovered = true" (mouseout)="isEditHovered = false" class="actions actions--edit-tender"
+  [ngClass]="{'material-icons-outlined': !isEditHovered}">
+  edit
+</mat-icon>
 <mat-icon inline="true" matTooltip="Copy Tender Information" (click)="copyTenderInformation()"
   (mouseenter)="isCopyHovered = true" (mouseout)="isCopyHovered = false" class="actions actions--copy"
   [ngClass]="{'material-icons-outlined': !isCopyHovered}">

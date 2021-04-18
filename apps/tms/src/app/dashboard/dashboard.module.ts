@@ -16,10 +16,12 @@ import { ToasterModule } from 'libs/ui/src/lib/toaster/toaster.module';
 import { UiModule } from '@tms/ui';
 import { TenderDetailsComponent } from './tender-details/tender-details.component';
 import { TokenInterceptor } from '../interceptors/token.interceptor';
+import { EditTenderComponent } from './edit-tender/edit-tender.component';
 
 @NgModule({
   declarations: [
     CreateTenderComponent,
+    EditTenderComponent,
     CurrencyFormatterDirective,
     DashboardComponent,
     DeletePopupComponent,

@@ -15,6 +15,8 @@ export class TenderActionsComponent implements ICellRendererAngularComp {
 
   isCancelledHovered = false;
 
+  isEditHovered = false;
+
   isCopyHovered = false;
 
   isUploadHovered = false;
@@ -43,6 +45,10 @@ export class TenderActionsComponent implements ICellRendererAngularComp {
 
   cancelTenderFiling(): void {
     this.params.cancelTenderFiling(this.params.data);
+  }
+
+  editTenderDetails(): void {
+    this.params.editTenderDetails(this.params.data);
   }
 
   copyTenderInformation(): void {
