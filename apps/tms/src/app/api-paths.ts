@@ -20,6 +20,7 @@ export const API_PATHS = {
     GET_COMPLETE_TENDERS_BY_USERNAME: 'http://ebharat-tms.in/api/tenders/complete/${username}',
     GET_NOT_FILLED_TENDERS_BY_USERNAME: 'http://ebharat-tms.in/api/tenders/not-filled/${username}',
     CREATE_TENDER: 'http://ebharat-tms.in/api/tenders',
+    EDIT_TENDER: 'http://ebharat-tms.in/api/tenders/update/${tenderId}',
     DELETE_TENDER: 'http://ebharat-tms.in/api/tenders/delete/${tenderId}',
     UPDATE_TENDER: 'http://ebharat-tms.in/api/tenders/update/${tenderId}'
   },
