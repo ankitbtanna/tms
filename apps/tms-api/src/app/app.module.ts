@@ -9,6 +9,7 @@ import { UsersModule } from './users/users.module';
 import { HttpExceptionFilter } from './exception/http-exception.filter';
 import { TransactionModule } from './transaction/transaction.module';
 import { ContactUsModule } from './contact-us/contact-us.module';
+import { ForgotPasswordModule } from './forgot-password/forgot-password.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { ContactUsModule } from './contact-us/contact-us.module';
     UsersModule,
     ShareModule,
     ShareAppModule,
+    ForgotPasswordModule,
     TendersModule,
     TransactionModule,
     ContactUsModule

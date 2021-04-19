@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { v4 as uuidv4 } from 'uuid';
 import { API_PATHS } from '../../api-paths';
 import { Transaction } from '../models/transaction.model'
 import { Order } from '../models/order.model'

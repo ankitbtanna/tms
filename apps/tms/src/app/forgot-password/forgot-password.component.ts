@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  FormBuilder,
   FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from '../services/auth.service';
-import { USERNAME_REGEX, PASSWORD_REGEX } from './forgot-password.constant';
+import { USERNAME_REGEX } from './forgot-password.constant';
+import { ForgotPasswordService } from './services/forgot-password.service';
 
 @Component({
   selector: 'tms-forgot-password',
@@ -16,8 +16,6 @@ import { USERNAME_REGEX, PASSWORD_REGEX } from './forgot-password.constant';
 })
 export class ForgotPasswordComponent implements OnInit {
   hide = true;
-  isPasswordFocused = false;
-  isConfirmPasswordFocused = false;
   forgotPasswordForm: FormGroup = new FormGroup({
     username: new FormControl('', [
       Validators.required,
@@ -25,27 +23,14 @@ export class ForgotPasswordComponent implements OnInit {
     ]),
   });
 
-  passwordForm = this.formBuilder.group(
-    {
-      password: ['', [Validators.required, Validators.pattern(PASSWORD_REGEX)]],
-      confirmPassword: [
-        '',
-        [Validators.required, Validators.pattern(PASSWORD_REGEX)],
-      ],
-    },
-    { validator: this.checkPasswords }
-  );
-
-  constructor(private formBuilder: FormBuilder, private cookieService: CookieService, private authService: AuthService) { }
+  constructor(private cookieService: CookieService, private authService: AuthService, private forgotPasswordService: ForgotPasswordService) { }
 
   ngOnInit(): void {
     this.cookieService.deleteAll();
     this.authService.loggedIn.next(false);
   }
 
-  checkPasswords(group: FormGroup) {
-    const pass = group.controls.password.value;
-    const confirmPass = group.controls.confirmPassword.value;
-    return pass === confirmPass ? null : { notSame: true };
+  generateForgotPasswordLink(): void {
+    this.forgotPasswordService.generateForgotPasswordLink().subscribe();
   }
 }

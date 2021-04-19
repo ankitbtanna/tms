@@ -15,6 +15,7 @@ import { RegisterModule } from './register/register.module';
 import { ShareTmsModule } from './share-tms/share-tms.module';
 import { AuthGuardService } from './auth/auth-guard.service';
 import { AuthService } from './services/auth.service';
+import { ResetPasswordModule } from './reset-password/reset-password.module';
 
 @NgModule({
   declarations: [AppComponent, NavbarComponent, FooterComponent],
@@ -26,6 +27,7 @@ import { AuthService } from './services/auth.service';
     LoginModule,
     RegisterModule,
     DashboardModule,
+    ResetPasswordModule,
     ContactUsModule,
     PaymentModule,
     ShareTmsModule

@@ -153,6 +153,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _exception_http_exception_filter__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./exception/http-exception.filter */ "./apps/tms-api/src/app/exception/http-exception.filter.ts");
 /* harmony import */ var _transaction_transaction_module__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./transaction/transaction.module */ "./apps/tms-api/src/app/transaction/transaction.module.ts");
 /* harmony import */ var _contact_us_contact_us_module__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./contact-us/contact-us.module */ "./apps/tms-api/src/app/contact-us/contact-us.module.ts");
+/* harmony import */ var _forgot_password_forgot_password_module__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./forgot-password/forgot-password.module */ "./apps/tms-api/src/app/forgot-password/forgot-password.module.ts");
+
 
 
 
@@ -174,6 +176,7 @@ AppModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
             _users_users_module__WEBPACK_IMPORTED_MODULE_8__["UsersModule"],
             _share_share_module__WEBPACK_IMPORTED_MODULE_5__["ShareModule"],
             _share_app_share_app_module__WEBPACK_IMPORTED_MODULE_6__["ShareAppModule"],
+            _forgot_password_forgot_password_module__WEBPACK_IMPORTED_MODULE_12__["ForgotPasswordModule"],
             _tenders_tenders_module__WEBPACK_IMPORTED_MODULE_7__["TendersModule"],
             _transaction_transaction_module__WEBPACK_IMPORTED_MODULE_10__["TransactionModule"],
             _contact_us_contact_us_module__WEBPACK_IMPORTED_MODULE_11__["ContactUsModule"]
@@ -684,6 +687,441 @@ let HttpExceptionFilter = class HttpExceptionFilter {
 HttpExceptionFilter = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_nestjs_common__WEBPACK_IMPORTED_MODULE_1__["Catch"])(_nestjs_common__WEBPACK_IMPORTED_MODULE_1__["HttpException"])
 ], HttpExceptionFilter);
+
+
+
+/***/ }),
+
+/***/ "./apps/tms-api/src/app/forgot-password/forgot-password.module.ts":
+/*!************************************************************************!*\
+  !*** ./apps/tms-api/src/app/forgot-password/forgot-password.module.ts ***!
+  \************************************************************************/
+/*! exports provided: ForgotPasswordModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ForgotPasswordModule", function() { return ForgotPasswordModule; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "tslib");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(tslib__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _nestjs_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+/* harmony import */ var _nestjs_common__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_nestjs_common__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _models_forgot_password_schema__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./models/forgot-password.schema */ "./apps/tms-api/src/app/forgot-password/models/forgot-password.schema.ts");
+/* harmony import */ var _nestjs_mongoose__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @nestjs/mongoose */ "@nestjs/mongoose");
+/* harmony import */ var _nestjs_mongoose__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_nestjs_mongoose__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _services_forgot_password_services__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./services/forgot-password.services */ "./apps/tms-api/src/app/forgot-password/services/forgot-password.services.ts");
+/* harmony import */ var _forgot_password_forgot_password_controller__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./forgot-password/forgot-password.controller */ "./apps/tms-api/src/app/forgot-password/forgot-password/forgot-password.controller.ts");
+
+
+
+
+
+
+let ForgotPasswordModule = class ForgotPasswordModule {
+};
+ForgotPasswordModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_nestjs_common__WEBPACK_IMPORTED_MODULE_1__["Module"])({
+        imports: [
+            _nestjs_mongoose__WEBPACK_IMPORTED_MODULE_3__["MongooseModule"].forFeature([
+                { name: _models_forgot_password_schema__WEBPACK_IMPORTED_MODULE_2__["ForgotPassword"].name, schema: _models_forgot_password_schema__WEBPACK_IMPORTED_MODULE_2__["ForgotPasswordSchema"] }
+            ]),
+            _nestjs_common__WEBPACK_IMPORTED_MODULE_1__["HttpModule"]
+        ],
+        controllers: [_forgot_password_forgot_password_controller__WEBPACK_IMPORTED_MODULE_5__["ForgotPasswordController"]],
+        providers: [_services_forgot_password_services__WEBPACK_IMPORTED_MODULE_4__["ForgotPasswordService"]],
+        exports: [
+            _nestjs_mongoose__WEBPACK_IMPORTED_MODULE_3__["MongooseModule"].forFeature([
+                { name: _models_forgot_password_schema__WEBPACK_IMPORTED_MODULE_2__["ForgotPassword"].name, schema: _models_forgot_password_schema__WEBPACK_IMPORTED_MODULE_2__["ForgotPasswordSchema"] }
+            ])
+        ]
+    })
+], ForgotPasswordModule);
+
+
+
+/***/ }),
+
+/***/ "./apps/tms-api/src/app/forgot-password/forgot-password/forgot-password.controller.ts":
+/*!********************************************************************************************!*\
+  !*** ./apps/tms-api/src/app/forgot-password/forgot-password/forgot-password.controller.ts ***!
+  \********************************************************************************************/
+/*! exports provided: ForgotPasswordController */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ForgotPasswordController", function() { return ForgotPasswordController; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "tslib");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(tslib__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _nestjs_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+/* harmony import */ var _nestjs_common__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_nestjs_common__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _exception_http_exception_filter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../exception/http-exception.filter */ "./apps/tms-api/src/app/exception/http-exception.filter.ts");
+/* harmony import */ var _services_forgot_password_services__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services/forgot-password.services */ "./apps/tms-api/src/app/forgot-password/services/forgot-password.services.ts");
+var _a;
+
+
+
+
+let ForgotPasswordController = class ForgotPasswordController {
+    constructor(forgotPassword) {
+        this.forgotPassword = forgotPassword;
+    }
+    generateForgotPasswordLink(params) {
+        console.log('came here');
+        return this.forgotPassword.generateForgotPasswordLink(params.email);
+    }
+    verifyForgotPasswordToken(params) {
+        return this.forgotPassword.verifyForgotPasswordToken(params.email, params.token);
+    }
+};
+Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_nestjs_common__WEBPACK_IMPORTED_MODULE_1__["Get"])('generate-link/:email'),
+    Object(_nestjs_common__WEBPACK_IMPORTED_MODULE_1__["Header"])('Cache-Control', 'none'),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__param"])(0, Object(_nestjs_common__WEBPACK_IMPORTED_MODULE_1__["Param"])()),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", Function),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [Object]),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:returntype", void 0)
+], ForgotPasswordController.prototype, "generateForgotPasswordLink", null);
+Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_nestjs_common__WEBPACK_IMPORTED_MODULE_1__["Get"])('verify-token/:email/:token'),
+    Object(_nestjs_common__WEBPACK_IMPORTED_MODULE_1__["Header"])('Cache-Control', 'none'),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__param"])(0, Object(_nestjs_common__WEBPACK_IMPORTED_MODULE_1__["Param"])()),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", Function),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [Object]),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:returntype", void 0)
+], ForgotPasswordController.prototype, "verifyForgotPasswordToken", null);
+ForgotPasswordController = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_nestjs_common__WEBPACK_IMPORTED_MODULE_1__["Controller"])('forgot-password'),
+    Object(_nestjs_common__WEBPACK_IMPORTED_MODULE_1__["UseFilters"])(new _exception_http_exception_filter__WEBPACK_IMPORTED_MODULE_2__["HttpExceptionFilter"]()),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [typeof (_a = typeof _services_forgot_password_services__WEBPACK_IMPORTED_MODULE_3__["ForgotPasswordService"] !== "undefined" && _services_forgot_password_services__WEBPACK_IMPORTED_MODULE_3__["ForgotPasswordService"]) === "function" ? _a : Object])
+], ForgotPasswordController);
+
+
+
+/***/ }),
+
+/***/ "./apps/tms-api/src/app/forgot-password/models/forgot-password.schema.ts":
+/*!*******************************************************************************!*\
+  !*** ./apps/tms-api/src/app/forgot-password/models/forgot-password.schema.ts ***!
+  \*******************************************************************************/
+/*! exports provided: ForgotPassword, ForgotPasswordSchema */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ForgotPassword", function() { return ForgotPassword; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ForgotPasswordSchema", function() { return ForgotPasswordSchema; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "tslib");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(tslib__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _nestjs_mongoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @nestjs/mongoose */ "@nestjs/mongoose");
+/* harmony import */ var _nestjs_mongoose__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_nestjs_mongoose__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! mongoose */ "mongoose");
+/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(mongoose__WEBPACK_IMPORTED_MODULE_2__);
+
+/* eslint-disable max-classes-per-file */
+
+
+let ForgotPassword = class ForgotPassword extends mongoose__WEBPACK_IMPORTED_MODULE_2__["Document"] {
+};
+Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_nestjs_mongoose__WEBPACK_IMPORTED_MODULE_1__["Prop"])({ required: true, unique: true, lowercase: true }),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", String)
+], ForgotPassword.prototype, "owner", void 0);
+Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_nestjs_mongoose__WEBPACK_IMPORTED_MODULE_1__["Prop"])({ required: true }),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", String)
+], ForgotPassword.prototype, "token", void 0);
+Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_nestjs_mongoose__WEBPACK_IMPORTED_MODULE_1__["Prop"])({ required: true }),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", String)
+], ForgotPassword.prototype, "date", void 0);
+ForgotPassword = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_nestjs_mongoose__WEBPACK_IMPORTED_MODULE_1__["Schema"])()
+], ForgotPassword);
+
+const ForgotPasswordSchema = _nestjs_mongoose__WEBPACK_IMPORTED_MODULE_1__["SchemaFactory"].createForClass(ForgotPassword);
+
+
+/***/ }),
+
+/***/ "./apps/tms-api/src/app/forgot-password/services/forgot-password.services.ts":
+/*!***********************************************************************************!*\
+  !*** ./apps/tms-api/src/app/forgot-password/services/forgot-password.services.ts ***!
+  \***********************************************************************************/
+/*! exports provided: ForgotPasswordService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ForgotPasswordService", function() { return ForgotPasswordService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "tslib");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(tslib__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "lodash");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _models_forgot_password_schema__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../models/forgot-password.schema */ "./apps/tms-api/src/app/forgot-password/models/forgot-password.schema.ts");
+/* harmony import */ var _nestjs_mongoose__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @nestjs/mongoose */ "@nestjs/mongoose");
+/* harmony import */ var _nestjs_mongoose__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_nestjs_mongoose__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _nestjs_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+/* harmony import */ var _nestjs_common__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_nestjs_common__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! mongoose */ "mongoose");
+/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(mongoose__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! uuid */ "uuid");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(uuid__WEBPACK_IMPORTED_MODULE_6__);
+var _a;
+
+
+
+
+
+
+
+const nodemailer = __webpack_require__(/*! nodemailer */ "nodemailer");
+let ForgotPasswordService = class ForgotPasswordService {
+    constructor(forgotPassword) {
+        this.forgotPassword = forgotPassword;
+    }
+    generateForgotPasswordLink(email) {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            const token = Object(uuid__WEBPACK_IMPORTED_MODULE_6__["v4"])();
+            const currentDate = (new Date()).getTime();
+            const owner = yield this.forgotPassword.findOne({ owner: email }).exec();
+            if (!owner) {
+                const query = yield this.forgotPassword({
+                    owner: email,
+                    token: token,
+                    date: currentDate
+                });
+                yield query.save();
+            }
+            else {
+                const owner = yield this.forgotPassword.findOne({ owner: email }).exec();
+                owner.token = token;
+                owner.date = currentDate;
+                yield this.forgotPassword.findOneAndUpdate({ owner: email }, owner, { upsert: true }).exec();
+            }
+            const forgotPasswordUrl = `http://localhost:4200/reset-password?email=${email}&token=${token}`;
+            let transporter = nodemailer.createTransport({
+                host: "smtp.gmail.com",
+                port: 587,
+                secure: false,
+                auth: {
+                    user: "ebharat.tms@gmail.com",
+                    pass: "TMSPortal@123",
+                },
+            });
+            let info = yield transporter.sendMail({
+                from: '"Ebharat TMS" <ebharat.tms@gmail.com>',
+                to: "ankittanna@hotmail.com",
+                subject: "TMS - Reset Password",
+                html: `Hi User,<p>Please click on below link for resetting your passworrd. If you are unable to reset your password, please contact us at ebharat.tms@gmail.com!</p><p><a href='${forgotPasswordUrl}' target='_blank'>Click Here!</a></p><p>Thanks - Team E-bharat TMS.</p>`
+            });
+            console.log("Message sent: %s", info.messageId);
+            console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+        });
+    }
+    verifyForgotPasswordToken(email, token) {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+        });
+    }
+    verifyMobileNumber(number) {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            if (!number) {
+                throw new _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpException"]({
+                    status: _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND,
+                    error: 'Invalid number.',
+                }, _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND);
+            }
+            try {
+                const sharingOwners = [];
+                const owners = yield this.forgotPassword.find().exec();
+                owners.forEach(owner => {
+                    if (owner.stakeholders.length > 0) {
+                        owner.stakeholders.forEach(stakeholder => {
+                            if (stakeholder.mobileNumber === number) {
+                                sharingOwners.push(owner.owner);
+                            }
+                        });
+                    }
+                });
+                return sharingOwners;
+            }
+            catch (error) {
+                throw new _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpException"]({
+                    status: _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND,
+                    error: JSON.stringify(error),
+                }, _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND);
+            }
+        });
+    }
+    getAllStakeHolders(username) {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            if (!username) {
+                throw new _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpException"]({
+                    status: _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND,
+                    error: 'Invalid username.',
+                }, _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND);
+            }
+            try {
+                const owner = yield this.forgotPassword.findOne({ owner: username }).exec();
+                return owner.stakeholders;
+            }
+            catch (error) {
+                throw new _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpException"]({
+                    status: _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND,
+                    error: JSON.stringify(error),
+                }, _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND);
+            }
+        });
+    }
+    addStakeHolder(stakeholderDTO) {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            if (!stakeholderDTO.owner) {
+                throw new _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpException"]({
+                    status: _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND,
+                    error: 'Invalid username.',
+                }, _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND);
+            }
+            try {
+                const owner = yield this.forgotPassword
+                    .findOne({ owner: stakeholderDTO.owner })
+                    .exec();
+                if (lodash__WEBPACK_IMPORTED_MODULE_1__["find"](owner.stakeholders, {
+                    mobileNumber: stakeholderDTO.stakeholders[0].mobileNumber
+                })) {
+                    throw new _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpException"]({
+                        status: _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].CONFLICT,
+                        error: 'Stakeholder already present.',
+                    }, _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].CONFLICT);
+                }
+                owner.stakeholders.push(stakeholderDTO.stakeholders[0]);
+                const modifiedOwner = this.forgotPassword(owner);
+                const result = yield modifiedOwner.save();
+                return result;
+            }
+            catch (error) {
+                throw new _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpException"]({
+                    status: _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].INTERNAL_SERVER_ERROR,
+                    error: JSON.stringify(error),
+                }, _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].INTERNAL_SERVER_ERROR);
+            }
+        });
+    }
+    blockStakeHolder(username, mobileNumber, isBlocked) {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            if (!username) {
+                throw new _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpException"]({
+                    status: _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND,
+                    error: 'Invalid username.',
+                }, _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND);
+            }
+            if (!mobileNumber) {
+                throw new _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpException"]({
+                    status: _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND,
+                    error: 'Invalid Mobile Number!',
+                }, _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND);
+            }
+            try {
+                const owner = yield this.forgotPassword.findOne({ owner: username }).exec();
+                if (!owner) {
+                    throw new _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpException"]({
+                        status: _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND,
+                        error: 'User does not exist.',
+                    }, _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND);
+                }
+                if (!owner.stakeholders.length) {
+                    throw new _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpException"]({
+                        status: _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND,
+                        error: 'User does not have any stakeholder.',
+                    }, _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND);
+                }
+                if (lodash__WEBPACK_IMPORTED_MODULE_1__["find"](owner.stakeholders, {
+                    mobileNumber
+                })) {
+                    owner.stakeholders = lodash__WEBPACK_IMPORTED_MODULE_1__["map"](owner.stakeholders, (stakeholder) => {
+                        if (stakeholder.mobileNumber === mobileNumber)
+                            stakeholder.isBlocked = !!isBlocked;
+                        return stakeholder;
+                    });
+                    yield this.forgotPassword
+                        .findOneAndUpdate({
+                        owner: username
+                    }, owner, { upsert: true })
+                        .exec();
+                    const modifiedOwner = yield this.forgotPassword
+                        .findOne({ owner: username })
+                        .exec();
+                    return modifiedOwner;
+                }
+                throw new _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpException"]({
+                    status: _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND,
+                    error: 'Stakeholder does not exist.',
+                }, _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND);
+            }
+            catch (error) {
+                throw new _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpException"]({
+                    status: _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].INTERNAL_SERVER_ERROR,
+                    error: JSON.stringify(error),
+                }, _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].INTERNAL_SERVER_ERROR);
+            }
+        });
+    }
+    deleteStakeHolder(username, mobileNumber) {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            if (!username) {
+                throw new _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpException"]({
+                    status: _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND,
+                    error: 'User does not exist.',
+                }, _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND);
+            }
+            if (!mobileNumber) {
+                throw new _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpException"]({
+                    status: _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND,
+                    error: 'Mobile number does not exist.',
+                }, _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND);
+            }
+            try {
+                const owner = yield this.forgotPassword.findOne({ owner: username }).exec();
+                if (!owner.stakeholders.length) {
+                    throw new _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpException"]({
+                        status: _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND,
+                        error: 'User does not have any stakeholder.',
+                    }, _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND);
+                }
+                if (lodash__WEBPACK_IMPORTED_MODULE_1__["find"](owner.stakeholders, {
+                    mobileNumber
+                })) {
+                    lodash__WEBPACK_IMPORTED_MODULE_1__["remove"](owner.stakeholders, {
+                        mobileNumber
+                    });
+                    yield this.forgotPassword
+                        .findOneAndUpdate({
+                        owner: username
+                    }, owner, { upsert: true })
+                        .exec();
+                    const modifiedOwner = yield this.forgotPassword
+                        .findOne({ owner: username })
+                        .exec();
+                    return modifiedOwner;
+                }
+                throw new _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpException"]({
+                    status: _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND,
+                    error: 'Stakeholder does not exist.',
+                }, _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].NOT_FOUND);
+            }
+            catch (error) {
+                throw new _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpException"]({
+                    status: _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].INTERNAL_SERVER_ERROR,
+                    error: JSON.stringify(error),
+                }, _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].INTERNAL_SERVER_ERROR);
+            }
+        });
+    }
+};
+ForgotPasswordService = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_nestjs_common__WEBPACK_IMPORTED_MODULE_4__["Injectable"])(),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__param"])(0, Object(_nestjs_mongoose__WEBPACK_IMPORTED_MODULE_3__["InjectModel"])(_models_forgot_password_schema__WEBPACK_IMPORTED_MODULE_2__["ForgotPassword"].name)),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [typeof (_a = typeof mongoose__WEBPACK_IMPORTED_MODULE_5__["Model"] !== "undefined" && mongoose__WEBPACK_IMPORTED_MODULE_5__["Model"]) === "function" ? _a : Object])
+], ForgotPasswordService);
 
 
 
@@ -3175,6 +3613,17 @@ module.exports = require("morgan");
 
 /***/ }),
 
+/***/ "nodemailer":
+/*!*****************************!*\
+  !*** external "nodemailer" ***!
+  \*****************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("nodemailer");
+
+/***/ }),
+
 /***/ "razorpay":
 /*!***************************!*\
   !*** external "razorpay" ***!
@@ -3194,6 +3643,17 @@ module.exports = require("razorpay");
 /***/ (function(module, exports) {
 
 module.exports = require("tslib");
+
+/***/ }),
+
+/***/ "uuid":
+/*!***********************!*\
+  !*** external "uuid" ***!
+  \***********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("uuid");
 
 /***/ })
 

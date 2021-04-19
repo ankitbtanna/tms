@@ -3,13 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from '../material.module';
-import { FORGOT_PASSWORD_ROUTES } from './forgot-password.routes';
-import { ForgotPasswordComponent } from './forgot-password.component';
+import { FORGOT_PASSWORD_ROUTES } from './reset-password.routes';
+import { ResetPasswordComponent } from './reset-password.component';
 import { AuthService } from '../services/auth.service';
-import { ForgotPasswordService } from './services/forgot-password.service';
 
 @NgModule({
-  declarations: [ForgotPasswordComponent],
+  declarations: [ResetPasswordComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -17,6 +16,6 @@ import { ForgotPasswordService } from './services/forgot-password.service';
     MaterialModule,
     RouterModule.forChild(FORGOT_PASSWORD_ROUTES)
   ],
-  providers: [AuthService, ForgotPasswordService]
+  providers: [AuthService]
 })
-export class ForgotPasswordModule { }
+export class ResetPasswordModule { }

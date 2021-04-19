@@ -20,6 +20,13 @@ export const TMS_ROUTES: Routes = [
       )
   },
   {
+    path: 'reset-password',
+    loadChildren: () =>
+      import('./reset-password/reset-password.module').then(
+        (m) => m.ResetPasswordModule
+      )
+  },
+  {
     path: 'register',
     loadChildren: () =>
       import('./register/register.module').then((m) => m.RegisterModule)
