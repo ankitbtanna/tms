@@ -921,6 +921,24 @@ let ForgotPasswordService = class ForgotPasswordService {
     }
     verifyForgotPasswordToken(email, token) {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            const owner = yield this.forgotPassword.findOne({ owner: email }).exec();
+            if (!owner) {
+                throw new _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpException"]({
+                    status: _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].BAD_REQUEST,
+                    error: 'Invalid reset password link.',
+                }, _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].BAD_REQUEST);
+            }
+            const currentDate = (new Date()).getTime();
+            const tokenDate = Number(owner.date);
+            if (currentDate - tokenDate > 1800000) {
+                throw new _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpException"]({
+                    status: _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].BAD_REQUEST,
+                    error: 'Password link expired. Please try again.',
+                }, _nestjs_common__WEBPACK_IMPORTED_MODULE_4__["HttpStatus"].BAD_REQUEST);
+            }
+            if (owner.token === token) {
+                return owner;
+            }
         });
     }
     verifyMobileNumber(number) {

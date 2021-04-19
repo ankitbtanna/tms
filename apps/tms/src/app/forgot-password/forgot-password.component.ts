@@ -4,6 +4,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { ToasterService } from 'libs/ui/src/lib/toaster/services/toaster.service';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from '../services/auth.service';
 import { USERNAME_REGEX } from './forgot-password.constant';
@@ -16,6 +17,7 @@ import { ForgotPasswordService } from './services/forgot-password.service';
 })
 export class ForgotPasswordComponent implements OnInit {
   hide = true;
+  isLoading = false;
   forgotPasswordForm: FormGroup = new FormGroup({
     username: new FormControl('', [
       Validators.required,
@@ -23,7 +25,7 @@ export class ForgotPasswordComponent implements OnInit {
     ]),
   });
 
-  constructor(private cookieService: CookieService, private authService: AuthService, private forgotPasswordService: ForgotPasswordService) { }
+  constructor(private toasterService: ToasterService, private cookieService: CookieService, private authService: AuthService, private forgotPasswordService: ForgotPasswordService) { }
 
   ngOnInit(): void {
     this.cookieService.deleteAll();
@@ -31,6 +33,14 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   generateForgotPasswordLink(): void {
-    this.forgotPasswordService.generateForgotPasswordLink().subscribe();
+    this.isLoading = true;
+    this.forgotPasswordService.generateForgotPasswordLink().subscribe(() => {
+      this.toasterService.showToast(
+        'Reset link sent to your email.',
+        'success'
+      );
+      this.forgotPasswordForm.reset();
+      this.isLoading = false;
+    });
   }
 }

@@ -7,6 +7,8 @@ import { FORGOT_PASSWORD_ROUTES } from './forgot-password.routes';
 import { ForgotPasswordComponent } from './forgot-password.component';
 import { AuthService } from '../services/auth.service';
 import { ForgotPasswordService } from './services/forgot-password.service';
+import { ToasterModule } from 'libs/ui/src/lib/toaster/toaster.module';
+import { UiModule } from '@tms/ui';
 
 @NgModule({
   declarations: [ForgotPasswordComponent],
@@ -14,6 +16,8 @@ import { ForgotPasswordService } from './services/forgot-password.service';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    UiModule,
+    ToasterModule,
     MaterialModule,
     RouterModule.forChild(FORGOT_PASSWORD_ROUTES)
   ],

@@ -52,7 +52,27 @@ export class ForgotPasswordService {
     }
 
     async verifyForgotPasswordToken(email: string, token: string) {
+        const owner = await this.forgotPassword.findOne({ owner: email }).exec();
 
+        if (!owner) {
+            throw new HttpException({
+                status: HttpStatus.BAD_REQUEST,
+                error: 'Invalid reset password link.',
+            }, HttpStatus.BAD_REQUEST);
+        }
+
+        const currentDate = (new Date()).getTime();
+        const tokenDate = Number(owner.date);
+        if (currentDate - tokenDate > 1800000) {
+            throw new HttpException({
+                status: HttpStatus.BAD_REQUEST,
+                error: 'Password link expired. Please try again.',
+            }, HttpStatus.BAD_REQUEST);
+        }
+
+        if (owner.token === token) {
+            return owner;
+        }
     }
 
     async verifyMobileNumber(number: string) {
