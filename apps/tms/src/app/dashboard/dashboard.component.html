@@ -14,7 +14,7 @@
     <mat-tab [label]="'Upcoming('+tenderStats.active+')'">
       <div fxFlex fxLayout="row" *ngIf="(tenders$ | async)?.length && activeTab === 'active'">
         <tms-grid [validateData]="validateData" [columnDefs]="columnDefs" [rowData]="rowData"
-          [frameworkComponents]="frameworkComponents" (onRowSelection)="toggleTenderDetails($event)"></tms-grid>
+          [frameworkComponents]="frameworkComponents"></tms-grid>
       </div>
       <div fxFlex class="details" *ngIf="selectedTender && activeTab === 'active'">
         <tms-tender-details [tender]="selectedTender" (onCloseTender)="closeTenderDetails()"></tms-tender-details>
@@ -23,7 +23,7 @@
     <mat-tab [label]="'Filled('+tenderStats.completed+')'">
       <div fxFlex fxLayout="row" *ngIf="(tenders$ | async)?.length && activeTab === 'complete'" class="grid-container">
         <tms-grid [validateData]="validateData" [columnDefs]="columnDefs" [rowData]="rowData"
-          [frameworkComponents]="frameworkComponents" (onRowSelection)="toggleTenderDetails($event)"></tms-grid>
+          [frameworkComponents]="frameworkComponents"></tms-grid>
       </div>
       <div fxFlex class="details" *ngIf="selectedTender && activeTab === 'complete'">
         <tms-tender-details [tender]="selectedTender" (onCloseTender)="closeTenderDetails()"></tms-tender-details>
@@ -33,7 +33,7 @@
       <div fxFlex fxLayout="row" *ngIf="(tenders$ | async)?.length && activeTab === 'not_filled'"
         class="grid-container">
         <tms-grid [validateData]="validateData" [columnDefs]="columnDefs" [rowData]="rowData"
-          [frameworkComponents]="frameworkComponents" (onRowSelection)="toggleTenderDetails($event)"></tms-grid>
+          [frameworkComponents]="frameworkComponents"></tms-grid>
       </div>
       <div fxFlex class="details" *ngIf="selectedTender && activeTab === 'not_filled'">
         <tms-tender-details [tender]="selectedTender" (onCloseTender)="closeTenderDetails()"></tms-tender-details>
@@ -42,7 +42,7 @@
     <mat-tab [label]="'All('+(tenderStats.cancelled+tenderStats.active+tenderStats.completed)+')'">
       <div fxFlex fxLayout="row" *ngIf="(tenders$ | async)?.length && activeTab === 'all'" class="grid-container">
         <tms-grid [validateData]="validateData" [columnDefs]="columnDefs" [rowData]="rowData"
-          [frameworkComponents]="frameworkComponents" (onRowSelection)="toggleTenderDetails($event)"></tms-grid>
+          [frameworkComponents]="frameworkComponents"></tms-grid>
       </div>
       <div fxFlex class="details" *ngIf="selectedTender && activeTab === 'all'">
         <tms-tender-details [tender]="selectedTender" (onCloseTender)="closeTenderDetails()"></tms-tender-details>

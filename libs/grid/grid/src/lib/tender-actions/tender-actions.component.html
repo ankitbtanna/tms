@@ -18,6 +18,11 @@
   [ngClass]="{'material-icons-outlined': !isEditHovered}">
   edit
 </mat-icon>
+<mat-icon inline="true" matTooltip="Show Tender Info" (click)="showTenderInfo()" (mouseenter)="isInfoHovered = true"
+  (mouseout)="isInfoHovered = false" class="actions actions--info-tender"
+  [ngClass]="{'material-icons-outlined': !isInfoHovered}">
+  info
+</mat-icon>
 <mat-icon inline="true" matTooltip="Copy Tender Information" (click)="copyTenderInformation()"
   (mouseenter)="isCopyHovered = true" (mouseout)="isCopyHovered = false" class="actions actions--copy"
   [ngClass]="{'material-icons-outlined': !isCopyHovered}">

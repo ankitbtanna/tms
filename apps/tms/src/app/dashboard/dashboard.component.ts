@@ -180,6 +180,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         completeTender: this.completeTender.bind(this),
         cancelTenderFiling: this.cancelTenderFiling.bind(this),
         editTenderDetails: this.editTenderDetails.bind(this),
+        showTenderInfo: this.showTenderInfo.bind(this),
         copyTenderInformation: this.copyTenderInformation.bind(this),
         viewTenderDocument: this.viewTenderDocument.bind(this),
         downloadTenderDocument: this.downloadTenderDocument.bind(this),
@@ -387,6 +388,23 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.openEditTenderDialog();
   }
 
+  private showTenderInfo(tender: TenderGridModel): void {
+    if (!this.selectedTender) {
+      this.selectedTender = tender;
+      return;
+    }
+
+    if (this.selectedTender.tenderId === tender.tenderId) {
+      this.selectedTender = undefined;
+      return;
+    }
+
+    if (this.selectedTender.tenderId !== tender.tenderId) {
+      this.selectedTender = tender;
+      return;
+    }
+  }
+
   private viewTenderDocument(tender: TenderGridModel): void {
     setTimeout(() => {
       this.setSelectedTender(undefined);
@@ -416,7 +434,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.setSelectedTender(undefined);
       this.selectedTender = undefined;
     }, 10);
-    const tenderInformation = JSON.stringify(tender, null, 4);
+    const tenderInformation = JSON.stringify(tender.tenderId || tender.name, null, 4);
     navigator.clipboard.writeText(tenderInformation).then(() => {
       this.toasterService.showToast('Copied to clipboard.');
     });
