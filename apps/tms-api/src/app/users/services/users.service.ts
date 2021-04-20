@@ -80,6 +80,42 @@ export class UserService {
     }
   }
 
+  async updateUserPassword(username: string, password: string) {
+    if (!password || !username) {
+      throw new HttpException({
+        status: HttpStatus.INTERNAL_SERVER_ERROR,
+        error: 'Invalid username or password.',
+      }, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    try {
+      const users = await this.userModel
+        .find(
+          {
+            username: username
+          }
+        )
+        .exec();
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(password, salt);
+      users[0].password = hashedPassword;
+      await this.userModel.findOneAndUpdate({
+        username: username
+      },
+        users[0],
+        { upsert: true }
+      );
+      const modifiedUsers = await this.userModel.find({ username: username }).exec();
+      delete modifiedUsers.password;
+      return modifiedUsers[0];
+    } catch (error) {
+      throw new HttpException({
+        status: HttpStatus.INTERNAL_SERVER_ERROR,
+        error: JSON.stringify(error),
+      }, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
   async registerUser(user: User) {
     const newUser = this.userModel(user);
     try {

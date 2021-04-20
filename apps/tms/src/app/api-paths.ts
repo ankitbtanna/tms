@@ -6,7 +6,8 @@ export const API_PATHS = {
     CHECK_USER_EXISTS: 'http://ebharat-tms.in/api/user/check/${username}',
     GET_USER_DETAILS: 'http://ebharat-tms.in/api/user/details/${username}',
     GET_USER_SUBSCRIPTION_DETAILS: 'http://ebharat-tms.in/api/user/subscription-details/${username}',
-    LOGIN: 'http://ebharat-tms.in/api/user/login'
+    LOGIN: 'http://ebharat-tms.in/api/user/login',
+    UPDATE_PASSWORD: 'http://ebharat-tms.in/api/user/update-password'
   },
   SHARE_TMS: {
     GET_ALL_STAKEHOLDERS: 'http://ebharat-tms.in/api/share/stakeholders/${username}',
@@ -32,5 +33,10 @@ export const API_PATHS = {
   },
   CONTACT_US: {
     CREATE_QUERY: 'http://ebharat-tms.in/api/contact-us'
+  },
+  FORGOT_PASSWORD: {
+    GENERATE_FORGOT_PASSWORD_LINK: 'http://ebharat-tms.in/api/forgot-password/generate-link/${email}',
+    VERIFY_FORGOT_PASSWORD_TOKEN: 'http://ebharat-tms.in/api/forgot-password/verify-token/${email}/${token}',
+    RESET_PASSWORD: 'http://ebharat-tms.in/api/forgot-password/reset-password'
   }
 };

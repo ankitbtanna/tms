@@ -22,6 +22,12 @@ export class UsersController {
     return this.userService.updateUser(request.body.premiumMembershipReferenceId, params.username);
   }
 
+  @Post('update-password')
+  @Header('Cache-Control', 'none')
+  updateUserPassword(@Req() request: Request) {
+    return this.userService.updateUserPassword(request.body.username, request.body.password);
+  }
+
   @Get('details/:username')
   @Header('Cache-Control', 'none')
   getUser(@Param() params) {

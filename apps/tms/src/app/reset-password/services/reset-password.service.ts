@@ -16,8 +16,8 @@ export class ResetPasswordService {
         }));
     }
 
-    resetPassword(email: string, password: string): Observable<any> {
-        return this.http.post(API_PATHS.FORGOT_PASSWORD.RESET_PASSWORD, { email, password }).pipe(map((response: any) => {
+    resetPassword(username: string, password: string): Observable<any> {
+        return this.http.post(API_PATHS.USERS.UPDATE_PASSWORD, { username, password }).pipe(map((response: any) => {
             return response;
         }));
     }

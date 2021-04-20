@@ -67,6 +67,7 @@ export class ResetPasswordComponent implements OnInit {
     const password = this.passwordForm.controls.password.value;
     this.resetPasswordService.resetPassword(this.router.snapshot.queryParams.email, password).subscribe(() => {
       this.isLoading = false;
+      this.passwordForm.reset();
       this.toasterService.showToast(
         'Password reset successfully.',
         'success'
