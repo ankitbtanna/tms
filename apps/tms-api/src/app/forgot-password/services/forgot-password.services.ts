@@ -30,7 +30,7 @@ export class ForgotPasswordService {
             owner.date = currentDate;
             await this.forgotPassword.findOneAndUpdate({ owner: email }, owner, { upsert: true }).exec();
         }
-        const forgotPasswordUrl = `http://localhost:4200/reset-password?email=${email}&token=${token}`;
+        const forgotPasswordUrl = `http://ebharat-tms.in/reset-password?email=${email}&token=${token}`;
         let transporter = nodemailer.createTransport({
             host: "smtp.gmail.com",
             port: 587,
