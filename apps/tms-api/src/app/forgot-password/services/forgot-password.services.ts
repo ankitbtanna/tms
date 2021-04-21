@@ -42,7 +42,7 @@ export class ForgotPasswordService {
         });
         let info = await transporter.sendMail({
             from: '"Ebharat TMS" <ebharat.tms@gmail.com>', // sender address
-            to: "ankittanna@hotmail.com", // list of receivers
+            to: email, // list of receivers
             subject: "TMS - Reset Password", // Subject line
             html: `Hi User,<p>Please click on below link for resetting your passworrd. If you are unable to reset your password, please contact us at ebharat.tms@gmail.com!</p><p><a href='${forgotPasswordUrl}' target='_blank'>Click Here!</a></p><p>Thanks - Team E-bharat TMS.</p>`
         });
