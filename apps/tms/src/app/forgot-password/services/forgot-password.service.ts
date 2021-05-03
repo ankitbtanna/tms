@@ -10,8 +10,8 @@ import { API_PATHS } from "../../api-paths";
 export class ForgotPasswordService {
     constructor(private http: HttpClient) { }
 
-    generateForgotPasswordLink(): Observable<any> {
-        return this.http.get(API_PATHS.FORGOT_PASSWORD.GENERATE_FORGOT_PASSWORD_LINK.replace('${email}', 'ankittanna@hotmail.com')).pipe(map((response: any) => {
+    generateForgotPasswordLink(email: string): Observable<any> {
+        return this.http.get(API_PATHS.FORGOT_PASSWORD.GENERATE_FORGOT_PASSWORD_LINK.replace('${email}',)).pipe(map((response: any) => {
             return response;
         }));
     }

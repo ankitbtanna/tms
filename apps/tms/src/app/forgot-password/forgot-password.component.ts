@@ -34,7 +34,9 @@ export class ForgotPasswordComponent implements OnInit {
 
   generateForgotPasswordLink(): void {
     this.isLoading = true;
-    this.forgotPasswordService.generateForgotPasswordLink().subscribe(() => {
+    this.forgotPasswordService.generateForgotPasswordLink(
+      this.forgotPasswordForm.controls.username.value
+    ).subscribe(() => {
       this.toasterService.showToast(
         'Reset link sent to your email.',
         'success'
