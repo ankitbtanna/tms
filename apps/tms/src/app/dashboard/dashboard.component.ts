@@ -64,6 +64,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   frameworkComponents;
 
   selectedTender: TenderGridModel = undefined;
+  selectedTenderForEdit: TenderGridModel = undefined;
 
   userSubscriptionDetails: SubscriptionDetails;
   isUserSubscriptionExpired = false;
@@ -283,16 +284,18 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   editTender(tenderDetails: any): void {
-    const tender = this.tendersModelMapper.getTenderDataForEdit([this.selectedTender])[0];
+    const tender = this.tendersModelMapper.getTenderDataForEdit([this.selectedTenderForEdit])[0];
     tender.bidDueDate = tenderDetails.bidDueDate;
     tender.bidCutOffTime = tenderDetails?.bidCutOffTime || '--';
     this.tendersService.editTender(tender).subscribe(() => {
       this.editTenderForm.setLoader(false);
       this.editTenderModalWrapper.close();
       this.getTenders(TABS[0].toLowerCase());
+      this.selectedTenderForEdit = undefined;
       this.toasterService.showToast('Tender updated successfully.');
       this.editTenderForm.resetForm();
     }, () => {
+      this.selectedTenderForEdit = undefined;
       this.toasterService.showToast('Error editing tender. Please contact admin.', 'error');
     });
   }
@@ -381,6 +384,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   private editTenderDetails(tender: TenderGridModel): void {
+    this.selectedTenderForEdit = tender;
     setTimeout(() => {
       this.setSelectedTender(undefined);
       this.selectedTender = undefined;
