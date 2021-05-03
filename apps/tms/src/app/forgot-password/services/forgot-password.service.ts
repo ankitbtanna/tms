@@ -11,7 +11,7 @@ export class ForgotPasswordService {
     constructor(private http: HttpClient) { }
 
     generateForgotPasswordLink(email: string): Observable<any> {
-        return this.http.get(API_PATHS.FORGOT_PASSWORD.GENERATE_FORGOT_PASSWORD_LINK.replace('${email}',)).pipe(map((response: any) => {
+        return this.http.get(API_PATHS.FORGOT_PASSWORD.GENERATE_FORGOT_PASSWORD_LINK.replace('${email}', email)).pipe(map((response: any) => {
             return response;
         }));
     }
