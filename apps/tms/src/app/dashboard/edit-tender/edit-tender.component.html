@@ -20,6 +20,13 @@
           ">Tender Bid Due cannot be before todays date.</mat-error>
       </mat-form-field>
       <mat-form-field fxFlex appearance="outline">
+        <mat-label>Tender Amount</mat-label>
+        <input type="text" matInput placeholder="15,00,000" formControlName="tenderAmount" tmsCurrencyFormatter />
+        <mat-error *ngIf="!editTenderForm.controls.tenderAmount.valid">Tender Amount is invalid.</mat-error>
+        <mat-error *ngIf="!editTenderForm.controls.tenderAmount.hasError('pattern')">Tender Amount can contain 0-9 a
+          decimal and a comma(,).</mat-error>
+      </mat-form-field>
+      <mat-form-field fxFlex appearance="outline">
         <mat-label>Cut-off Time</mat-label>
         <input matInput type="time" placeholder="Cut-off Time time" formControlName="tenderBidCutOffTime" />
       </mat-form-field>

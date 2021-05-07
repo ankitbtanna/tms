@@ -287,6 +287,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     const tender = this.tendersModelMapper.getTenderDataForEdit([this.selectedTenderForEdit])[0];
     tender.bidDueDate = tenderDetails.bidDueDate;
     tender.bidCutOffTime = tenderDetails?.bidCutOffTime || '--';
+    tender.amount = tenderDetails?.amount || '--';
     this.tendersService.editTender(tender).subscribe(() => {
       this.editTenderForm.setLoader(false);
       this.editTenderModalWrapper.close();

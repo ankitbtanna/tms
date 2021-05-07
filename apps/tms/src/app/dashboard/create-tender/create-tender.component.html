@@ -11,8 +11,8 @@
       <mat-form-field fxFlex appearance="outline">
         <mat-label>Tender Amount</mat-label>
         <input type="text" matInput placeholder="15,00,000" formControlName="tenderAmount" tmsCurrencyFormatter />
-        <mat-error *ngIf="!createTenderForm.controls.tenderName.valid">Tender Amount is invalid.</mat-error>
-        <mat-error *ngIf="!createTenderForm.controls.tenderName.hasError('pattern')">Tender Amount can contain 0-9 a
+        <mat-error *ngIf="!createTenderForm.controls.tenderAmount.valid">Tender Amount is invalid.</mat-error>
+        <mat-error *ngIf="!createTenderForm.controls.tenderAmount.hasError('pattern')">Tender Amount can contain 0-9 a
           decimal and a comma(,).</mat-error>
       </mat-form-field>
       <mat-form-field fxFlex appearance="outline">

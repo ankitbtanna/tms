@@ -56,8 +56,8 @@
   </tms-create-tender>
 </tms-modal-popup>
 <tms-modal-popup #editTenderModalWrapper>
-  <tms-edit-tender #editTenderForm (onEditTender)="editTender($event)" (onCloseEditTender)="closeEditTender()" fxFlex
-    fxLayout="column">
+  <tms-edit-tender #editTenderForm (onEditTender)="editTender($event)" [tender]="selectedTenderForEdit"
+    (onCloseEditTender)="closeEditTender()" fxFlex fxLayout="column">
   </tms-edit-tender>
 </tms-modal-popup>
 <tms-modal-popup #deleteTenderModalWrapper>

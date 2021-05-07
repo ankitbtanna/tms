@@ -3,6 +3,7 @@ import * as _moment from 'moment';
 import {
   Component,
   EventEmitter,
+  Input,
   Output
 } from '@angular/core';
 import {
@@ -12,7 +13,8 @@ import {
 } from '@angular/material/core';
 import {
   FormControl,
-  FormGroup
+  FormGroup,
+  Validators
 } from '@angular/forms';
 import {
   MAT_MOMENT_DATE_ADAPTER_OPTIONS,
@@ -20,6 +22,7 @@ import {
 } from '@angular/material-moment-adapter';
 
 import { TenderModel } from '../models/tender.model';
+import { TENDER_AMOUNT_REGEX } from '../dashboard.constant';
 
 const moment = _moment;
 
@@ -57,10 +60,12 @@ export class EditTenderComponent {
   isEditingTender = false;
   @Output() onEditTender: EventEmitter<TenderModel> = new EventEmitter();
   @Output() onCloseEditTender: EventEmitter<void> = new EventEmitter();
+  @Input() tender: any;
 
   editTenderForm: FormGroup = new FormGroup({
-    tenderBidDueDate: new FormControl('', [
-      this.forbiddenBidDueDate
+    tenderBidDueDate: new FormControl(''),
+    tenderAmount: new FormControl('', [
+      Validators.pattern(TENDER_AMOUNT_REGEX)
     ]),
     tenderBidCutOffTime: new FormControl(''),
   });
@@ -80,17 +85,11 @@ export class EditTenderComponent {
 
   private generateTenderPayload(): any {
     const tenderPayload: any = {
-      bidDueDate: this.editTenderForm.controls.tenderBidDueDate.value,
-      bidCutOffTime: this.editTenderForm.controls.tenderBidCutOffTime.value,
+      amount: this.editTenderForm.controls.tenderAmount.value || this.tender.amount,
+      bidDueDate: this.editTenderForm.controls.tenderBidDueDate.value || this.tender.bidDueDate,
+      bidCutOffTime: this.editTenderForm.controls.tenderBidCutOffTime.value || this.tender.bidCutOffTime
     };
     return tenderPayload;
-  }
-
-  private forbiddenBidDueDate(control: FormControl) {
-    const currentDate = new Date();
-    currentDate.setHours(0, 0, 0, 0);
-    const forbidden = new Date(control.value) < currentDate;
-    return forbidden ? { forbiddenBidDueDate: { value: control.value } } : null;
   }
 
   closeModal(): void {
